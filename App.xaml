@@ -1,0 +1,12 @@
+﻿<Application x:Class="Completist.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Completist"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style x:Key="MyCustomFont">
+            <Setter Property="TextElement.FontFamily" Value="Font/Quicksand-VariableFont_wght.ttf#Light 300"/>
+        </Style>
+
+    </Application.Resources>
+</Application>
