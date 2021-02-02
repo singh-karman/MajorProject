@@ -1,0 +1,472 @@
+﻿<Window x:Class="Completist.View.frmData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Completist.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        mc:Ignorable="d"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen"
+        Title="Completist - Data entry" Height="600" Width="1000">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Loaded_Command}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Background="#201f20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border BorderThickness="0.5"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            BorderBrush="White"/>
+        <Grid x:Name="grdPriority"
+              Grid.Column="0"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <TextBlock Background="Transparent"
+                       Foreground="White"
+                       Text="Priorities"
+                       FontSize="14"
+                       FontWeight="DemiBold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="20,5"
+                       TextAlignment="Center"
+                       TextDecorations="Underline"/>
+            
+            <DataGrid Grid.Row="1" x:Name="gdP" 
+                  ItemsSource="{Binding listOfPriorities, UpdateSourceTrigger=PropertyChanged}"     
+                  CanUserAddRows="False" CanUserDeleteRows="False" 
+                  SelectedItem="{Binding selectedPriority, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  Margin="5" AutoGenerateColumns="False"
+                  Background="Transparent"
+                  ToolTip="Existing Priorities"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding Priorities_SelectionChanged_Command}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#201f20"/>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="*" FontSize="10"
+                                    FontWeight="Normal" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Colour" Width="100" FontSize="10"
+                                    FontWeight="Normal" Binding="{Binding Color}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Status" Width="100" FontSize="10"
+                                    FontWeight="Normal" Binding="{Binding StrStatus}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Grid.Row="2"
+                        Margin="20,5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Name:"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="75"
+                               Height="20"
+                               Foreground="White"
+                               Background="Transparent"/>
+                    <TextBox VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
+                             Height="20"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="White"
+                             Foreground="White"
+                             Width="200"
+                             Text="{Binding selectedPriorityName, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Status:"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="75"
+                               Height="20"
+                               Foreground="White"
+                               Background="Transparent"/>
+                    <ComboBox VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
+                             Height="20"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="White"
+                             Foreground="Black"
+                             IsEditable="True"
+                             ItemsSource="{Binding listOfStatuses, UpdateSourceTrigger=PropertyChanged}"
+                             SelectedItem="{Binding selectedStatus, Mode=TwoWay}"
+                             Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Colour:"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="75"
+                               Height="20"
+                               Foreground="White"
+                               Background="Transparent"/>
+                    <ComboBox VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
+                             Height="20"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="White"
+                             Foreground="Black"
+                             IsEditable="True"
+                             ItemsSource="{Binding listOfColors, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding selectedColor.Name}"
+                             SelectedItem="{Binding selectedColor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="200"/>
+                    <TextBlock Text=""
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="50"
+                               Height="20"
+                               Foreground="White"
+                               Margin="10,0"
+                               Background="{Binding selectedColor.Color}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="5,0"
+                        Grid.Row="3">
+                <Button Background="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="White"
+                        Height="40"
+                        Cursor="Hand"
+                        FontSize="13"
+                        Margin="0,0,10,0"
+                        Width="100"
+                        BorderThickness="1"
+                        Foreground="White"
+                        Content="Add new"
+                        Command="{Binding AddNew_Command}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Background="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="White"
+                        Height="40"
+                        FontSize="13"
+                        Cursor="Hand"
+                        Margin="0,0,10,0"
+                        Width="100"
+                        BorderThickness="1"
+                        Foreground="White"
+                        Content="Edit"
+                        Command="{Binding Edit_Command}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Background="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="White"
+                        Height="40"
+                        Cursor="Hand"
+                        FontSize="13"
+                        Margin="0,0,10,0"
+                        Width="100"
+                        BorderThickness="1"
+                        Foreground="White"
+                        Content="Remove"
+                        Command="{Binding Remove_Command}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="grdTags"
+              Grid.Column="1"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Background="Transparent"
+                       Foreground="White"
+                       Text="Tags"
+                       FontSize="14"
+                       FontWeight="DemiBold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="20,5"
+                       TextAlignment="Center"
+                       TextDecorations="Underline"/>
+
+            <DataGrid Grid.Row="1" x:Name="gdT" 
+                  ItemsSource="{Binding listOfTags, UpdateSourceTrigger=PropertyChanged}"     
+                  CanUserAddRows="False" CanUserDeleteRows="False" 
+                  Margin="5" AutoGenerateColumns="False"
+                  ToolTip="Existing Tags"
+                  SelectedItem="{Binding selectedTag, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  Background="Transparent"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding Tags_SelectionChanged_Command}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#201f20"/>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="*" FontSize="10"
+                                    FontWeight="Normal" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Colour" Width="100" FontSize="10"
+                                    FontWeight="Normal" Binding="{Binding Color}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Status" Width="100" FontSize="10"
+                                    FontWeight="Normal" Binding="{Binding StrStatus}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Grid.Row="2"
+                        Margin="20,5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Name:"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="75"
+                               Height="20"
+                               Foreground="White"
+                               Background="Transparent"/>
+                    <TextBox VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
+                             Height="20"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="White"
+                             Foreground="White"
+                             Width="200"
+                             Text="{Binding selectedTagName, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Status:"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="75"
+                               Height="20"
+                               Foreground="White"
+                               Background="Transparent"/>
+                    <ComboBox VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
+                             Height="20"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="White"
+                             Foreground="Black"
+                             IsEditable="True"
+                             ItemsSource="{Binding listOfStatuses, UpdateSourceTrigger=PropertyChanged}"
+                             SelectedItem="{Binding selectedStatus_Tag, Mode=TwoWay}"
+                             Width="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Colour:"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="75"
+                               Height="20"
+                               Foreground="White"
+                               Background="Transparent"/>
+                    <ComboBox VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
+                             Height="20"
+                             Background="Transparent"
+                             BorderThickness="1"
+                             BorderBrush="White"
+                             Foreground="Black"
+                             IsEditable="True"
+                             ItemsSource="{Binding listOfColors, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding selectedColor_Tag.Name}"
+                             SelectedItem="{Binding selectedColor_Tag, Mode=TwoWay}"
+                             Width="200"/>
+                    <TextBlock Text=""
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Left"
+                               Width="50"
+                               Height="20"
+                               Foreground="White"
+                               Margin="10,0"
+                               Background="{Binding selectedColor_Tag.Color}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="5,0"
+                        Grid.Row="3">
+                <Button Background="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="White"
+                        Cursor="Hand"
+                        Height="40"
+                        FontSize="13"
+                        Margin="0,0,10,0"
+                        Width="100"
+                        BorderThickness="1"
+                        Foreground="White"
+                        Content="Add new"
+                        Command="{Binding AddNewTag_Command}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Background="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Cursor="Hand"
+                        BorderBrush="White"
+                        Height="40"
+                        FontSize="13"
+                        Margin="0,0,10,0"
+                        Width="100"
+                        BorderThickness="1"
+                        Foreground="White"
+                        Content="Edit"
+                        Command="{Binding EditTag_Command}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Background="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        BorderBrush="White"
+                        Cursor="Hand"
+                        Height="40"
+                        FontSize="13"
+                        Margin="0,0,10,0"
+                        Width="100"
+                        BorderThickness="1"
+                        Foreground="White"
+                        Content="Remove"
+                        Command="{Binding RemoveTag_Command}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

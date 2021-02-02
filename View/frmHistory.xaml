@@ -1,0 +1,132 @@
+﻿<Window x:Class="Completist.View.frmHistory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Completist.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        mc:Ignorable="d" Background="#2b2a2b"
+        WindowStartupLocation="CenterScreen"
+        Title="Completist - History" Height="600" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <Border BorderThickness="0.5"
+            Grid.Row="0"
+            Panel.ZIndex="9999"
+            Grid.RowSpan="2"
+            BorderBrush="White"/>
+
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="20,0">
+            <TextBlock Text="Part of name/content: "
+                       Foreground="White"
+                       Background="Transparent"
+                       FontSize="14"
+                       FontWeight="Normal"
+                       Margin="5,5"
+                       Height="25"/>
+            <TextBox Text="{Binding filterText, Mode=TwoWay}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     FontSize="12"
+                     FontWeight="DemiBold"
+                     Foreground="White"
+                     Background="Transparent"
+                     BorderThickness="1"
+                     BorderBrush="White"
+                     Height="25"
+                     Width="200"
+                     Margin="0,0,15,0"/>
+
+            <TextBlock Text="Tag: "
+                       Foreground="White"
+                       Background="Transparent"
+                       FontSize="14"
+                       FontWeight="Normal"
+                       Margin="5,5"
+                       Height="25"/>
+
+            <TextBox Text="{Binding filterTag, Mode=TwoWay}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     FontSize="12"
+                     FontWeight="DemiBold"
+                     Foreground="White"
+                     Background="Transparent"
+                     BorderThickness="1"
+                     BorderBrush="White"
+                     Height="25"
+                     Width="200"
+                     Margin="0,0,15,0"/>
+        </StackPanel>
+        <Button VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="20,0"
+                        ToolTip="Search History by selected Criteria"
+                        Command="{Binding Search_Command}">
+            <Button.Content>
+                <Image VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="20,0"
+                       Height="40" Width="40"
+                       ToolTip="Search..."
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="/Resources/Search.png"
+                       Cursor="Hand"/>
+            </Button.Content>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Grid Grid.Row="1" Background="#201f20">
+            <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding listOfTasks, UpdateSourceTrigger=PropertyChanged}"     
+                  CanUserAddRows="False" CanUserDeleteRows="False" 
+                  Margin="5" AutoGenerateColumns="False"
+                  Background="Transparent"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#201f20"/>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Width="200" FontSize="11"
+                                    FontWeight="Normal" Binding="{Binding Name}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Content" Width="*" FontSize="11"
+                                    FontWeight="Normal" Binding="{Binding Content}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Due date" Width="75" FontSize="11"
+                                    FontWeight="Normal" Binding="{Binding StrDue}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Tags" Width="100" FontSize="11"
+                                    FontWeight="Normal" Binding="{Binding StrTag}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Priority" Width="100" FontSize="11"
+                                    FontWeight="Normal" Binding="{Binding Priority}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Status" Width="100" FontSize="11"
+                                    FontWeight="Normal" Binding="{Binding StrStatus}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
