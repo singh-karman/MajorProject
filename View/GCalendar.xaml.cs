@@ -56,6 +56,7 @@ namespace Completist.View
             request.MaxResults = 7;
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
 
+
             // List events.
             Events events = request.Execute();
             if (events.Items != null && events.Items.Count > 0)
@@ -70,19 +71,9 @@ namespace Completist.View
             {
                 CalendarEvents.Text = "No Upcoming Events";
             }
+
         }
+
+
     }
 }
-
-
-//private void ChoosePriority_Method()
-//{
-//    if (myTask == null) { return; }
-
-//    View.frmPriority window = new View.frmPriority();
-//    SystemVars.FrmPriorityWindow = window;
-//    window.ShowDialog();
-
-//    myTask.Priority = SystemVars.SelectedPriority;
-//    SystemVars.FrmPriorityWindow = null;
-//}

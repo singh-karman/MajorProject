@@ -85,6 +85,7 @@
     <Compile Include="Broker\DBBroker.cs" />
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Model\AllColors.cs" />
+    <Compile Include="Model\GCalendarModel.cs" />
     <Compile Include="SystemVars.cs" />
     <Compile Include="ViewModel\frmDataVM.cs" />
     <Compile Include="ViewModel\frmDateVM.cs" />

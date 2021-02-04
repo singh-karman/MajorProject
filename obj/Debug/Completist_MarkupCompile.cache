@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\
+C:\Users\User\Documents\GitHub\MajorProject\obj\Debug\
 Completist
 none
 false
 DEBUG;TRACE
-C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\App.xaml
+C:\Users\User\Documents\GitHub\MajorProject\App.xaml
 8-706156652
 
-27142521617
-22184267249
+28-2114895034
+22-313334892
 MainWindow.xaml;View\frmData.xaml;View\frmDate.xaml;View\frmHistory.xaml;View\frmPriority.xaml;View\frmTag.xaml;View\frmTask.xaml;View\GCalendar.xaml;
 
 False
