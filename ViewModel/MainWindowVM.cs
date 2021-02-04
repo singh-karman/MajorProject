@@ -29,6 +29,7 @@ namespace Completist.ViewModel
         public RelayCommand Search_Command { get; private set; }
         public RelayCommand History_Command { get; private set; }
         public RelayCommand Data_Command { get; private set; }
+        public RelayCommand GCalendar_Command { get; private set; }
         public RelayCommand CompleteTask_Command { get; private set; }
         public RelayCommand RemoveTask_Command { get; private set; }
         public RelayCommand EditTask_Command { get; private set; }
@@ -296,6 +297,7 @@ namespace Completist.ViewModel
             Search_Command = new RelayCommand(Search_Method);
             History_Command = new RelayCommand(History_Method);
             Data_Command = new RelayCommand(Data_Method);
+            GCalendar_Command = new RelayCommand(GCalendar_Method);
             RemoveTask_Command = new RelayCommand(RemoveTask_Method);
             CompleteTask_Command = new RelayCommand(CompleteTask_Method);
             EditTask_Command = new RelayCommand(EditTask_Method);
@@ -455,7 +457,14 @@ namespace Completist.ViewModel
             window.ShowDialog();
         }
 
-        
+        private void GCalendar_Method()
+        {
+            View.GCalendar window = new View.GCalendar();
+            SystemVars.FrmGCalendar = window;
+            window.ShowDialog();
+        }
+
+
         private void Search_Method()
         {
             filterText = "";

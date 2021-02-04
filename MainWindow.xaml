@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Completist"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
+        MouseDown="Window_MouseDown"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         Title="Completist - Home" Height="720" Width="1000">
+    <!--Mousedown & First Grid-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Loaded_Command}" />
@@ -103,7 +105,7 @@
                                                  Style="{StaticResource MyCustomFont}"
                     HorizontalAlignment="Stretch"
                     Background="#201f20">
-                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Focusable="True" Name="gridMain">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition/>
@@ -130,7 +132,7 @@
                                     <Setter Property="Visibility" Value="Hidden"></Setter>
                                     <Setter Property="CornerRadius" Value="10,0,0,10"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsFocused}" Value="True">
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="True">
                                             <Setter Property="Visibility" Value="Visible" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -371,7 +373,7 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
-                        Margin="-169.163,2,2,0.5" Height="77.5">
+                        Margin="0,2,2,0" Height="78" Width="326">
 
                 <!--<Button VerticalAlignment="Center"
                         HorizontalAlignment="Center"
@@ -522,6 +524,35 @@
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="Transparent">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="20,0"
+                               Height="40" Width="40"
+                               ToolTip="Data manipulation..."
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="/Resources/Data.png"
+                               Cursor="Hand"/>
+                </Button>
+                
+                <Button Background="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        BorderThickness="0"
+                        Command="{Binding GCalendar_Command}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="BlueViolet">
                                 <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
                             </Border>
                             <ControlTemplate.Triggers>

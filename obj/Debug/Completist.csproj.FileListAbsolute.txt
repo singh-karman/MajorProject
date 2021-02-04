@@ -1,0 +1,444 @@
+C:\Users\Marko\Source\repos\Completist\bin\Debug\Completist.exe.config
+C:\Users\Marko\Source\repos\Completist\bin\Debug\Completist.exe
+C:\Users\Marko\Source\repos\Completist\bin\Debug\Completist.pdb
+C:\Users\Marko\Source\repos\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\Marko\Source\repos\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\Marko\Source\repos\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\App.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\Marko\Source\repos\Completist\obj\Debug\MainWindow.baml
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmData.baml
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist.g.resources
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist.exe
+C:\Users\Marko\Source\repos\Completist\obj\Debug\Completist.pdb
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmTag.baml
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmTask.baml
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\Marko\Source\repos\Completist\obj\Debug\View\frmDate.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\Completist.exe.config
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\Completist.exe
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\Completist.pdb
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\App.g.cs
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\MainWindow.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmData.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmDate.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmTag.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\View\frmTask.baml
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.g.resources
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.exe
+C:\Users\User\OneDrive\Year 12\Software Design & Development\Assessments\Completist\obj\Debug\Completist.pdb
+C:\Users\User\Documents\Completist\bin\Debug\Completist.exe.config
+C:\Users\User\Documents\Completist\bin\Debug\Completist.exe
+C:\Users\User\Documents\Completist\bin\Debug\Completist.pdb
+C:\Users\User\Documents\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\User\Documents\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\User\Documents\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\User\Documents\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\User\Documents\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\App.g.cs
+C:\Users\User\Documents\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\User\Documents\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\User\Documents\Completist\obj\Debug\MainWindow.baml
+C:\Users\User\Documents\Completist\obj\Debug\View\frmData.baml
+C:\Users\User\Documents\Completist\obj\Debug\View\frmDate.baml
+C:\Users\User\Documents\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\User\Documents\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\User\Documents\Completist\obj\Debug\View\frmTag.baml
+C:\Users\User\Documents\Completist\obj\Debug\View\frmTask.baml
+C:\Users\User\Documents\Completist\obj\Debug\Completist.g.resources
+C:\Users\User\Documents\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\User\Documents\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\User\Documents\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\User\Documents\Completist\obj\Debug\Completist.exe
+C:\Users\User\Documents\Completist\obj\Debug\Completist.pdb
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\Completist.exe.config
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\Completist.exe
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\Completist.pdb
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\App.g.cs
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\MainWindow.baml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmData.baml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmDate.baml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmTag.baml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\View\frmTask.baml
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.g.resources
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.exe
+C:\Users\Akshay Kumar\Downloads\Completist\Completist\obj\Debug\Completist.pdb
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\Completist.exe.config
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\Completist.exe
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\Completist.pdb
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\App.g.cs
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\MainWindow.baml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmData.baml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmDate.baml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmTag.baml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\View\frmTask.baml
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.g.resources
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.exe
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\Completist.pdb
+C:\Users\Akshay Kumar\Downloads\Fiverr project\Completist\Completist\obj\Debug\App.baml
+D:\Completist (2)\Completist\Completist\bin\Debug\Completist.exe.config
+D:\Completist (2)\Completist\Completist\bin\Debug\Completist.exe
+D:\Completist (2)\Completist\Completist\bin\Debug\Completist.pdb
+D:\Completist (2)\Completist\Completist\bin\Debug\System.Data.SQLite.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\System.Data.SQLite.xml
+D:\Completist (2)\Completist\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+D:\Completist (2)\Completist\Completist\obj\Debug\MainWindow.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmData.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmDate.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmHistory.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmPriority.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmTag.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmTask.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\App.g.cs
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist_MarkupCompile.cache
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist_MarkupCompile.lref
+D:\Completist (2)\Completist\Completist\obj\Debug\App.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\MainWindow.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmData.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmDate.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmHistory.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmPriority.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmTag.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\View\frmTask.baml
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.g.resources
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.Properties.Resources.resources
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.CopyComplete
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.exe
+D:\Completist (2)\Completist\Completist\obj\Debug\Completist.pdb
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\Completist.exe.config
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\Completist.exe
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\Completist.pdb
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\App.g.cs
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\App.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\MainWindow.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmData.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmDate.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmTag.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\View\frmTask.baml
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.g.resources
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.exe
+C:\Users\User\Downloads\Completist (2)\Completist\Completist\obj\Debug\Completist.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\Completist.exe.config
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\Completist.exe
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\Completist.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\App.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\App.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\MainWindow.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmData.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmDate.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmTag.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\View\frmTask.baml
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.g.resources
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.exe
+C:\Users\User\Downloads\Completist - Latest\Completist (2)\Completist\Completist\obj\Debug\Completist.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\App.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.exe
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Completist.exe.config
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Completist.exe
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Completist.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.PlatformServices.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Calendar.v3.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Core.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.PlatformServices.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.xml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.xml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Calendar.v3.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Calendar.v3.xml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Core.pdb
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Core.xml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\App.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\MainWindow.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmData.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmDate.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTag.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTask.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.g.resources
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\GCalendar.g.cs
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\GCalendar.baml
+C:\Users\User\Downloads\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\credentials(MAIN).json
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\credentials(MAIN).json
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Completist.exe.config
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Completist.exe
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Completist.pdb
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.PlatformServices.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Calendar.v3.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Core.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.PlatformServices.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\System.Data.SQLite.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.pdb
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.xml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.pdb
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Auth.xml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Calendar.v3.pdb
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Calendar.v3.xml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Core.pdb
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Google.Apis.Core.xml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\System.Data.SQLite.xml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csprojAssemblyReference.cache
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\MainWindow.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmData.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmDate.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmHistory.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmPriority.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTag.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTask.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\GCalendar.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\App.g.cs
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist_MarkupCompile.cache
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist_MarkupCompile.lref
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\App.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\MainWindow.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmData.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmDate.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmHistory.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmPriority.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTag.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\frmTask.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\View\GCalendar.baml
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.g.resources
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.Properties.Resources.resources
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csproj.GenerateResource.cache
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csproj.CoreCompileInputs.cache
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.csproj.CopyComplete
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.exe
+C:\Users\User\Downloads\v0.1-alpha\Completist - Latest\Completist Beta\Completist\Completist\obj\Debug\Completist.pdb
