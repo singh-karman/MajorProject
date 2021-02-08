@@ -17,6 +17,7 @@ namespace Completist.View
     {
         static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         static string ApplicationName = "Google Calendar API .NET Quickstart";
+
         public GCalendar()
         {
             InitializeComponent();

@@ -326,8 +326,23 @@
                                     Mode=FindAncestor,
                                     AncestorType={x:Type ListViewItem}},
                                     Path=IsSelected}" Value="True">
-                    <Setter TargetName="brd" Property="Border.Height" Value="250"/>
-                    <!--<Setter TargetName="completebtn" Property="Visibility" Value="Visible"/>-->
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Height" From="200" To="250" Duration="Automatic">
+                                    <DoubleAnimation.EasingFunction>
+                                        <QuinticEase EasingMode="EaseOut"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+
+
+
+                    <!--<Setter TargetName="brd" Property="Border.Height" Value="250"/>-->
+                    <Setter TargetName="completebtn" Property="Visibility" Value="Visible"/>
                     <Setter TargetName="txtContent" Property="TextBox.Visibility" Value="Visible"/>
                     <Setter TargetName="txtContent" Property="TextBox.IsReadOnly" Value="False"/>
                     <Setter TargetName="txtName" Property="TextBox.IsReadOnly" Value="False"/>
@@ -373,7 +388,7 @@
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
-                        Margin="0,2,2,0" Height="78" Width="326">
+                        Margin="0,2,2,0" Height="78" Width="317">
 
                 <!--<Button VerticalAlignment="Center"
                         HorizontalAlignment="Center"
@@ -503,7 +518,7 @@
                     </Button.Template>
                 </Button>-->
 
-                <TextBlock Text="0"
+                <TextBlock Text="{Binding complete, FallbackValue=0}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Margin="25"
@@ -539,7 +554,7 @@
                                Height="40" Width="40"
                                ToolTip="Data manipulation..."
                                RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="/Resources/Data.png"
+                               Source="Data.png"
                                Cursor="Hand"/>
                 </Button>
                 
@@ -552,14 +567,9 @@
                         Command="{Binding GCalendar_Command}">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="BlueViolet">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="{x:Null}">
                                 <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
                             </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="bdr_main" Property="Background" Value="Transparent"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                     <Image VerticalAlignment="Center"
@@ -568,7 +578,7 @@
                                Height="40" Width="40"
                                ToolTip="Data manipulation..."
                                RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="/Resources/Data.png"
+                               Source="Next.png"
                                Cursor="Hand"/>
                 </Button>
 
@@ -597,7 +607,7 @@
                        Height="40" Width="40"
                        ToolTip="Search Tasks"
                        RenderOptions.BitmapScalingMode="HighQuality"
-                       Source="/Resources/Search.png"
+                       Source="Search.png"
                        Cursor="Hand"/>
                 </Button>
 
@@ -720,7 +730,7 @@
             <Grid VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch"
                   x:Name="grdContent" x:FieldModifier="public"/>
-            <ListView ItemsSource="{Binding Path=myContent, UpdateSourceTrigger=PropertyChanged}" x:Name="lst" Visibility="Visible" 
+            <ListView ItemsSource="{Binding Path=myContent, UpdateSourceTrigger=PropertyChanged}" x:Name="lst" Visibility="Visible"
                       BorderBrush="Transparent"
                       Margin="10,20" 
                       HorizontalContentAlignment="Stretch"
@@ -735,8 +745,6 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ListView>
-
-
 
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Bottom"
