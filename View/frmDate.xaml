@@ -15,14 +15,14 @@
         <Viewbox>
             <Calendar VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch"
-                  Background="#2b2a2b"
+                  Background="#FFFFFEFF"
                   Foreground="White"
                   SelectedDate="{Binding selectedDueDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Panel.ZIndex="99999"        
                   SelectionMode="SingleDate"
                   DisplayMode="Month"
                   ToolTip="Select date"
-                  Margin="10">
+                  Margin="10" FontFamily="/Completist;component/Font/#Quicksand">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewMouseDoubleClick" >

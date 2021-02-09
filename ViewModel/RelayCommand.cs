@@ -8,7 +8,7 @@ using System.Windows.Input;
 //relaycommand for SQLite DB (thank you 'Rohit Vats' - StackOverflow)
 //reason for specific method of approach
 //allows for commands to be binded to ViewModels
-//pretty standard, 'industry standard', as you have mentioned before, the benefits of a well used algorithm
+//pretty standard, 'industry standard', as you have mentioned before its benefits of robustness
 
 namespace Completist.ViewModel
 {

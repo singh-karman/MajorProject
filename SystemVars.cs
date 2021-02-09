@@ -14,6 +14,7 @@ namespace Completist
     {
         private static frmTask frmTaskWindow;
         private static frmPriority frmPriorityWindow;
+        private static GCalendar GCalendarWindow;
         private static Model.Priority selectedPriority;
         private static frmTag frmTagWindow;
         private static ObservableCollection<Tag> selectedTagList;
@@ -21,6 +22,7 @@ namespace Completist
         private static DateTime selectedDateX;
 
         public static frmPriority FrmPriorityWindow { get => frmPriorityWindow; set => frmPriorityWindow = value; }
+        public static GCalendar FrmGCalendar { get => GCalendarWindow; set => GCalendarWindow = value; }
         public static Priority SelectedPriority { get => selectedPriority; set => selectedPriority = value; }
         public static frmTag FrmTagWindow { get => frmTagWindow; set => frmTagWindow = value; }
         public static ObservableCollection<Tag> SelectedTagList { get => selectedTagList; set => selectedTagList = value; }
