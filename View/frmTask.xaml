@@ -52,10 +52,10 @@
                              Grid.Row="0" Height="29.8" FontWeight="Bold" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding ClearMe_Command}"/>
+                            <i:InvokeCommandAction Command="{Binding ClearMeName_Command}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="LostFocus">
-                            <i:InvokeCommandAction Command="{Binding LostFocus_Command}"/>
+                            <i:InvokeCommandAction Command="{Binding LostFocusName_Command}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
@@ -78,10 +78,17 @@
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Text="{Binding myTask.Content, Mode=TwoWay}"
-                             Grid.Row="0" Height="40.447" Grid.RowSpan="2" Width="523" FontFamily="/Completist;component/Font/#Quicksand"/>
-
-
-                <StackPanel Orientation="Horizontal"
+                             Grid.Row="0" Height="40.447" Grid.RowSpan="2" Width="523" FontFamily="/Completist;component/Font/#Quicksand">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding ClearMeContent_Command}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding LostFocusContent_Command}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                    <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                 Grid.Row="0" Height="55" Width="242">
