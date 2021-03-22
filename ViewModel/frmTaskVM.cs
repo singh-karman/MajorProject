@@ -76,7 +76,8 @@ namespace Completist.ViewModel
                 myTask = new Model.Task();
                 myTask.Name = "New Task Name";
                 myTask.Content = "Add Description";
-                myTask.StrDue = "Date";
+                //myTask.Due = DateTime.Now;
+                myTask.StrDue = DateTime.Today.ToShortDateString();
                 myTask.StrTag = "Add tags";
                 myTask.Priority = new Model.Priority();
                 myTask.Priority.Name = "Priority";
@@ -95,7 +96,7 @@ namespace Completist.ViewModel
         }
 
         //Will add more comments later - pretty self explanatory - most is just for an ergonomic design
-        private void LostFocus_Method()
+        private void LostFocus_Method() //Needs refactoring
         {
             if (String.IsNullOrEmpty(myTask.Name)) { myTask.Name = "New Task Name"; }
         }
@@ -104,7 +105,7 @@ namespace Completist.ViewModel
         {
             if (myTask.Name == "New Task Name") { myTask.Name = ""; }
         }
-        private void LostFocusContent_Method()
+        private void LostFocusContent_Method() //Needs refactoring
         {
             if (String.IsNullOrEmpty(myTask.Content)) { myTask.Content = "Add Description"; }
         }
