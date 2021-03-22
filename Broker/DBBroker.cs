@@ -51,6 +51,31 @@ namespace Completist.Broker
             }
         }
         //The rest is just SQL queries acted upon the SQLite database
+        public int TaskCounter()
+        {
+            try
+            {
+                string query = "SELECT * from [Count]";
+                var command = connection.CreateCommand();
+                int numCompleted = 0;
+                command = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                //string numCompleted;
+                //string numCompleted = reader["NUMCOMPLETED"];
+                while (reader.Read())
+                {
+                    var numCount = Convert.ToInt32(reader["NUMCOMPLETED"]);
+                    return numCount;
+                }
+
+                return numCompleted;
+
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
         public ObservableCollection<Model.Task> returnAllTasks(string condition = "")
         {
             try

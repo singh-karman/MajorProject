@@ -446,12 +446,11 @@ namespace Completist.ViewModel
         {
             await System.Threading.Tasks.Task.Run(() => start());
         }
-
         private void start() 
         {
             try
             {
-                complete = count.ToString();
+                complete = con.TaskCounter().ToString(); //count.ToString();
                 title = "Inbox"; //initial values
                 visibleExit = "Hidden";
                 visibleNew = "Visible";

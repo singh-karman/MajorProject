@@ -25,10 +25,24 @@ namespace Completist.Controller
             {
                 return null; //if an error is encountered, it will return nothing- null. However, once everthing else is finished, I might get it to return a new list 
             }
-            finally { DBBroker.openSession().closeConnection(); } //DO NOT DELETE. Crucial when interacting with DB that we close the connection otherwise the app will begin to hang. do it for the lolz
+            finally { DBBroker.openSession().closeConnection(); } //DO NOT DELETE. Crucial when interacting with DB that we close the connection otherwise the app will begin to hang. 
         }
 
         //copy past above comments but adjusting for different models and their respective objects
+        public int TaskCounter()
+        {
+            DBBroker.openSession().openConnection();
+            try
+            {
+                int completedTasks = DBBroker.openSession().TaskCounter();
+                return completedTasks;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+            finally { DBBroker.openSession().closeConnection(); }
+        }
         public ObservableCollection<Model.Priority> returnAllPriorities(string condition)
         {
             DBBroker.openSession().openConnection();
