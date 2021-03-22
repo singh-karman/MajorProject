@@ -424,7 +424,11 @@ namespace Completist.Broker
                             if (!String.IsNullOrEmpty(item.Name.Trim()))
                             {
                                 list += item.Name + ";";
-                            }                    
+                            }
+                            //else
+                            //{
+                            //    list = ";";
+                            //}
                         }
                         query = "UPDATE [TASKS] SET NAME='" + task.Name + "',Due='"+task.Due+"' ,CONTENT='" + task.Content + "', PRIORITY='" + task.Priority.Name + "', TAGLIST='" + list + "' WHERE NAME='" + referenceName + "'";
                         break;

@@ -76,9 +76,9 @@ namespace Completist.ViewModel
                 myTask = new Model.Task();
                 myTask.Name = "New Task Name";
                 myTask.Content = "Add Description";
-                //myTask.Due = DateTime.Now;
+                myTask.Due = DateTime.Now;
                 myTask.StrDue = DateTime.Today.ToShortDateString();
-                myTask.StrTag = "Add tags";
+                myTask.StrTag = ";";
                 myTask.Priority = new Model.Priority();
                 myTask.Priority.Name = "Priority";
             }
