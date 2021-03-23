@@ -25,7 +25,7 @@
                   Margin="10" FontFamily="/Completist;component/Font/#Quicksand">
 
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PreviewMouseDoubleClick" >
+                    <i:EventTrigger EventName="SelectedDatesChanged" >
                         <i:InvokeCommandAction Command="{Binding SelectDate_Command}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

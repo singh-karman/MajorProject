@@ -51,6 +51,54 @@ namespace Completist.Broker
             }
         }
         //The rest is just SQL queries acted upon the SQLite database
+        public int TaskCounter()
+        {
+            try
+            {
+                string query = "SELECT * from [Count]";
+                var command = connection.CreateCommand();
+                int numCompleted = 0;
+                command = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                //string numCompleted;
+                //string numCompleted = reader["NUMCOMPLETED"];
+                while (reader.Read())
+                {
+                    var numCount = Convert.ToInt32(reader["NUMCOMPLETED"]);
+                    return numCount;
+                }
+
+                return numCompleted;
+
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
+        public int CounterIncrement()
+        {
+            try
+            {
+                string query = "UPDATE Count SET NUMCOMPLETED = NUMCOMPLETED + 1";
+                var command = connection.CreateCommand();
+                int counterIncrement = 1;
+                command = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var countIncrement = Convert.ToInt32(reader["NUMCOMPLETED"]);
+                    return countIncrement;
+                }
+
+                return counterIncrement;
+
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
         public ObservableCollection<Model.Task> returnAllTasks(string condition = "")
         {
             try
@@ -424,7 +472,11 @@ namespace Completist.Broker
                             if (!String.IsNullOrEmpty(item.Name.Trim()))
                             {
                                 list += item.Name + ";";
-                            }                    
+                            }
+                            //else
+                            //{
+                            //    list = ";";
+                            //}
                         }
                         query = "UPDATE [TASKS] SET NAME='" + task.Name + "',Due='"+task.Due+"' ,CONTENT='" + task.Content + "', PRIORITY='" + task.Priority.Name + "', TAGLIST='" + list + "' WHERE NAME='" + referenceName + "'";
                         break;

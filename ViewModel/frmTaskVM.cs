@@ -26,8 +26,10 @@ namespace Completist.ViewModel
         public RelayCommand ChooseTags_Command { get; private set; }
         public RelayCommand SaveTask_Command { get; private set; }
         public RelayCommand ExitTask_Command { get; private set; }
-        public RelayCommand ClearMe_Command { get; private set; }
-        public RelayCommand LostFocus_Command { get; private set; }
+        public RelayCommand ClearMeName_Command { get; private set; } //NEW METHOD REQUIRED
+        public RelayCommand LostFocusName_Command { get; private set; } //NEW METHOD REQUIRED
+        public RelayCommand ClearMeContent_Command { get; private set; } //NEW METHOD REQUIRED
+        public RelayCommand LostFocusContent_Command { get; private set; } //NEW METHOD REQUIRED
 
         Model.Task _myTask;
         public Model.Task myTask
@@ -60,8 +62,10 @@ namespace Completist.ViewModel
             ChooseTags_Command = new RelayCommand(ChooseTags_Method);
             SaveTask_Command = new RelayCommand(SaveTask_Method);
             ExitTask_Command = new RelayCommand(ExitTask_Method);
-            ClearMe_Command = new RelayCommand(ClearMe_Method);
-            LostFocus_Command = new RelayCommand(LostFocus_Method);
+            ClearMeName_Command = new RelayCommand(ClearMe_Method);
+            LostFocusName_Command = new RelayCommand(LostFocus_Method);
+            ClearMeContent_Command = new RelayCommand(ClearMeContent_Method);
+            LostFocusContent_Command = new RelayCommand(LostFocusContent_Method);
 
             con = new Controller.Controller();
 
@@ -71,9 +75,10 @@ namespace Completist.ViewModel
             {
                 myTask = new Model.Task();
                 myTask.Name = "New Task Name";
-                myTask.Content = "";
-                myTask.StrDue = "Date";
-                myTask.StrTag = "Add tags";
+                myTask.Content = "Add Description";
+                myTask.Due = DateTime.Now;
+                myTask.StrDue = DateTime.Today.ToShortDateString();
+                myTask.StrTag = ";";
                 myTask.Priority = new Model.Priority();
                 myTask.Priority.Name = "Priority";
             }
@@ -91,7 +96,7 @@ namespace Completist.ViewModel
         }
 
         //Will add more comments later - pretty self explanatory - most is just for an ergonomic design
-        private void LostFocus_Method()
+        private void LostFocus_Method() //Needs refactoring
         {
             if (String.IsNullOrEmpty(myTask.Name)) { myTask.Name = "New Task Name"; }
         }
@@ -99,6 +104,15 @@ namespace Completist.ViewModel
         private void ClearMe_Method()
         {
             if (myTask.Name == "New Task Name") { myTask.Name = ""; }
+        }
+        private void LostFocusContent_Method() //Needs refactoring
+        {
+            if (String.IsNullOrEmpty(myTask.Content)) { myTask.Content = "Add Description"; }
+        }
+
+        private void ClearMeContent_Method()
+        {
+            if (myTask.Content == "Add Description") { myTask.Content = ""; }
         }
 
         private void ExitTask_Method()

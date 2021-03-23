@@ -14,7 +14,7 @@ namespace Completist.ViewModel
     public class MainWindowVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private int count = 0;
+        //private int count = 0;
         private void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
@@ -419,7 +419,7 @@ namespace Completist.ViewModel
 
             if (MessageBox.Show("Complete task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
 
-            if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; count = count + 1; complete = count.ToString(); }
+            if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; con.CounterIncrement(); refreshCount(); /*count = count + 1; complete = count.ToString();*/ }
         }
 
         private void RemoveTask_Method()
@@ -446,12 +446,24 @@ namespace Completist.ViewModel
         {
             await System.Threading.Tasks.Task.Run(() => start());
         }
+        private string refreshCount()
+        {
+            try
+            {
+                complete = con.TaskCounter().ToString();
+                return complete;
+            }
+            catch (Exception)
+            {
 
+                return complete;
+            }
+        }
         private void start() 
         {
             try
             {
-                complete = count.ToString();
+                complete = con.TaskCounter().ToString(); //count.ToString();
                 title = "Inbox"; //initial values
                 visibleExit = "Hidden";
                 visibleNew = "Visible";

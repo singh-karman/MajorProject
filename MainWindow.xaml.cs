@@ -17,7 +17,6 @@ namespace Completist
             this.DataContext = vm; 
             
         }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Keyboard.ClearFocus();
