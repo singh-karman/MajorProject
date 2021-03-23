@@ -43,6 +43,20 @@ namespace Completist.Controller
             }
             finally { DBBroker.openSession().closeConnection(); }
         }
+        public int CounterIncrement()
+        {
+            DBBroker.openSession().openConnection();
+            try
+            {
+                int completedTasks = DBBroker.openSession().CounterIncrement();
+                return completedTasks;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+            finally { DBBroker.openSession().closeConnection(); }
+        }
         public ObservableCollection<Model.Priority> returnAllPriorities(string condition)
         {
             DBBroker.openSession().openConnection();

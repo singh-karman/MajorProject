@@ -76,6 +76,29 @@ namespace Completist.Broker
                 return 1;
             }
         }
+        public int CounterIncrement()
+        {
+            try
+            {
+                string query = "UPDATE Count SET NUMCOMPLETED = NUMCOMPLETED + 1";
+                var command = connection.CreateCommand();
+                int counterIncrement = 1;
+                command = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var countIncrement = Convert.ToInt32(reader["NUMCOMPLETED"]);
+                    return countIncrement;
+                }
+
+                return counterIncrement;
+
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
         public ObservableCollection<Model.Task> returnAllTasks(string condition = "")
         {
             try
