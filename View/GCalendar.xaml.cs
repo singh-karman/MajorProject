@@ -1,80 +1,121 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Calendar.v3;
-using Google.Apis.Calendar.v3.Data;
-using Google.Apis.Services;
-using Google.Apis.Util.Store;
-using System.IO;
-using System.Threading;
+using Completist.ViewModel;
+using Microsoft.Identity.Client;
+using Newtonsoft.Json;
 
 namespace Completist.View
 {
-    /// <summary>
-    /// Interaction logic for GCalendar.xaml
-    /// </summary>
-    public partial class GCalendar : Window
-    {
-        static string[] Scopes = { CalendarService.Scope.CalendarReadonly };
-        static string ApplicationName = "Google Calendar API .NET Quickstart";
-
+    public partial class GCalendar : Window {
+        //string graphAPIEndpoint = "https://graph.microsoft.com/v1.0/me/calendars";
+        //    string[] scopes = new string[] { "calendars.read" };
+        //    string textAPIResult;
+        //    dynamic jsonAPIResult;
+        
+        frmCalVM vm;
         public GCalendar()
         {
+            vm = new frmCalVM();
+            DataContext = vm;
             InitializeComponent();
-            GoogleAPI();
         }
+        //    private async void CallGraphButton_Click(object sender, RoutedEventArgs e)
+        //    {
+        //        AuthenticationResult authResult = null;
+        //        var app = App.PublicClientApp;
+        //        ResultText.Text = string.Empty;
+        //        TokenInfoText.Text = string.Empty;
 
-        private void GoogleAPI()
-        {
-            UserCredential credential;
+        //        var accounts = await app.GetAccountsAsync();
+        //        var firstAccount = accounts.FirstOrDefault();
 
-            using (var stream =
-                new FileStream("credentials(MAIN).json", FileMode.Open, FileAccess.Read))
-            {
-                // The file token.json stores the user's access and refresh tokens, and is created
-                // automatically when the authorization flow completes for the first time.
-                string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-            }
+        //        try
+        //        {
+        //            authResult = await app.AcquireTokenSilent(scopes, firstAccount)
+        //                .ExecuteAsync();
+        //        }
+        //        catch (MsalUiRequiredException ex)
+        //        {
+        //            // A MsalUiRequiredException happened on AcquireTokenSilent.
+        //            // This indicates you need to call AcquireTokenInteractive to acquire a token
+        //            System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
 
-            // Create Google Calendar API service.
-            var service = new CalendarService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
+        //            try
+        //            {
+        //                authResult = await app.AcquireTokenInteractive(scopes)
+        //                    .WithAccount(accounts.FirstOrDefault())
+        //                    .WithPrompt(Prompt.SelectAccount)
+        //                    .ExecuteAsync();
+        //            }
+        //            catch (MsalException msalex)
+        //            {
+        //                ResultText.Text = $"Error Acquiring Token:{System.Environment.NewLine}{msalex}";
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ResultText.Text = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
+        //            return;
+        //        }
 
-            // Define parameters of request.
-            EventsResource.ListRequest request = service.Events.List("primary");
-            request.TimeMin = DateTime.Now;
-            request.ShowDeleted = false;
-            request.SingleEvents = true;
-            request.MaxResults = 7;
-            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+        //        if (authResult != null)
+        //        {
+        //            textAPIResult = await GetHttpContentWithToken(graphAPIEndpoint, authResult.AccessToken);
+        //            ResultText.Text = textAPIResult;
+        //            DisplayBasicTokenInfo(authResult);
+        //            this.SignOutButton.Visibility = Visibility.Visible;
+        //        }
+        //    }
+        //    private async void SignOutButton_Click(object sender, RoutedEventArgs e)
+        //    {
+        //        var accounts = await App.PublicClientApp.GetAccountsAsync();
 
-
-            // List events.
-            Events events = request.Execute();
-            if (events.Items != null && events.Items.Count > 0)
-            {
-                CalendarEvents.Text = "";
-                foreach (var eventItem in events.Items)
-                {
-                    CalendarEvents.Text += eventItem.Summary + Environment.NewLine;
-                }
-            }
-            else
-            {
-                CalendarEvents.Text = "No Upcoming Events";
-            }
-
-        }
-
+        //        if (accounts.Any())
+        //        {
+        //            try
+        //            {
+        //                await App.PublicClientApp.RemoveAsync(accounts.FirstOrDefault());
+        //                this.ResultText.Text = "User has signed-out";
+        //                this.CallGraphButton.Visibility = Visibility.Visible;
+        //                this.SignOutButton.Visibility = Visibility.Collapsed;
+        //            }
+        //            catch (MsalException ex)
+        //            {
+        //                ResultText.Text = $"Error signing-out user: {ex.Message}";
+        //            }
+        //        }
+        //    }
+        //    public async Task<string> GetHttpContentWithToken(string url, string token)
+        //    {
+        //        var httpClient = new System.Net.Http.HttpClient();
+        //        System.Net.Http.HttpResponseMessage response;
+        //        try
+        //        {
+        //            var request = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
+        //            //Add the token in Authorization header
+        //            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        //            response = await httpClient.SendAsync(request);
+        //            var content = await response.Content.ReadAsStringAsync();
+        //            return content;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return ex.ToString();
+        //        }
+        //    }
+        //    private void DisplayBasicTokenInfo(AuthenticationResult authResult)
+        //    {
+        //        TokenInfoText.Text = "";
+        //        if (authResult != null)
+        //        {
+        //            jsonAPIResult = JsonConvert.DeserializeObject(textAPIResult);
+        //            TokenInfoText.Text += $"Username: {authResult.Account.Username}" + Environment.NewLine;
+        //            TokenInfoText.Text += $"Token Expires: {authResult.ExpiresOn.ToLocalTime()}" + Environment.NewLine;
+        //            TokenInfoText.Text += jsonAPIResult;
+        //        }
+        //}
 
     }
 }
