@@ -6,14 +6,19 @@
         xmlns:local="clr-namespace:Completist.View"
         mc:Ignorable="d"
         Title="GCalendar" Height="450" Width="800">
-    <Grid Background="#FF232323">
-        <Border VerticalAlignment="Center" Margin="0,-0.366,0,373.962" Height="45.404" Background="#FF121212">
-            <StackPanel>
-                <TextBlock HorizontalAlignment="Left" Margin="11.344,9.73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Center" FontSize="20" FontFamily="/Completist;component/Font/#Quicksand" Width="184.759" Foreground="White"><Run Text="Upcoming Events"/></TextBlock>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Background="Azure">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="CallGraphButton" Command="{Binding AccountAuthorisation_Command}" Content="Call Microsoft Graph API" HorizontalAlignment="Right" Padding="5"  Margin="5" FontFamily="Segoe Ui"/>
+                    <Button x:Name="SignOutButton" Content="Sign-Out" HorizontalAlignment="Right" Padding="5"  Margin="5" Visibility="Collapsed" FontFamily="Segoe Ui"/>
+                </StackPanel>
+                <Label Content="API Call Results" Margin="0,0,0,-5" FontFamily="Segoe Ui" />
+                <TextBox x:Name="ResultText" TextWrapping="Wrap" MinHeight="120" Margin="5" FontFamily="Segoe Ui"/>
+                <Label Content="Token Info" Margin="0,0,0,-5" FontFamily="Segoe Ui" />
+                <TextBox x:Name="TokenInfoText" TextWrapping="Wrap" MinHeight="70" Margin="5" FontFamily="Segoe Ui"/>
+                <ListView ItemsSource="{Binding listofCalEvents}" Height="97"/>
             </StackPanel>
-        </Border>
-        <ListView Margin="23.206,76.682,23.206,12.107" Background="#FF232323">
-            <TextBlock x:Name="CalendarEvents" HorizontalAlignment="Center" Height="33.296" TextWrapping="Wrap" Text="{Binding Event}" VerticalAlignment="Top" Width="412.668" Foreground="White"/>
-        </ListView>
+        </ScrollViewer>
     </Grid>
 </Window>
