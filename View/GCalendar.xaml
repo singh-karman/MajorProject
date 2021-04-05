@@ -17,7 +17,10 @@
                 <TextBox x:Name="ResultText" TextWrapping="Wrap" MinHeight="120" Margin="5" FontFamily="Segoe Ui"/>
                 <Label Content="Token Info" Margin="0,0,0,-5" FontFamily="Segoe Ui" />
                 <TextBox x:Name="TokenInfoText" TextWrapping="Wrap" MinHeight="70" Margin="5" FontFamily="Segoe Ui"/>
-                <ListView ItemsSource="{Binding listofCalEvents}" Height="97"/>
+                <ListView ItemsSource="{Binding listofCalEvents, UpdateSourceTrigger=PropertyChanged}" Height="97" 
+                      BorderBrush="Transparent"
+                      Margin="10,20" SelectionMode="Multiple"
+                      HorizontalContentAlignment="Stretch"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

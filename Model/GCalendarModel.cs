@@ -22,7 +22,10 @@ namespace Completist.Model
 
         string eventName;
         DateTime eventTime;
-
+        public override string ToString()
+        {
+            return EventName;
+        }
         public string EventName
         {
             get

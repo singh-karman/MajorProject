@@ -58,7 +58,17 @@ namespace Completist.ViewModel
             JObject eventObject = JObject.Parse(jsonAPIResult);
             JArray eventArray = (JArray)eventObject["value"];
             IList<Events> events = eventArray.ToObject<IList<Events>>();
-            string varWatch = events[0].Name;
+            string tempVariable = events[0].Name;
+            listofCalEvents = eventAppend(tempVariable);
+            //Model.GCalendarModel eventList = new Model.GCalendarModel { EventName = $"{events[0].Name}" };\
+        }
+        public ObservableCollection<Model.GCalendarModel> eventAppend(string tempVariable)
+        {
+            ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
+            Model.GCalendarModel reqEvent = new Model.GCalendarModel();
+            reqEvent.EventName = tempVariable;
+            eventList.Add(reqEvent);
+            return eventList;
         }
         public void AccountAuthorisation_Method()
         {
