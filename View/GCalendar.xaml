@@ -7,21 +7,22 @@
         mc:Ignorable="d"
         Title="GCalendar" Height="450" Width="800">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel Background="Azure">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="CallGraphButton" Command="{Binding AccountAuthorisation_Command}" Content="Call Microsoft Graph API" HorizontalAlignment="Right" Padding="5"  Margin="5" FontFamily="Segoe Ui"/>
-                    <Button x:Name="SignOutButton" Content="Sign-Out" HorizontalAlignment="Right" Padding="5"  Margin="5" Visibility="Collapsed" FontFamily="Segoe Ui"/>
-                </StackPanel>
-                <Label Content="API Call Results" Margin="0,0,0,-5" FontFamily="Segoe Ui" />
-                <TextBox x:Name="ResultText" TextWrapping="Wrap" MinHeight="120" Margin="5" FontFamily="Segoe Ui"/>
-                <Label Content="Token Info" Margin="0,0,0,-5" FontFamily="Segoe Ui" />
-                <TextBox x:Name="TokenInfoText" TextWrapping="Wrap" MinHeight="70" Margin="5" FontFamily="Segoe Ui"/>
-                <ListView ItemsSource="{Binding listofCalEvents, UpdateSourceTrigger=PropertyChanged}" Height="97" 
-                      BorderBrush="Transparent"
-                      Margin="10,20" SelectionMode="Multiple"
-                      HorizontalContentAlignment="Stretch"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF121212" >
+            <StackPanel Margin="0,0,0,0.667" Width="323.333" HorizontalAlignment="Right">
+                <Button x:Name="CallGraphButton" Command="{Binding AccountAuthorisation_Command}" Content="Call Microsoft Graph API" HorizontalAlignment="Right" Padding="5"  Margin="0,10,10,0" FontFamily="Segoe Ui"/>
             </StackPanel>
-        </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="1" Background="#FF232323">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="37*"/>
+                <ColumnDefinition Width="309*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <ListView ItemsSource="{Binding listofCalEvents, UpdateSourceTrigger=PropertyChanged}" FontFamily="/Completist;component/Font/#Quicksand" VerticalAlignment="Top" Margin="0,46,0,0" BorderBrush="{x:Null}" Grid.ColumnSpan="3" Background="{x:Null}" Foreground="White" FontSize="18"/>
+        </Grid>
     </Grid>
 </Window>

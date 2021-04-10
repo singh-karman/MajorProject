@@ -14,14 +14,13 @@ namespace Completist
         {
             InitializeComponent();
             vm = new MainWindowVM();
-            this.DataContext = vm; 
+            this.DataContext = vm;
             
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Keyboard.ClearFocus();
         }
-
     }
 
 }

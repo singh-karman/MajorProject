@@ -13,10 +13,11 @@ namespace Completist.ViewModel
 {
     class frmCalVM : INotifyPropertyChanged
     {
-        string graphAPIEndpoint = "https://graph.microsoft.com/v1.0/me/calendars";
+        string graphAPIEndpoint = "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2021-04-10T13:03:24.476Z&enddatetime=2021-04-17T13:03:24.476Z";
         string[] scopes = new string[] { "calendars.read" };
         string textAPIResult;
-        dynamic jsonAPIResult;
+        //dynamic jsonAPIResult;
+        dynamic APIResult;
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String info)
         {
@@ -54,19 +55,37 @@ namespace Completist.ViewModel
         public void InitiateEventLoad_Method()
         {
             //listofCalEvents = jsonAPIResult;
-            jsonAPIResult = textAPIResult;
-            JObject eventObject = JObject.Parse(jsonAPIResult);
-            JArray eventArray = (JArray)eventObject["value"];
-            IList<Events> events = eventArray.ToObject<IList<Events>>();
-            string tempVariable = events[0].Name;
-            listofCalEvents = eventAppend(tempVariable);
+            //jsonAPIResult = textAPIResult;
+            //JObject eventObject = JObject.Parse(jsonAPIResult);
+            //JArray eventArray = (JArray)eventObject["value"];
+
+            //IList<Events> events = eventArray.ToObject<IList<Events>>();
+            //string tempVariable = events[0].Name;
+            int childCount = APIResult["value"].Count;
+            if (childCount == 0)
+            {
+                //add XAML change
+            }
+            else
+            {
+                for (int i = 0; i < childCount; i++) //children start at zero - as in the JSON header children. much like real life children 
+                {
+                    string varWatch = APIResult["value"][i]["subject"];
+                    //eventAppend(/*tempVariable,*/ varWatch);
+                    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventAppend(varWatch));
+                    //listofCalEvents.Add(eventAppend(varWatch));
+                    
+                }
+            }
+            
+            
             //Model.GCalendarModel eventList = new Model.GCalendarModel { EventName = $"{events[0].Name}" };\
         }
-        public ObservableCollection<Model.GCalendarModel> eventAppend(string tempVariable)
+        ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
+        public ObservableCollection<Model.GCalendarModel> eventAppend(/*string tempVariable,*/ string varWatch)
         {
-            ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
             Model.GCalendarModel reqEvent = new Model.GCalendarModel();
-            reqEvent.EventName = tempVariable;
+            reqEvent.EventName += varWatch;
             eventList.Add(reqEvent);
             return eventList;
         }
@@ -168,7 +187,7 @@ namespace Completist.ViewModel
             //TokenInfoText.Text = "";
             if (authResult != null)
             {
-                jsonAPIResult = JsonConvert.DeserializeObject(textAPIResult);
+                APIResult = JsonConvert.DeserializeObject(textAPIResult);
                 InitiateEventLoad_Method();
                 //TokenInfoText.Text += $"Username: {authResult.Account.Username}" + Environment.NewLine;
                 //TokenInfoText.Text += $"Token Expires: {authResult.ExpiresOn.ToLocalTime()}" + Environment.NewLine;

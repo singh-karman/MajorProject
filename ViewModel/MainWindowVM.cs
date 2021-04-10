@@ -38,14 +38,15 @@ namespace Completist.ViewModel
         public RelayCommand ChangePriority_Command { get; private set; }
         public RelayCommand ChangeTag_Command { get; private set; }
         public RelayCommand SearchTaskText_Command { get; private set; }
+        public RelayCommand RemoveSelection_Command { get; private set; }
         #endregion
 
         #region Variables
 
         bool searchIsActive;
 
-        Model.Tag _selectedTag_Search;
-        public Model.Tag selectedTag_Search
+        Tag _selectedTag_Search;
+        public Tag selectedTag_Search
         {
             get
             {
@@ -58,8 +59,8 @@ namespace Completist.ViewModel
             }
         }
 
-        Model.Priority _selectedPriority_Search;
-        public Model.Priority selectedPriority_Search
+        Priority _selectedPriority_Search;
+        public Priority selectedPriority_Search
         {
             get
             {
@@ -112,8 +113,8 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("lastSelectedName");
             }
         }
-        ObservableCollection<Model.Priority> _listOfPriorities;
-        public ObservableCollection<Model.Priority> listOfPriorities
+        ObservableCollection<Priority> _listOfPriorities;
+        public ObservableCollection<Priority> listOfPriorities
         {
             get
             {
@@ -126,8 +127,8 @@ namespace Completist.ViewModel
             }
         }
 
-        ObservableCollection<Model.Tag> _listOfTags;
-        public ObservableCollection<Model.Tag> listOfTags
+        ObservableCollection<Tag> _listOfTags;
+        public ObservableCollection<Tag> listOfTags
         {
             get
             {
@@ -320,7 +321,8 @@ namespace Completist.ViewModel
             lstSelectionChanged_Command = new RelayCommand(lstSelectionChanged_Method);
             ChangePriority_Command = new RelayCommand(ChangePriority_Method);
             ChangeTag_Command = new RelayCommand(ChangeTag_Method);
-            SearchTaskText_Command = new RelayCommand(SearchTaskText_Method); 
+            SearchTaskText_Command = new RelayCommand(SearchTaskText_Method);
+            RemoveSelection_Command = new RelayCommand(RemoveSelection_Method);
             #endregion
         }
 
@@ -366,6 +368,10 @@ namespace Completist.ViewModel
 
             selectedTask.TagList = SystemVars.SelectedTagList;
             SystemVars.FrmTagWindow = null;
+        }
+        private void RemoveSelection_Method()
+        {
+            selectedTask = null; //removes focus off the listview item. kinda dodgy - a better implementation would be in the base page definition. i.e not viewmodel
         }
 
         private void ChangePriority_Method()
@@ -441,6 +447,7 @@ namespace Completist.ViewModel
             if (String.IsNullOrEmpty(lastSelectedName)) { lastSelectedName = selectedTask.Name; }
             if (con.handleTask(selectedTask, "EDIT", lastSelectedName)) { myContent = con.returnAllTasks("where STS=0"); selectedTask = new Model.Task(); title = "Inbox"; }
         }
+
 
         private async void start_Ini()
         {
