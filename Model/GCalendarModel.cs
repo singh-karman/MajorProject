@@ -21,7 +21,7 @@ namespace Completist.Model
         }
 
         string eventName;
-        DateTime eventTime;
+        string eventTime;
         public override string ToString()
         {
             return EventName;
@@ -38,7 +38,7 @@ namespace Completist.Model
                 NotifyPropertyChanged(EventName);
             }
         }
-        public DateTime EventTime
+        public string EventTime
         {
             get
             {

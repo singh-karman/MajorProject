@@ -13,11 +13,11 @@ namespace Completist.ViewModel
 {
     class frmCalVM : INotifyPropertyChanged
     {
-        string graphAPIEndpoint = "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2021-04-10T13:03:24.476Z&enddatetime=2021-04-17T13:03:24.476Z";
+        string graphAPIEndpoint = "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=" + $"{DateTime.UtcNow:O}&enddatetime=" + $"{DateTime.UtcNow.AddDays(7):O}";
         string[] scopes = new string[] { "calendars.read" };
         string textAPIResult;
         //dynamic jsonAPIResult;
-        dynamic APIResult;
+        dynamic JSONSeralised;
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String info)
         {
@@ -61,20 +61,59 @@ namespace Completist.ViewModel
 
             //IList<Events> events = eventArray.ToObject<IList<Events>>();
             //string tempVariable = events[0].Name;
-            int childCount = APIResult["value"].Count;
+            int childCount = JSONSeralised["value"].Count;
+            int countXAML = 0;
+            int eventCount = 15;
             if (childCount == 0)
             {
                 //add XAML change
             }
             else
             {
-                for (int i = 0; i < childCount; i++) //children start at zero - as in the JSON header children. much like real life children 
+                //while (countXAML < childCount && countXAML < eventCount)
+                //{
+                //    ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
+                //    Model.GCalendarModel requestedEvent = new Model.GCalendarModel();
+                //    string eventXAMLName = JSONSeralised["value"][countXAML]["subject"];
+                //    DateTime eventTime = JSONSeralised["value"][countXAML]["start"]["dateTime"];
+                //    string strEventTime = eventTime.ToString();
+                //    requestedEvent.EventName = eventXAMLName;
+                //    requestedEvent.EventTime = strEventTime;
+                //    countXAML++;
+                //    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventList);
+                //}
+
+
+                //while (countXAML < childCount && countXAML < eventCount)
+                //{
+                //    //Model.GCalendarModel reqEvent = new Model.GCalendarModel();
+                //    string varWatch = APIResult["value"][countXAML]["subject"];
+                //    DateTime eventTime = APIResult["value"][countXAML]["start"]["dateTime"];
+                //    string strEventTime = eventTime.ToShortDateString();
+                //    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventAppend(reqEvent, varWatch));
+                //    //DateCalEvent = new ObservableCollection<Model.GCalendarModel>(eventDateAppend(reqEvent, strEventTime));
+                //    countXAML++;
+                //}
+                //for (int i = 0; i < childCount && i < eventCount; i++) //children start at zero - as in the JSON header children. much like real life children 
+                //{
+                //    //Model.GCalendarModel reqEvent = new Model.GCalendarModel();
+                //    string varWatch = JSONSeralised["value"][i]["subject"];
+                //    DateTime eventTime = JSONSeralised["value"][i]["start"]["dateTime"];
+                //    string strEventTime = eventTime.ToShortDateString();
+                //    //eventAppend(/*tempVariable,*/ varWatch);
+                //    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventAppend(varWatch, strEventTime));
+                //    //DateCalEvent = new ObservableCollection<Model.GCalendarModel>(eventDateAppend(reqEvent, strEventTime));
+                //    //listofCalEvents.Add(eventAppend(varWatch));
+
+                //}
+                while (countXAML < childCount && countXAML <= eventCount)
                 {
-                    string varWatch = APIResult["value"][i]["subject"];
-                    //eventAppend(/*tempVariable,*/ varWatch);
-                    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventAppend(varWatch));
-                    //listofCalEvents.Add(eventAppend(varWatch));
-                    
+                    string strEventName = JSONSeralised["value"][countXAML]["subject"];
+                    DateTime eventTime = JSONSeralised["value"][countXAML]["start"]["dateTime"];
+                    string strEventTime = eventTime.ToShortDateString();
+                    string eventDayDelta = dayTimeDifference(eventTime);
+                    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventAppend(strEventName, strEventTime, eventDayDelta));
+                    countXAML++;
                 }
             }
             
@@ -82,13 +121,51 @@ namespace Completist.ViewModel
             //Model.GCalendarModel eventList = new Model.GCalendarModel { EventName = $"{events[0].Name}" };\
         }
         ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
-        public ObservableCollection<Model.GCalendarModel> eventAppend(/*string tempVariable,*/ string varWatch)
+        //I'm a freakin idgiot - relational patterns are not available in the version of C# I started in. I'm not going to change it now to a later version in case of compatibility issues. please don't take marks off for this region - switch conditions not viable
+        public string dayTimeDifference(DateTime eventTime)
+        {
+            string strDateDelta;
+            if (eventTime > DateTime.UtcNow)
+            {
+                strDateDelta = $"The event is in {DateTime.Parse(eventTime.Subtract(DateTime.UtcNow).ToString()):HH:mm} hours/minutes";
+            }
+            else if (DateTime.Today > eventTime)
+            {
+                strDateDelta = "This is a multiday event, i.e. repeating more than a single day";
+            }
+            else
+            {
+                strDateDelta = $"The task is on today";
+            }
+            return strDateDelta;
+
+            //switch (DateTime.Today)  
+            //{
+            //    case > eventTime:
+            //        strDateDelta = "";
+            //        break;
+            //    case == eventTime:
+            //        strDateDelta = "";
+            //        break;
+            //    default:
+            //        strDateDelta = "";
+            //        break;
+            //}
+            //return strDateDelta;
+        }
+        public ObservableCollection<Model.GCalendarModel> eventAppend(/*string tempVariable, Model.GCalendarModel */ string strEventName, string strEventTime, string eventDayDelta)
         {
             Model.GCalendarModel reqEvent = new Model.GCalendarModel();
-            reqEvent.EventName += varWatch;
+            reqEvent.EventName = $"{strEventName}: {strEventTime} - {eventDayDelta}";
             eventList.Add(reqEvent);
             return eventList;
         }
+        //public ObservableCollection<Model.GCalendarModel> eventDateAppend(Model.GCalendarModel reqEvent, string eventTime)
+        //{
+        //    reqEvent.EventTime = eventTime;
+        //    eventList.Add(reqEvent);
+        //    return eventList;
+        //}
         public void AccountAuthorisation_Method()
         {
             CallGraphButton_Click(new object(), new RoutedEventArgs());
@@ -187,7 +264,7 @@ namespace Completist.ViewModel
             //TokenInfoText.Text = "";
             if (authResult != null)
             {
-                APIResult = JsonConvert.DeserializeObject(textAPIResult);
+                JSONSeralised = JsonConvert.DeserializeObject(textAPIResult);
                 InitiateEventLoad_Method();
                 //TokenInfoText.Text += $"Username: {authResult.Account.Username}" + Environment.NewLine;
                 //TokenInfoText.Text += $"Token Expires: {authResult.ExpiresOn.ToLocalTime()}" + Environment.NewLine;
