@@ -144,7 +144,7 @@ namespace Completist.ViewModel
             {
                 if (!con.createTask(myTask))
                 {
-                    MessageBox.Show("Error! Hmm... Please retry this action");
+                    MessageBox.Show("A Task with this name already exists");
                     return;
                 }
             }

@@ -13,7 +13,7 @@
     <!--Mousedown & First Grid-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding Loaded_Command}" />
+            <i:InvokeCommandAction Command="{Binding Loaded_Command}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Resources>
@@ -819,6 +819,9 @@
                     <i:EventTrigger EventName="PreviewMouseDoubleClick" >
                         <i:InvokeCommandAction Command="{Binding lstSelectionChanged_Command}" />
                     </i:EventTrigger>
+                    <!--<i:EventTrigger EventName="MouseLeave">
+                        <i:InvokeCommandAction Command="{Binding RemoveSelection_Command}" CommandParameter="{Binding ElementName=lst, Path=SelectedItem}"/>
+                    </i:EventTrigger>-->
                 </i:Interaction.Triggers>
             </ListView>
 

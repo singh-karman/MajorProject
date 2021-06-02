@@ -186,7 +186,6 @@ namespace Completist.Controller
             }
             finally { DBBroker.openSession().closeConnection(); }
         }
-
         public bool createTask(Model.Task task)
         {
             DBBroker.openSession().openConnection();

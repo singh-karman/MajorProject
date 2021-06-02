@@ -460,7 +460,7 @@ namespace Completist.Broker
                 switch (action)
                 {
                     case "REMOVE":
-                        query = "UPDATE [TASKS] SET STS=9 WHERE NAME='" + task.Name + "'";
+                        query = "DELETE FROM [TASKS] WHERE NAME='" + task.Name + "'"; //please revert if casualties
                         break;
                     case "COMPLETE":
                         query = "UPDATE [TASKS] SET STS=1 WHERE NAME='" + task.Name + "'";
