@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using Completist.Model;
 using System.Windows;
+using System.Windows.Media.Animation;
+using System.Threading;
 
 namespace Completist.ViewModel
 {
@@ -39,6 +41,7 @@ namespace Completist.ViewModel
         public RelayCommand ChangeTag_Command { get; private set; }
         public RelayCommand SearchTaskText_Command { get; private set; }
         public RelayCommand RemoveSelection_Command { get; private set; }
+        public RelayCommand UndoDeletion_Command { get; private set; }
         #endregion
 
         #region Variables
@@ -98,6 +101,32 @@ namespace Completist.ViewModel
             {
                 _searchHeight = value;
                 NotifyPropertyChanged("searchHeight");
+            }
+        }
+        int _undoCountdown = 5;
+        public int undoCountdown
+        {
+            get
+            {
+                return _undoCountdown;
+            }
+            set
+            {
+                _undoCountdown = value;
+                NotifyPropertyChanged("undoCountdown");
+            }
+        }
+        string _undoBannerVisibility = "Collapsed";
+        public string undoBannerVisibility 
+        {
+            get 
+            {
+                return _undoBannerVisibility;
+            }
+            set
+            {
+                _undoBannerVisibility = value;
+                NotifyPropertyChanged("undoBannerVisibility");
             }
         }
         string _lastSelectedName;
@@ -323,6 +352,7 @@ namespace Completist.ViewModel
             ChangeTag_Command = new RelayCommand(ChangeTag_Method);
             SearchTaskText_Command = new RelayCommand(SearchTaskText_Method);
             RemoveSelection_Command = new RelayCommand(RemoveSelection_Method);
+            UndoDeletion_Command = new RelayCommand(UndoDeletion_Method);
             #endregion
         }
 
@@ -427,18 +457,100 @@ namespace Completist.ViewModel
 
             if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; con.CounterIncrement(); refreshCount(); /*count = count + 1; complete = count.ToString();*/ }
         }
-
+        bool undoRequested = false;
+        Model.Task taskDelete;
+        string strTaskDelete;
         private void RemoveTask_Method()
         {
-            if (selectedTask == null)
+            taskDelete = selectedTask;
+            strTaskDelete = selectedTask.Name;
+            con.handleTask(selectedTask, "REMOVE", selectedTask.Name);
+            myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+
+            undoBannerVisibility = "Visibile";
+            DelayMethod();
+            //UndoPeriod(taskDelete, strTaskDelete);
+            //System.Threading.Tasks.Task.Delay(5000);
+            //undoBannerVisibility = "Collapsed";
+            //BannerCollapse(taskDelete, strTaskDelete);
+            //MainWindow mainWindow = new MainWindow();
+            //mainWindow.UndoBannerReveal();
+            //frame element show
+            #region No Longer Relevant -> UI Changes
+            //if (selectedTask == null)
+            //{
+            //    MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
+            //    return;
+            //}
+
+            //if (MessageBox.Show("Remove task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
+
+            //if (con.handleTask(selectedTask, "REMOVE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; }
+            #endregion
+        }
+        public async void DelayMethod()
+        {
+            for (int i = 0; i < 6; i++)
             {
-                MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
-                return;
+                await System.Threading.Tasks.Task.Delay(1000);
+                undoCountdown--;
+            }
+            undoBannerVisibility = "Collapsed";
+            if (undoRequested == false)
+            {
+                con.handleTask(taskDelete, "DELETE", strTaskDelete);
+                myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+            }
+            undoCountdown = 5;
+        }
+        
+        private void UndoPeriod(Model.Task taskDelete, string strTaskDelete)
+        {
+            con.handleTask(taskDelete, "UNDO", strTaskDelete);
+            myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        }
+        private void BannerCollapse(Model.Task taskDelete, string strTaskDelete /*CancellationToken token*/)
+        {
+            //System.Threading.Tasks.Task.Delay(5000/*, token*/).ContinueWith(_ =>
+            // {
+            //     undoBannerVisibility = "Collapsed";
+            //     if (undoRequested == false)
+            //     {
+            //         con.handleTask(taskDelete, "DELETE", strTaskDelete);
+            //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+            //     }
+            //     else
+            //     {
+            //         con.handleTask(taskDelete, "UNDO", strTaskDelete);
+            //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+            //     }
+            // }
+            //);
+            System.Threading.Tasks.Task.Delay(5000);
+            //undoBannerVisibility = "Collapsed";
+            if (undoRequested == false)
+            {
+                con.handleTask(taskDelete, "DELETE", strTaskDelete);
+                myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+            }
+            else
+            {
+                con.handleTask(taskDelete, "UNDO", strTaskDelete);
+                myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
             }
 
-            if (MessageBox.Show("Remove task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
 
-            if (con.handleTask(selectedTask, "REMOVE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; }
+
+        }
+        public void UndoDeletion_Method()
+        {
+            undoRequested = true;
+            undoBannerVisibility = "Collapsed";
+            con.handleTask(taskDelete, "UNDO", strTaskDelete);
+            myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+            //var tokenSource = new CancellationTokenSource();
+            //BannerCollapse(tokenSource.Token);
+            //tokenSource.Cancel();
         }
 
         private void EditTask_Method()
@@ -475,6 +587,7 @@ namespace Completist.ViewModel
                 visibleExit = "Hidden";
                 visibleNew = "Visible";
                 searchHeight = 0;
+                //undoBannerVisibility = "Collapsed";
                 myCondition_Name = "";
                 myCondition_Priority = "";
                 myContent = con.returnAllTasks(" where STS=0");

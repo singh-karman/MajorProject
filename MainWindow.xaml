@@ -614,7 +614,7 @@
                                Source="Data.png"
                                Cursor="Hand"/>
                 </Button>
-                
+
                 <Button Background="Transparent"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
@@ -783,7 +783,33 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="2" Background="#FF232323">
+            <!--<Grid x:Name="undoBanner" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,25" Panel.ZIndex="40">
+                <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="225" MinHeight="65" Margin="0,-2,0,0" RadiusX="30" RadiusY="80" Fill="#FF121212"/>
+                <Label Content="Undo" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Margin="30,0,0,5"/>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="45" Margin="0,0,40,0" Command="{Binding UndoDeletion_Command}">
+                    <Button.Content>
+                        <Image Source="/Resources/Undo.png" MinWidth="40" MinHeight="40" VerticalAlignment="Center"/>
+                    </Button.Content>
+                </Button>
+            </Grid>-->
+            <Button Visibility="{Binding undoBannerVisibility, UpdateSourceTrigger=PropertyChanged}" MinWidth="225" Command="{Binding UndoDeletion_Command}" Panel.ZIndex="40" MinHeight="65" Margin="0,0,0,25" Background="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="{x:Null}">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="{x:Null}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                <Grid>
+                    <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-2,0,0" RadiusX="30" RadiusY="80" Fill="#FF121212" MinWidth="225" MinHeight="65"/>
+                    <Grid>
+                        <Label Content="{Binding undoCountdown}" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Margin="15,0,0,0" RenderTransformOrigin="0.5,0.5"/>
+                        <Label Content="Undo" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" FontSize="30" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                        <Image Source="/Resources/Undo.png" MinWidth="40" MinHeight="40" VerticalAlignment="Center" HorizontalAlignment="Right" Width="0" Margin="0,0,25,0"/>
+                    </Grid>
 
+                </Grid>
+            </Button>
             <Grid VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch"
                   x:Name="grdContent" x:FieldModifier="public"/>
@@ -814,7 +840,8 @@
                 </ListView.ItemContainerStyle>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <i:InvokeCommandAction Command="{Binding RemoveSelection_Command}"/> <!--If something goes wrong, it's probably this line.-->
+                        <i:InvokeCommandAction Command="{Binding RemoveSelection_Command}"/>
+                        <!--If something goes wrong, it's probably this line.-->
                     </i:EventTrigger>
                     <i:EventTrigger EventName="PreviewMouseDoubleClick" >
                         <i:InvokeCommandAction Command="{Binding lstSelectionChanged_Command}" />

@@ -489,3 +489,5 @@ C:\Users\User\Documents\GitHub\MajorProject\bin\Debug\Resources\Data.png
 C:\Users\User\Documents\GitHub\MajorProject\bin\Debug\Resources\Next.png
 C:\Users\User\Documents\GitHub\MajorProject\bin\Debug\Microsoft.Identity.Client.dll
 C:\Users\User\Documents\GitHub\MajorProject\bin\Debug\Microsoft.Identity.Client.xml
+C:\Users\User\Documents\GitHub\MajorProject\bin\Debug\Resources\Undo.png
+C:\Users\User\Documents\GitHub\MajorProject\obj\Debug\Completist_Content.g.cs
