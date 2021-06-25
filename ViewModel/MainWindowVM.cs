@@ -10,6 +10,10 @@ using Completist.Model;
 using System.Windows;
 using System.Windows.Media.Animation;
 using System.Threading;
+using System.Windows.Threading;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Completist.ViewModel
 {
@@ -42,6 +46,7 @@ namespace Completist.ViewModel
         public RelayCommand SearchTaskText_Command { get; private set; }
         public RelayCommand RemoveSelection_Command { get; private set; }
         public RelayCommand UndoDeletion_Command { get; private set; }
+        public RelayCommand ActivateAssistant_Command { get; private set; }
         #endregion
 
         #region Variables
@@ -129,6 +134,46 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("undoBannerVisibility");
             }
         }
+        string _clockVisibility = "Collapsed";
+        public string clockVisibility
+        {
+            get
+            {
+                return _clockVisibility;
+            }
+            set
+            {
+                _clockVisibility = value;
+                NotifyPropertyChanged("clockVisibility");
+            }
+        }
+
+        //double _sharePrice;
+        //public double sharePrice
+        //{
+        //    get
+        //    {
+        //        return _sharePrice;
+        //    }
+        //    set
+        //    {
+        //        _sharePrice = value;
+        //        NotifyPropertyChanged("sharePrice");
+        //    }
+        //}
+        string _assistantHeightProperty = "Bottom";
+        public string assistantHeightProperty
+        {
+            get
+            {
+                return _assistantHeightProperty;
+            }
+            set
+            {
+                _assistantHeightProperty = value;
+                NotifyPropertyChanged("assistantHeightProperty");
+            }
+        }
         string _lastSelectedName;
         public string lastSelectedName 
         {
@@ -195,7 +240,20 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("myContent");
             }
         }
+        ObservableCollection<Model.ShareExchange> _collectionShares;
+        public ObservableCollection<Model.ShareExchange> CollectionShares
+        {
+            get
+            {
+                return _collectionShares;
 
+            }
+            set
+            {
+                _collectionShares = value;
+                NotifyPropertyChanged("collectionShares");
+            }
+        }
         Model.Task _selectedTask;
         public Model.Task selectedTask
         {
@@ -353,6 +411,7 @@ namespace Completist.ViewModel
             SearchTaskText_Command = new RelayCommand(SearchTaskText_Method);
             RemoveSelection_Command = new RelayCommand(RemoveSelection_Method);
             UndoDeletion_Command = new RelayCommand(UndoDeletion_Method);
+            ActivateAssistant_Command = new RelayCommand(ActivateAssistant_Method);
             #endregion
         }
 
@@ -403,7 +462,84 @@ namespace Completist.ViewModel
         {
             selectedTask = null; //removes focus off the listview item. kinda dodgy - a better implementation would be in the base page definition. i.e not viewmodel
         }
-
+        private DateTime _now;
+        public void ActivateAssistant_Method()
+        {
+            _now = DateTime.Now;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+            //FinanceResultsRESTAsync();
+            if (assistantHeightProperty != "stretch")
+            {
+                assistantHeightProperty = "stretch";
+                clockVisibility = "Visible";
+            }
+            else
+            {
+                assistantHeightProperty = "bottom";
+                clockVisibility = "Collapsed";
+                timer.Stop();
+            }
+            CollectionShares = con.ReturnAllExchanges();
+        }
+        public DateTime CurrentDateTime
+        {
+            get { return _now; }
+            private set
+            {
+                _now = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("CurrentDateTime"));
+            }
+        }
+        void timer_Tick(object sender, EventArgs e)
+        {
+            CurrentDateTime = DateTime.Now;
+        }
+        public async void FinanceResultsRESTAsync(string stockName, ShareExchange x)
+        {
+            
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://yahoo-finance-low-latency.p.rapidapi.com/v6/finance/quote?symbols=" + $"{stockName}"),
+                Headers =
+                {
+                    { "x-rapidapi-key", "2c9ec1d493mshe113326a49346afp143dd4jsne23eb6577117" },
+                    { "x-rapidapi-host", "yahoo-finance-low-latency.p.rapidapi.com" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                try
+                {
+                    response.EnsureSuccessStatusCode();
+                    var body = await response.Content.ReadAsStringAsync();
+                    //var JSONContent = await GetHTTPContent();
+                    //string JSONSeralised = (string)JsonConvert.DeserializeObject(body);
+                    //string sharePrice = JSONSeralised["quoteResponse"].ToString()["value"][0]["regularMarketPrice"];   //["value"][0]["regularMarketPrice"];
+                    var detailsJSON = JObject.Parse(body);
+                    var conditionFinanceJSON = detailsJSON["quoteResponse"]["result"][0];
+                    x.SharePrice = double.Parse(conditionFinanceJSON["regularMarketPrice"].ToString());
+                    double shareDelta = double.Parse(conditionFinanceJSON["regularMarketChange"].ToString());
+                    if (shareDelta >= 0)
+                    {
+                        x.ShareIndicatorColor = "#05C46B";
+                    }
+                    else
+                    {
+                        x.ShareIndicatorColor = "#E63946";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+                
+            }
+        }
         private void ChangePriority_Method()
         {
             if (selectedTask == null) 
@@ -467,7 +603,7 @@ namespace Completist.ViewModel
             con.handleTask(selectedTask, "REMOVE", selectedTask.Name);
             myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
 
-            undoBannerVisibility = "Visibile";
+            undoBannerVisibility = "Visible";
             DelayMethod();
             //UndoPeriod(taskDelete, strTaskDelete);
             //System.Threading.Tasks.Task.Delay(5000);

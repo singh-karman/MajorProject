@@ -97,6 +97,7 @@
                 </TextBox.Resources>
             </TextBox>
         </DataTemplate>
+
         <DataTemplate x:Key="dtMyContent">
             <Border BorderBrush="Transparent" BorderThickness="0"
                     CornerRadius="10" x:Name="brd"
@@ -129,12 +130,12 @@
          RelativeSource={RelativeSource AncestorType=ListView}}" FontFamily="/Completist;component/Font/#Quicksand">
                             <Button.Resources>
                                 <Style TargetType="{x:Type Border}">
-                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
                                     <Setter Property="Opacity" Value="0"></Setter>
                                     <Setter Property="CornerRadius" Value="10,0,0,10"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="True">
-                                            <!--<Setter Property="Visibility" Value="Visible" />-->
+                                            <Setter Property="Visibility" Value="Visible"/>
                                             <DataTrigger.EnterActions>
                                                 <BeginStoryboard>
                                                     <Storyboard>
@@ -182,10 +183,11 @@
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="0,10,10,0"/>
-                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="Visibility" Value="Collapsed"/>
                                 <Setter Property="Opacity" Value="0"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
                                         <DataTrigger.EnterActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
@@ -413,6 +415,23 @@
                     <Setter TargetName="brd" Property="Border.BorderBrush" Value="DarkGoldenrod"/>
                 </DataTrigger>
             </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="AssistantStockList">
+            <Border BorderBrush="Transparent" BorderThickness="0" CornerRadius="10" x:Name="brd" VerticalAlignment="Stretch" Height="Auto" Style="{StaticResource MyCustomFont}" HorizontalAlignment="Stretch" Background="#201f20">
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="140"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label Foreground="#FFEAE6E5" Panel.ZIndex="20" Content="{Binding ShareName}" FontFamily="/Completist;component/Font/#Quicksand" FontSize="25" FontWeight="Bold" />
+                    </Grid>
+                    <Grid Grid.Column="2" >
+                        <Label VerticalContentAlignment="Center" Foreground="{Binding ShareIndicatorColor}" Panel.ZIndex="20" Content="{Binding SharePrice}" FontFamily="/Completist;component/Font/#Quicksand" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" />
+                    </Grid>
+                </Grid>
+            </Border>
         </DataTemplate>
     </Window.Resources>
     <Grid Background="#FF121212" x:Name="grdAll">
@@ -792,7 +811,15 @@
                     </Button.Content>
                 </Button>
             </Grid>-->
-            <Button Visibility="{Binding undoBannerVisibility, UpdateSourceTrigger=PropertyChanged}" MinWidth="225" Command="{Binding UndoDeletion_Command}" Panel.ZIndex="40" MinHeight="65" Margin="0,0,0,25" Background="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="{x:Null}">
+            <Button x:Name="button" Visibility="{Binding undoBannerVisibility, UpdateSourceTrigger=PropertyChanged}" MinWidth="225" Command="{Binding UndoDeletion_Command}" Panel.ZIndex="40" MinHeight="65" Margin="0,0,0,25" Background="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="{x:Null}" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="{x:Null}">
@@ -800,12 +827,37 @@
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
-                <Grid>
-                    <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-2,0,0" RadiusX="30" RadiusY="80" Fill="#FF121212" MinWidth="225" MinHeight="65"/>
-                    <Grid>
-                        <Label Content="{Binding undoCountdown}" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Margin="15,0,0,0" RenderTransformOrigin="0.5,0.5"/>
-                        <Label Content="Undo" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" FontSize="30" Margin="15,0,0,0" VerticalAlignment="Center"/>
-                        <Image Source="/Resources/Undo.png" MinWidth="40" MinHeight="40" VerticalAlignment="Center" HorizontalAlignment="Right" Width="0" Margin="0,0,25,0"/>
+                <Grid x:Name="grid1" RenderTransformOrigin="0.5,0.5">
+                    <Grid.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Grid.RenderTransform>
+                    <Rectangle x:Name="rectangle" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-2,0,0" RadiusX="30" RadiusY="80" Fill="#FF121212" MinWidth="225" MinHeight="65" RenderTransformOrigin="0.5,0.5">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Grid.RenderTransform>
+                        <Label x:Name="label" Content="{Binding undoCountdown}" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" Margin="110,8,74,0" RenderTransformOrigin="0.5,0.5" Height="48" Width="41"/>
+                        <Label x:Name="label1" Content="Undo" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" FontSize="30" Margin="15,8,0,7" VerticalAlignment="Center"/>
+                        <Image x:Name="image" Source="/Resources/Undo.png" MinWidth="40" MinHeight="40" VerticalAlignment="Center" HorizontalAlignment="Right" Width="0" Margin="0,0,25,0"/>
                     </Grid>
 
                 </Grid>
@@ -954,6 +1006,35 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
+            <Grid Margin="0,0,0,-300" Width="300" HorizontalAlignment="Left" VerticalAlignment="{Binding assistantHeightProperty, FallbackValue=bottom}" MinHeight="350">
+                <Rectangle Fill="#FF121212" RadiusX="25" RadiusY="25" MinWidth="200" MinHeight="80" Margin="0,0,0,0"/>
+                <!--<StackPanel Orientation="Horizontal" Margin="0,50,0,0" VerticalAlignment="Top" Height="38">
+                    <Label Content="The time is" Foreground="#FF2A9D8F" FontSize="22" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Background="{x:Null}" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                    <Label Content="{Binding CurrentDateTime}" Visibility="{Binding clockVisibility, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="hh:mm:ss" Foreground="White" VerticalAlignment="Center" Margin="0" Background="{x:Null}" FontSize="24" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Right"/>
+                </StackPanel>-->
+                <Canvas Margin="0,50,0,0" VerticalAlignment="Top" Height="38">
+                    <Label Canvas.Left="0" Visibility="{Binding clockVisibility}" Content="The time is" Foreground="#FF2A9D8F" FontSize="22" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Background="{x:Null}" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                    <Label Canvas.Right="20" Content="{Binding CurrentDateTime}" Visibility="{Binding clockVisibility, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="hh:mm:ss" Foreground="White" VerticalAlignment="Center" Margin="0" Background="{x:Null}" FontSize="38" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Right" Canvas.Top="17.332"/>
+                </Canvas>
+                <Canvas Margin="0,100,0,0" VerticalAlignment="Top" Height="72.5">
+                    <Label Canvas.Right="20" Content="and it's" Foreground="#FFF4A261" Visibility="{Binding clockVisibility}" FontSize="22" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Background="{x:Null}" FontWeight="Bold" VerticalContentAlignment="Center" Canvas.Top="23" Canvas.Left="193.856"/>
+                    <Label Canvas.Right="85" Content="{Binding CurrentDateTime}" Visibility="{Binding clockVisibility, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="dd/MM/yy" Foreground="White" VerticalAlignment="Center" Margin="0" Background="{x:Null}" FontSize="38" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Right" Canvas.Top="56"/>
+                </Canvas>
+                <Grid Margin="0,200,0,0" VerticalAlignment="Top" IsHitTestVisible="False" UseLayoutRounding="False">
+                    <Label Canvas.Left="20" Content="Your Stocks" Foreground="#FFEAE6E5" Visibility="{Binding clockVisibility}" FontSize="22" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Background="{x:Null}" FontWeight="Bold" VerticalContentAlignment="Center" Canvas.Top="20"/>
+                    <ListView ItemsSource="{Binding Path=CollectionShares}" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" MinHeight="50" Foreground="#FF121212" BorderBrush="{x:Null}" Background="{x:Null}" Canvas.Left="0" Canvas.Top="73.5" ItemTemplate="{StaticResource AssistantStockList}" Margin="0,37.665,0,34.334" HorizontalAlignment="Center"/>
+                </Grid>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" Command="{Binding ActivateAssistant_Command}" Margin="108.875,15,111.667,0" Height="15" VerticalAlignment="Top" Cursor="Hand" HorizontalAlignment="Center" Padding="0">
+                    <Rectangle Fill="WhiteSmoke" Height="10" Margin="0" Width="77" RadiusY="4.667" RadiusX="4.667" Opacity="0.75"/>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="Transparent" Background="{x:Null}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

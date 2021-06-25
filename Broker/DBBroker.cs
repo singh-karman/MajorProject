@@ -204,6 +204,39 @@ namespace Completist.Broker
                 return null;
             }
         }
+        public ObservableCollection<Model.ShareExchange> ReturnAllExchanges(/*string condition*/)
+        {
+            try
+            {
+                string query = "SELECT * from [STOCKEXCHANGE]" /*+ condition*/;
+                var command = connection.CreateCommand();
+
+                command = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                ObservableCollection<Model.ShareExchange> list = new ObservableCollection<Model.ShareExchange>();
+                while (reader.Read())
+                {
+                    ViewModel.MainWindowVM mainWindowVM = new ViewModel.MainWindowVM();
+                    string strShareName;
+                    Model.ShareExchange x = new Model.ShareExchange
+                    {
+                        
+                        ShareName = strShareName = reader["StockName"].ToString(),
+                        ShareIndex = Convert.ToInt32(reader["StockID"]),
+                    };
+                    mainWindowVM.FinanceResultsRESTAsync(strShareName, x);
+                    list.Add(x);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message; //read SQL error message using breakpoint + watch expression
+                return null;
+            }
+        }
         public ObservableCollection<Model.Priority> returnAllPriorities(string condition)
         {
             try

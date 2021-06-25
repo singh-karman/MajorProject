@@ -75,6 +75,7 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Model\AllColors.cs" />
     <Compile Include="Model\GCalendarModel.cs" />
+    <Compile Include="Model\ShareExchange.cs" />
     <Compile Include="SystemVars.cs" />
     <Compile Include="ViewModel\frmCalVM.cs" />
     <Compile Include="ViewModel\frmDataVM.cs" />

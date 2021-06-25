@@ -57,6 +57,20 @@ namespace Completist.Controller
             }
             finally { DBBroker.openSession().closeConnection(); }
         }
+        public ObservableCollection<Model.ShareExchange> ReturnAllExchanges(/*string condition*/)
+        {
+            DBBroker.openSession().openConnection();
+            try
+            {
+                ObservableCollection<Model.ShareExchange> list = DBBroker.openSession().ReturnAllExchanges(/*condition*/);
+                return list;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally { DBBroker.openSession().closeConnection(); }
+        }
         public ObservableCollection<Model.Priority> returnAllPriorities(string condition)
         {
             DBBroker.openSession().openConnection();

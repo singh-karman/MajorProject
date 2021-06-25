@@ -1,0 +1,6 @@
+C:\Users\User\Documents\GitHub\MajorProject\obj\Release\Completist.csprojAssemblyReference.cache
+C:\Users\User\Documents\GitHub\MajorProject\obj\Release\View\frmHistory.g.cs
+C:\Users\User\Documents\GitHub\MajorProject\obj\Release\App.g.cs
+C:\Users\User\Documents\GitHub\MajorProject\obj\Release\Completist_Content.g.cs
+C:\Users\User\Documents\GitHub\MajorProject\obj\Release\Completist_MarkupCompile.cache
+C:\Users\User\Documents\GitHub\MajorProject\obj\Release\Completist_MarkupCompile.lref

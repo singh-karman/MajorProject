@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
         xmlns:local="clr-namespace:Completist.View"
         mc:Ignorable="d"
-        Title="GCalendar" Height="450" Width="800">
+        Title="GCalendar" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding AccountAuthorisation_Command}" />
