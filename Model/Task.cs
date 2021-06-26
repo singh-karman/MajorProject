@@ -35,6 +35,7 @@ namespace Completist.Model
         string strTag; //array for tags, will be seperated by ;
         int status;
         string strStatus;
+        int taskID;
 
         public string Name
         {
@@ -159,6 +160,19 @@ namespace Completist.Model
             {
                 strTag = value;
                 NotifyPropertyChanged("StrTag");
+            }
+        }
+
+        public int TaskID
+        {
+            get
+            {
+                return taskID;
+            }
+            set
+            {
+                taskID = value;
+                NotifyPropertyChanged("TaskID");
             }
         }
     }

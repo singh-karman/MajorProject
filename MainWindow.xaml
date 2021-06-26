@@ -1022,7 +1022,7 @@
                 </Canvas>
                 <Grid Margin="0,200,0,0" VerticalAlignment="Top" IsHitTestVisible="False" UseLayoutRounding="False">
                     <Label Canvas.Left="20" Content="Your Stocks" Foreground="#FFEAE6E5" Visibility="{Binding clockVisibility}" FontSize="22" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Background="{x:Null}" FontWeight="Bold" VerticalContentAlignment="Center" Canvas.Top="20"/>
-                    <ListView ItemsSource="{Binding Path=CollectionShares}" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" MinHeight="50" Foreground="#FF121212" BorderBrush="{x:Null}" Background="{x:Null}" Canvas.Left="0" Canvas.Top="73.5" ItemTemplate="{StaticResource AssistantStockList}" Margin="0,37.665,0,34.334" HorizontalAlignment="Center"/>
+                    <ListView Visibility="{Binding clockVisibility}" ItemsSource="{Binding Path=CollectionShares}" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" MinHeight="50" Foreground="#FF121212" BorderBrush="{x:Null}" Background="{x:Null}" Canvas.Left="0" Canvas.Top="73.5" ItemTemplate="{StaticResource AssistantStockList}" Margin="0,37.665,0,34.334" HorizontalAlignment="Center"/>
                 </Grid>
                 <Button Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" Command="{Binding ActivateAssistant_Command}" Margin="108.875,15,111.667,0" Height="15" VerticalAlignment="Top" Cursor="Hand" HorizontalAlignment="Center" Padding="0">
                     <Rectangle Fill="WhiteSmoke" Height="10" Margin="0" Width="77" RadiusY="4.667" RadiusX="4.667" Opacity="0.75"/>

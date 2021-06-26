@@ -626,6 +626,7 @@ namespace Completist.ViewModel
         }
         public async void DelayMethod()
         {
+            undoCountdown = 5;
             for (int i = 0; i < 6; i++)
             {
                 await System.Threading.Tasks.Task.Delay(1000);

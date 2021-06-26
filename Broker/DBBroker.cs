@@ -121,6 +121,7 @@ namespace Completist.Broker
                     x.Status = Convert.ToInt32(reader["STS"]);
                     x.StrStatus = x.Status == 0 ? x.StrStatus = "New" : x.StrStatus = "Done";
                     x.StrTag = reader["TAGLIST"].ToString();
+                    x.TaskID = Convert.ToInt32(reader["TaskID"]);
 
                     //x.StrDue = x.Due.ToShortDateString();
                     string pro = reader["PRIORITY"].ToString();
@@ -132,10 +133,10 @@ namespace Completist.Broker
                         if (x.Priority.Name != high.Name)
                         {
                             x.Priority = high;
-                            if (this.handleTask(x, "EDIT", x.Name))
-                            {
+                            //if (this.handleTask(x, "EDIT", x.Name))
+                            //{
                                 
-                            }
+                            //}
                         }
                         x.StrDue = "Today";                        
                     }
@@ -493,16 +494,16 @@ namespace Completist.Broker
                 switch (action)
                 {
                     case "REMOVE":
-                        query = "UPDATE [TASKS] SET STS=9 WHERE NAME='" + task.Name + "'";
+                        query = "UPDATE [TASKS] SET STS=9 WHERE TASKID='" + task.TaskID + "'";
                         break;
                     case "UNDO":
-                        query = "UPDATE [TASKS] SET STS=0 WHERE NAME='" + task.Name + "'";
+                        query = "UPDATE [TASKS] SET STS=0 WHERE TASKID='" + task.TaskID + "'";
                         break;
                     case "DELETE":
-                        query = "DELETE FROM [TASKS] WHERE NAME='" + task.Name + "'"; //please revert if casualties
+                        query = "DELETE FROM [TASKS] WHERE TASKID='" + task.TaskID + "'"; //please revert if casualties
                         break;
                     case "COMPLETE":
-                        query = "UPDATE [TASKS] SET STS=1 WHERE NAME='" + task.Name + "'";
+                        query = "UPDATE [TASKS] SET STS=1 WHERE TASKID='" + task.TaskID + "'";
                         break;
                     case "EDIT":
                         string list = "";
