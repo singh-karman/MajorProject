@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Topmost="True"
         WindowStartupLocation="CenterScreen"
-        Title="Completist - Data entry" Height="600" Width="1000">
+        Title="Completist - Data entry" Height="627" Width="1000" Background="#FF201F20">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Loaded_Command}" />
@@ -19,10 +19,10 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Border BorderThickness="0.5"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            BorderBrush="White"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid x:Name="grdPriority"
               Grid.Column="0"
               VerticalAlignment="Stretch"
@@ -36,14 +36,14 @@
             <TextBlock Background="Transparent"
                        Foreground="White"
                        Text="Priorities"
-                       FontSize="14"
+                       FontSize="18"
                        FontWeight="DemiBold"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Margin="20,5"
                        TextAlignment="Center"
-                       TextDecorations="Underline"/>
-            
+                       TextDecorations="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand"/>
+
             <DataGrid Grid.Row="1" x:Name="gdP" 
                   ItemsSource="{Binding listOfPriorities, UpdateSourceTrigger=PropertyChanged}"     
                   CanUserAddRows="False" CanUserDeleteRows="False" 
@@ -51,7 +51,7 @@
                   Margin="5" AutoGenerateColumns="False"
                   Background="Transparent"
                   ToolTip="Existing Priorities"
-                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" BorderBrush="{x:Null}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
                         <i:InvokeCommandAction Command="{Binding Priorities_SelectionChanged_Command}" />
@@ -61,12 +61,12 @@
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#201f20"/>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Width="*" FontSize="10"
-                                    FontWeight="Normal" Binding="{Binding Name}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Colour" Width="100" FontSize="10"
-                                    FontWeight="Normal" Binding="{Binding Color}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Status" Width="100" FontSize="10"
-                                    FontWeight="Normal" Binding="{Binding StrStatus}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Name" Width="*" FontSize="15"
+                                    FontWeight="Bold" Binding="{Binding Name}" IsReadOnly="True" FontFamily="/Completist;component/Font/#Quicksand"/>
+                    <DataGridTextColumn Header="Colour" Width="100" FontSize="15" FontFamily="/Completist;component/Font/#Quicksand"
+                                    FontWeight="Medium" Binding="{Binding Color}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Status" Width="100" FontSize="15"
+                                    FontWeight="Medium" Binding="{Binding StrStatus}" IsReadOnly="True" FontFamily="/Completist;component/Font/#Quicksand"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -83,18 +83,16 @@
                                Width="75"
                                Height="20"
                                Foreground="White"
-                               Background="Transparent"/>
+                               Background="Transparent" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold"/>
                     <TextBox VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Height="20"
                              Background="Transparent"
-                             BorderThickness="1"
-                             BorderBrush="White"
                              Foreground="White"
                              Width="200"
-                             Text="{Binding selectedPriorityName, Mode=TwoWay}"/>
+                             Text="{Binding selectedPriorityName, Mode=TwoWay}" FontFamily="/Completist;component/Font/#Quicksand"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Text="Status:"
@@ -104,20 +102,18 @@
                                Width="75"
                                Height="20"
                                Foreground="White"
-                               Background="Transparent"/>
+                               Background="Transparent" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold"/>
                     <ComboBox VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Height="20"
                              Background="Transparent"
-                             BorderThickness="1"
-                             BorderBrush="White"
                              Foreground="Black"
                              IsEditable="True"
                              ItemsSource="{Binding listOfStatuses, UpdateSourceTrigger=PropertyChanged}"
                              SelectedItem="{Binding selectedStatus, Mode=TwoWay}"
-                             Width="200"/>
+                             Width="200" FontFamily="/Completist;component/Font/#Quicksand"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Text="Colour:"
@@ -127,21 +123,19 @@
                                Width="75"
                                Height="20"
                                Foreground="White"
-                               Background="Transparent"/>
+                               Background="Transparent" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold"/>
                     <ComboBox VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Height="20"
                              Background="Transparent"
-                             BorderThickness="1"
-                             BorderBrush="White"
                              Foreground="Black"
                              IsEditable="True"
                              ItemsSource="{Binding listOfColors, UpdateSourceTrigger=PropertyChanged}"
                              Text="{Binding selectedColor.Name}"
                              SelectedItem="{Binding selectedColor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             Width="200"/>
+                             Width="200" FontFamily="/Completist;component/Font/#Quicksand"/>
                     <TextBlock Text=""
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
@@ -173,7 +167,7 @@
                         BorderThickness="1"
                         Foreground="White"
                         Content="Add new"
-                        Command="{Binding AddNew_Command}">
+                        Command="{Binding AddNew_Command}" FontFamily="/Completist;component/Font/#Quicksand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
@@ -200,8 +194,8 @@
                         Width="100"
                         BorderThickness="1"
                         Foreground="White"
-                        Content="Edit"
-                        Command="{Binding Edit_Command}">
+                        Content="Apply"
+                        Command="{Binding Edit_Command}" FontFamily="/Completist;component/Font/#Quicksand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
@@ -229,7 +223,7 @@
                         BorderThickness="1"
                         Foreground="White"
                         Content="Remove"
-                        Command="{Binding Remove_Command}">
+                        Command="{Binding Remove_Command}" FontFamily="/Completist;component/Font/#Quicksand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
@@ -260,22 +254,22 @@
             <TextBlock Background="Transparent"
                        Foreground="White"
                        Text="Tags"
-                       FontSize="14"
+                       FontSize="18"
                        FontWeight="DemiBold"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        Margin="20,5"
                        TextAlignment="Center"
-                       TextDecorations="Underline"/>
+                       TextDecorations="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand"/>
 
             <DataGrid Grid.Row="1" x:Name="gdT" 
                   ItemsSource="{Binding listOfTags, UpdateSourceTrigger=PropertyChanged}"     
-                  CanUserAddRows="False" CanUserDeleteRows="False" 
+                  CanUserAddRows="False" CanUserDeleteRows="True" 
                   Margin="5" AutoGenerateColumns="False"
                   ToolTip="Existing Tags"
                   SelectedItem="{Binding selectedTag, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   Background="Transparent"
-                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" BorderBrush="{x:Null}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
                         <i:InvokeCommandAction Command="{Binding Tags_SelectionChanged_Command}" />
@@ -285,12 +279,9 @@
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#201f20"/>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Width="*" FontSize="10"
-                                    FontWeight="Normal" Binding="{Binding Name}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Colour" Width="100" FontSize="10"
-                                    FontWeight="Normal" Binding="{Binding Color}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Status" Width="100" FontSize="10"
-                                    FontWeight="Normal" Binding="{Binding StrStatus}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Name" Width="*" FontSize="15" Binding="{Binding Name}" IsReadOnly="True" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold"/>
+                    <DataGridTextColumn Header="Colour" Width="100" FontSize="15" Binding="{Binding Color}" IsReadOnly="True" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Medium"/>
+                    <DataGridTextColumn Header="Status" Width="100" FontSize="15" FontWeight="Medium" Binding="{Binding StrStatus}" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -307,18 +298,16 @@
                                Width="75"
                                Height="20"
                                Foreground="White"
-                               Background="Transparent"/>
+                               Background="Transparent" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold"/>
                     <TextBox VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Height="20"
                              Background="Transparent"
-                             BorderThickness="1"
-                             BorderBrush="White"
                              Foreground="White"
                              Width="200"
-                             Text="{Binding selectedTagName, Mode=TwoWay}"/>
+                             Text="{Binding selectedTagName, Mode=TwoWay}" FontFamily="/Completist;component/Font/#Quicksand"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Text="Status:"
@@ -328,20 +317,18 @@
                                Width="75"
                                Height="20"
                                Foreground="White"
-                               Background="Transparent"/>
+                               Background="Transparent" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold"/>
                     <ComboBox VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Height="20"
                              Background="Transparent"
-                             BorderThickness="1"
-                             BorderBrush="White"
                              Foreground="Black"
                              IsEditable="True"
                              ItemsSource="{Binding listOfStatuses, UpdateSourceTrigger=PropertyChanged}"
                              SelectedItem="{Binding selectedStatus_Tag, Mode=TwoWay}"
-                             Width="200"/>
+                             Width="200" FontFamily="/Completist;component/Font/#Quicksand"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Text="Colour:"
@@ -351,21 +338,19 @@
                                Width="75"
                                Height="20"
                                Foreground="White"
-                               Background="Transparent"/>
+                               Background="Transparent" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold"/>
                     <ComboBox VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Height="20"
                              Background="Transparent"
-                             BorderThickness="1"
-                             BorderBrush="White"
                              Foreground="Black"
                              IsEditable="True"
                              ItemsSource="{Binding listOfColors, UpdateSourceTrigger=PropertyChanged}"
                              Text="{Binding selectedColor_Tag.Name}"
                              SelectedItem="{Binding selectedColor_Tag, Mode=TwoWay}"
-                             Width="200"/>
+                             Width="200" FontFamily="/Completist;component/Font/#Quicksand"/>
                     <TextBlock Text=""
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
@@ -396,7 +381,7 @@
                         BorderThickness="1"
                         Foreground="White"
                         Content="Add new"
-                        Command="{Binding AddNewTag_Command}">
+                        Command="{Binding AddNewTag_Command}" FontFamily="/Completist;component/Font/#Quicksand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
@@ -423,8 +408,8 @@
                         Width="100"
                         BorderThickness="1"
                         Foreground="White"
-                        Content="Edit"
-                        Command="{Binding EditTag_Command}">
+                        Content="Apply"
+                        Command="{Binding EditTag_Command}" FontFamily="/Completist;component/Font/#Quicksand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
@@ -452,7 +437,7 @@
                         BorderThickness="1"
                         Foreground="White"
                         Content="Remove"
-                        Command="{Binding RemoveTag_Command}">
+                        Command="{Binding RemoveTag_Command}" FontFamily="/Completist;component/Font/#Quicksand">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="bdr_main" CornerRadius="0" BorderThickness="1" BorderBrush="White" Background="Transparent">
@@ -467,6 +452,9 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Label Content="Appearance" Foreground="#FFEAE6E5" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" FontSize="20" Margin="20,20,351,326" />
         </Grid>
     </Grid>
 </Window>

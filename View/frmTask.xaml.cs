@@ -26,7 +26,6 @@ namespace Completist.View
         {
             InitializeComponent();
             this.taskToEdit = taskToEdit;
-            //forwards selected task to the ViewModel. Note: there is most def a better way of doing this but it breaks. idk?
             vm = new frmTaskVM(taskToEdit);
             this.DataContext = vm;
         }

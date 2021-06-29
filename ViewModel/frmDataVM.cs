@@ -286,9 +286,8 @@ namespace Completist.ViewModel
             myTag.Name = selectedTagName;
             myTag.Color = selectedColor_Tag.Color;
             myTag.Status = selectedStatus_Tag == "Active" ? myTag.Status = 0 : myTag.Status = 1;
-
             bool result = con.createTag(myTag);
-            if (!result) { MessageBox.Show("Error!"); return; }
+            if (!result) { MessageBox.Show("Tag Name Already Exists!"); return; }
             listOfTags = con.returnAllTags("");
         }
 
@@ -300,7 +299,7 @@ namespace Completist.ViewModel
             myPriority.Status = selectedStatus == "Active" ? myPriority.Status = 0 : myPriority.Status = 1;
 
             bool result = con.createPriority(myPriority);
-            if (!result) { MessageBox.Show("Error!"); return; }
+            if (!result) { MessageBox.Show("Priority Name Already Exists!"); return; }
             listOfPriorities = con.returnAllPriorities("");
         }
 

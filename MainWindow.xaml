@@ -9,7 +9,7 @@
         MouseDown="Window_MouseDown"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
-        Title="Completist - Home" Height="720" Width="1000">
+        Title="Completist - Home" Height="720" Width="1200" MinWidth="1200" MinHeight="720">
     <!--Mousedown & First Grid-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -232,14 +232,15 @@
                              BorderThickness="0"
                              VerticalAlignment="Top"
                              HorizontalAlignment="Left"
-                             Margin="10"
-                             ToolTip="Task name"
+                             Margin="0,10,10,0"
+                             ToolTip="{Binding Name}"
                              VerticalContentAlignment="Center"
                                                               Style="{StaticResource MyCustomFont}"
                              HorizontalContentAlignment="Center"
                              Text="{Binding Name, Mode=TwoWay}"
                              x:Name="txtName"
-                             Grid.Row="0" FontFamily="/Completist;component/Font/#Quicksand"/>
+                             Grid.Row="0" FontFamily="/Completist;component/Font/#Quicksand" MaxWidth="550" ScrollViewer.CanContentScroll="False">
+                        </TextBox>
                         <TextBox Background="Transparent"
                              IsReadOnly="True"
                              x:Name="txtContent"
@@ -261,7 +262,7 @@
                              Text="{Binding Content}"
                              Grid.Row="0"
                              Grid.RowSpan="2"
-                             MinWidth="500" FontFamily="/Completist;component/Font/#Quicksand"/>
+                             MinWidth="500" FontFamily="/Completist;component/Font/#Quicksand" MaxLines="4" MaxWidth="600"/>
                         <TextBox Background="{Binding Priority.Color}"
                              IsReadOnly="True"
                              Foreground="White"
@@ -773,11 +774,11 @@
                       x:Name="lstP"
                       ToolTip="Search by Priority"
                       SelectedItem="{Binding selectedPriority_Search, Mode=TwoWay}"
-                      Margin="10,20" SelectionMode="Single"
+                      Margin="10,-46,132,20" SelectionMode="Single"
                       HorizontalContentAlignment="Left"                      
                       BorderThickness="0" ItemTemplate="{StaticResource dtMyPrioritiesX}"
                       Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                       HorizontalAlignment="Stretch" Grid.Column="1">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
@@ -788,7 +789,7 @@
                         <Style TargetType="{x:Type ListViewItem}">
                             <Style.Triggers>
                                 <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                    <Setter Property="IsSelected" Value="False"/>
+                                    <Setter Property="IsSelected" Value="True"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -917,7 +918,7 @@
                     Margin="20,40"
                     Panel.ZIndex="9999">
                     <Button.Content>
-                        <Image VerticalAlignment="Bottom"
+                        <Image VerticalAlignment="Bottom" Visibility="Collapsed"
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="60" Width="60"

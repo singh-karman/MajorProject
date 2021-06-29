@@ -128,11 +128,11 @@ namespace Completist.ViewModel
                 return;
             }
 
-            if (myTask.Priority == null || String.IsNullOrEmpty(myTask.Priority.Name)) 
-            {
-                MessageBox.Show("Task must have a priority level");
-                return;
-            }
+            //if (myTask.Priority == null || String.IsNullOrEmpty(myTask.Priority.Name)) 
+            //{
+            //    MessageBox.Show("Task must have a priority level");
+            //    return;
+            //}
 
             if (myTask.Due == null)
             {
@@ -177,10 +177,15 @@ namespace Completist.ViewModel
             try
             {
                 string result = "";
-                foreach (Model.Tag item in selectedTagList)
+                if (selectedTagList != null)
                 {
+                    foreach (Model.Tag item in selectedTagList)
+                    {
                     result += item.Name + ";";
+                    }
+
                 }
+                
 
                 return result;
             }

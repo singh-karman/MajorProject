@@ -55,6 +55,9 @@
                       Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                       HorizontalAlignment="Stretch" Grid.Row="0">
+            <ListView.Effect>
+                <DropShadowEffect RenderingBias="Quality" BlurRadius="25" Opacity="0.7" Direction="310"/>
+            </ListView.Effect>
         </ListView>
 
         <Button Background="Transparent"

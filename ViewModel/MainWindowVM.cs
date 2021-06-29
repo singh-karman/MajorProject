@@ -393,7 +393,6 @@ namespace Completist.ViewModel
 
             selectedPriority_Search = new Priority();
             selectedTag_Search = new Tag();
-
             #region Command to methods
             Loaded_Command = new RelayCommand(Loaded_Method);
             NewTask_Command = new RelayCommand(NewTask_Method);
@@ -430,7 +429,7 @@ namespace Completist.ViewModel
             //building the connection, the necessary condition for filter, afterwhich, we call controller and the DB
             string condition = " where STS=0 and name like '%" + filterText + "%'";
 
-            if (selectedTag_Search != null) 
+            if (selectedTag_Search != null)
             {
                 condition += " AND TAGLIST LIKE '%" + selectedTag_Search.Name + "%'";
             }
@@ -581,17 +580,22 @@ namespace Completist.ViewModel
             window.ShowDialog();
         }
 
-        private void CompleteTask_Method()
+        private void CompleteTask_Method() //needs to be refactored - status unchanged prior commit 
         {
-            if (selectedTask == null)
-            {
-                MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
-                return;
-            }
+            //if (selectedTask == null)
+            //{
+            //    MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
+            //    return;
+            //}
+            con.handleTask(selectedTask, "COMPLETE", selectedTask.Name);
+            myContent = con.returnAllTasks("where STS=0");
+            title = "Inbox";
+            con.CounterIncrement();
+            refreshCount();
 
-            if (MessageBox.Show("Complete task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
+            //if (MessageBox.Show("Complete task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
 
-            if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; con.CounterIncrement(); refreshCount(); /*count = count + 1; complete = count.ToString();*/ }
+            //if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; con.CounterIncrement(); refreshCount(); /*count = count + 1; complete = count.ToString();*/ }
         }
         bool undoRequested = false;
         Model.Task taskDelete;
@@ -604,6 +608,7 @@ namespace Completist.ViewModel
             myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
 
             undoBannerVisibility = "Visible";
+            undoCountdown = 5;
             DelayMethod();
             //UndoPeriod(taskDelete, strTaskDelete);
             //System.Threading.Tasks.Task.Delay(5000);
@@ -626,7 +631,6 @@ namespace Completist.ViewModel
         }
         public async void DelayMethod()
         {
-            undoCountdown = 5;
             for (int i = 0; i < 6; i++)
             {
                 await System.Threading.Tasks.Task.Delay(1000);
