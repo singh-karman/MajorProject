@@ -18,8 +18,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#FF121212" >
+            <Label Content="{Binding CalendarIndicator, FallbackValue='Your Events'}" FontFamily="/Completist;component/Font/#Quicksand" FontSize="18" Margin="0,5.95,387,4.05" Foreground="White" FontWeight="Bold" />
             <StackPanel Margin="0,0,0,0.667" Width="323.333" HorizontalAlignment="Right">
-                <Button x:Name="CallGraphButton" Command="{Binding AccountAuthorisation_Command}" Content="Connect to Microsoft Calendar" HorizontalAlignment="Right" Padding="5"  Margin="0,10,10,0" FontFamily="Segoe Ui"/>
+                <Button x:Name="CallGraphButton" Command="{Binding AccountAuthorisation_Command}" Content="Connect to Microsoft Calendar" HorizontalAlignment="Right" Padding="5" Visibility="{Binding ConnectionVisibility}" Margin="0,10,10,0" FontFamily="Segoe Ui"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Background="#FF232323">

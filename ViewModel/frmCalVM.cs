@@ -13,7 +13,7 @@ namespace Completist.ViewModel
 {
     class frmCalVM : INotifyPropertyChanged
     {
-        string graphAPIEndpoint = "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=" + $"{DateTime.UtcNow:O}&enddatetime=" + $"{DateTime.UtcNow.AddDays(7):O}";
+        string graphAPIEndpoint = "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=" + $"{DateTime.UtcNow:O}&enddatetime=" + $"{DateTime.UtcNow.AddDays(1):O}";
         string[] scopes = new string[] { "calendars.read" };
         string textAPIResult;
         //dynamic jsonAPIResult;
@@ -66,7 +66,8 @@ namespace Completist.ViewModel
             int eventCount = 15;
             if (childCount == 0)
             {
-                //add XAML change
+                CalendarIndicator = "You have no events today - have a break!";
+                ConnectionVisibility = "Collapsed";
             }
             else
             {
@@ -120,6 +121,19 @@ namespace Completist.ViewModel
             
             //Model.GCalendarModel eventList = new Model.GCalendarModel { EventName = $"{events[0].Name}" };\
         }
+        public string connectionVisibility = "Visible";
+        public string ConnectionVisibility
+        {
+            get
+            {
+                return connectionVisibility;
+            }
+            set
+            {
+                connectionVisibility = value;
+                NotifyPropertyChanged("ConnectionVisibility");
+            }
+        }
         ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
         //I'm a freakin idgiot - relational patterns are not available in the version of C# I started in. I'm not going to change it now to a later version in case of compatibility issues. please don't take marks off for this region - switch conditions not viable
         public string dayTimeDifference(DateTime eventTime)
@@ -152,6 +166,19 @@ namespace Completist.ViewModel
             //        break;
             //}
             //return strDateDelta;
+        }
+        public string calendarIndicator = "Your Events";
+        public string CalendarIndicator
+        {
+            get
+            {
+                return calendarIndicator;
+            }
+            set
+            {
+                calendarIndicator = value;
+                NotifyPropertyChanged("CalendarIndicator");
+            }
         }
         public ObservableCollection<Model.GCalendarModel> eventAppend(/*string tempVariable, Model.GCalendarModel */ string strEventName, string strEventTime, string eventDayDelta)
         {
