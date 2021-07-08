@@ -113,7 +113,7 @@
                              IsEditable="True"
                              ItemsSource="{Binding listOfStatuses, UpdateSourceTrigger=PropertyChanged}"
                              SelectedItem="{Binding selectedStatus, Mode=TwoWay}"
-                             Width="200" FontFamily="/Completist;component/Font/#Quicksand"/>
+                             Width="200" FontFamily="/Completist;component/Font/#Quicksand" SelectedIndex="0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <TextBlock Text="Colour:"
@@ -135,7 +135,7 @@
                              ItemsSource="{Binding listOfColors, UpdateSourceTrigger=PropertyChanged}"
                              Text="{Binding selectedColor.Name}"
                              SelectedItem="{Binding selectedColor, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                             Width="200" FontFamily="/Completist;component/Font/#Quicksand"/>
+                             Width="200" FontFamily="/Completist;component/Font/#Quicksand" SelectedIndex="0"/>
                     <TextBlock Text=""
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
@@ -323,6 +323,7 @@
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Height="20"
+                             SelectedIndex="0"
                              Background="Transparent"
                              Foreground="Black"
                              IsEditable="True"
@@ -350,7 +351,7 @@
                              ItemsSource="{Binding listOfColors, UpdateSourceTrigger=PropertyChanged}"
                              Text="{Binding selectedColor_Tag.Name}"
                              SelectedItem="{Binding selectedColor_Tag, Mode=TwoWay}"
-                             Width="200" FontFamily="/Completist;component/Font/#Quicksand"/>
+                             Width="200" FontFamily="/Completist;component/Font/#Quicksand" SelectedIndex="0"/>
                     <TextBlock Text=""
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"

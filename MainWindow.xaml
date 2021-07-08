@@ -9,7 +9,7 @@
         MouseDown="Window_MouseDown"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
-        Title="Completist - Home" Height="720" Width="1200" MinWidth="1200" MinHeight="720">
+        Title="Completist - Home" Height="720" Width="1200" MinWidth="1200" MinHeight="720" Icon="Logo-removebg-preview.png" >
     <!--Mousedown & First Grid-->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -215,7 +215,6 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -232,7 +231,7 @@
                              BorderThickness="0"
                              VerticalAlignment="Top"
                              HorizontalAlignment="Left"
-                             Margin="0,10,10,0"
+                             Margin="10,10,10,0"
                              ToolTip="{Binding Name}"
                              VerticalContentAlignment="Center"
                                                               Style="{StaticResource MyCustomFont}"
@@ -256,7 +255,7 @@
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              Margin="10"
-                             ToolTip="Task content"
+                             ToolTip="{Binding Content}"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Center"
                              Text="{Binding Content}"
@@ -404,8 +403,8 @@
                     <!--<Setter TargetName="brd" Property="Border.Height" Value="250"/>-->
                     <Setter TargetName="completebtn" Property="Visibility" Value="Visible"/>
                     <Setter TargetName="txtContent" Property="TextBox.Visibility" Value="Visible"/>
-                    <Setter TargetName="txtContent" Property="TextBox.IsReadOnly" Value="False"/>
-                    <Setter TargetName="txtName" Property="TextBox.IsReadOnly" Value="False"/>
+                    <Setter TargetName="txtContent" Property="TextBox.IsReadOnly" Value="True"/>
+                    <Setter TargetName="txtName" Property="TextBox.IsReadOnly" Value="True"/>
 
                 </DataTrigger>
                 <DataTrigger Binding="{Binding
@@ -450,7 +449,7 @@
                        FontSize="32"
                                                     Style="{StaticResource MyCustomFont}"
                        Foreground="White"
-                       FontWeight="Light"/>
+                       FontWeight="Light" FontFamily="/Completist;component/Font/#Quicksand"/>
             <!--<TextBlock Text="0"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
@@ -711,9 +710,8 @@
                          VerticalAlignment="Center"
                          HorizontalAlignment="Center"
                          VerticalContentAlignment="Center"
-                         HorizontalContentAlignment="Center"
                          Foreground="White"
-                         ToolTip="Serach Taks Name"
+                         ToolTip="Serach Tasks Name"
                          Background="Transparent"
                          BorderThickness="0,0,0,1"
                          Margin="20,0"
@@ -721,7 +719,7 @@
                          FontWeight="DemiBold"
                          Height="40"
                          Width="400"
-                         FontSize="14" SelectionBrush="{x:Null}">
+                         FontSize="22" SelectionBrush="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding SearchTaskText_Command}"/>
@@ -802,7 +800,7 @@
                 </ListView>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Background="#FF232323">
+        <Grid Grid.Row="2" Background="#FF232323" ScrollViewer.CanContentScroll="True" >
             <!--<Grid x:Name="undoBanner" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,25" Panel.ZIndex="40">
                 <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="225" MinHeight="65" Margin="0,-2,0,0" RadiusX="30" RadiusY="80" Fill="#FF121212"/>
                 <Label Content="Undo" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Margin="30,0,0,5"/>
@@ -873,7 +871,6 @@
                       BorderThickness="0" ItemTemplate="{StaticResource dtMyContent}"
                       SelectedItem="{Binding selectedTask, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                       HorizontalAlignment="Stretch" Grid.Row="3">
                 <ListView.Effect>
                     <DropShadowEffect RenderingBias="Quality" BlurRadius="15" Opacity="1" Direction="310"/>
@@ -948,7 +945,7 @@
                     Background="Transparent"
                     Command="{Binding NewTask_Command}"
                     Visibility="{Binding visibleNew}"
-                    Margin="20,40"
+                    Margin="40,40"
                     Panel.ZIndex="9999">
                     <Button.Content>
                         <Image VerticalAlignment="Bottom"

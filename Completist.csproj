@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Identity.Client, Version=4.29.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Identity.Client.4.29.0\lib\net45\Microsoft.Identity.Client.dll</HintPath>
@@ -76,6 +79,7 @@
     <Compile Include="Model\AllColors.cs" />
     <Compile Include="Model\GCalendarModel.cs" />
     <Compile Include="Model\ShareExchange.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SystemVars.cs" />
     <Compile Include="ViewModel\frmCalVM.cs" />
     <Compile Include="ViewModel\frmDataVM.cs" />
@@ -241,6 +245,7 @@
     <Resource Include="Search.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Logo-removebg-preview.png" />
     <Content Include="Resources\Undo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

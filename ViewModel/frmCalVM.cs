@@ -48,10 +48,6 @@ namespace Completist.ViewModel
             }
 
         }
-        public class Events
-        {
-            public string Name { get; set; }
-        }
         public void InitiateEventLoad_Method()
         {
             //listofCalEvents = jsonAPIResult;

@@ -79,7 +79,7 @@ namespace Completist.ViewModel
                 myTask.Due = DateTime.Now;
                 myTask.StrDue = DateTime.Today.ToShortDateString();
                 myTask.StrTag = ";";
-                myTask.Priority = new Model.Priority();
+                myTask.Priority = new Priority();
                 myTask.Priority.Name = "Priority";
             }
             else 
@@ -174,16 +174,31 @@ namespace Completist.ViewModel
 
         private string createArray(ObservableCollection<Tag> selectedTagList)
         {
+            //int i = 0;
+            //var tagCount = selectedTagList.Count();
             try
             {
                 string result = "";
                 if (selectedTagList != null)
                 {
-                    foreach (Model.Tag item in selectedTagList)
+                    foreach (Tag item in selectedTagList)
                     {
-                    result += item.Name + ";";
+                        //if (i++ == tagCount - 1)
+                        //{
+                        //    result += item.Name;
+                        //}
+                        //else
+                        //{
+                        //    result += item.Name + "; ";
+                        //}
+                        result += item.Name + ";";
+
                     }
 
+                }
+                else
+                {
+                    result = myTask.StrTag;
                 }
                 
 
@@ -233,6 +248,10 @@ namespace Completist.ViewModel
             else if (myTask.Due == DateTime.Today.AddDays(2))
             {
                 myTask.StrDue = "Day after tomorrow";
+            }
+            else if (myTask.Due == DateTime.Today.AddDays(7))
+            {
+                myTask.StrDue = "Next Week";
             }
             SystemVars.FrmDateWindow = null;
         }

@@ -212,7 +212,6 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Right"

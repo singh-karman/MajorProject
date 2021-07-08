@@ -521,6 +521,10 @@ namespace Completist.ViewModel
                     //string sharePrice = JSONSeralised["quoteResponse"].ToString()["value"][0]["regularMarketPrice"];   //["value"][0]["regularMarketPrice"];
                     var detailsJSON = JObject.Parse(body);
                     var conditionFinanceJSON = detailsJSON["quoteResponse"]["result"][0];
+                    //if (true)
+                    //{
+
+                    //}
                     x.SharePrice = double.Parse(conditionFinanceJSON["regularMarketPrice"].ToString());
                     double shareDelta = double.Parse(conditionFinanceJSON["regularMarketChange"].ToString());
                     if (shareDelta >= 0)
@@ -536,7 +540,7 @@ namespace Completist.ViewModel
                 {
                     string message = ex.Message;
                 }
-                
+
             }
         }
         private void ChangePriority_Method()

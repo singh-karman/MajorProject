@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Completist.ViewModel
 {
-    public class frmDataVM : INotifyPropertyChanged //setting up the class to inform the client on property change
+    public class frmDataVM : INotifyPropertyChanged //Property change interface to update XAML render
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String info)
@@ -21,7 +21,7 @@ namespace Completist.ViewModel
         }
 
         public RelayCommand Loaded_Command { get; private set; } //when event loads
-        public RelayCommand Priorities_SelectionChanged_Command { get; private set; } //relay command enforced when the priority is changed
+        public RelayCommand Priorities_SelectionChanged_Command { get; private set; } //relay command for when a different priority is selected from the listview items
         public RelayCommand Tags_SelectionChanged_Command { get; private set; } //relay command enforced when a change in tag selection is witnessed
         public RelayCommand AddNew_Command { get; private set; } //relay command to add a new priority, initiated through the 'editing' window
         public RelayCommand AddNewTag_Command { get; private set; } //relay command to add a new tag, initiated through the 'editing' window
@@ -283,12 +283,20 @@ namespace Completist.ViewModel
         private void AddNewTag()
         {
             Model.Tag myTag = new Model.Tag();
-            myTag.Name = selectedTagName;
-            myTag.Color = selectedColor_Tag.Color;
-            myTag.Status = selectedStatus_Tag == "Active" ? myTag.Status = 0 : myTag.Status = 1;
-            bool result = con.createTag(myTag);
-            if (!result) { MessageBox.Show("Tag Name Already Exists!"); return; }
-            listOfTags = con.returnAllTags("");
+            if (!String.IsNullOrWhiteSpace(selectedTagName))
+            {
+                myTag.Name = selectedTagName;
+                myTag.Color = selectedColor_Tag.Color;
+                myTag.Status = selectedStatus_Tag == "Active" ? myTag.Status = 0 : myTag.Status = 1;
+
+                bool result = con.createTag(myTag);
+                if (!result) { MessageBox.Show("Tag Name Already Exists!"); return; }
+                listOfTags = con.returnAllTags("");
+            }
+            else
+            {
+                MessageBox.Show("Tag needs to have a name");
+            }
         }
 
         private void AddNew()
@@ -326,7 +334,6 @@ namespace Completist.ViewModel
                 listOfStatuses.Add(s1);
                 listOfStatuses.Add(s2);
 
-                //code I still need to fix. I am trying to find a way to remedy this.
                 selectedPriority = new Model.Priority(); //when the priority window is called upon, a new instance is initiated, previously selected priority is wiped
                 selectedTag = new Model.Tag(); //when the tag window is called upon, a new instance is initiated, previously selected tag(s) is wiped
                 selectedColor = new Model.AllColors();
