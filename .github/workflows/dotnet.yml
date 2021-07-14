@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ partial ]
+    branches: [ main ]
   pull_request:
-    branches: [ partial ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 4.6.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
