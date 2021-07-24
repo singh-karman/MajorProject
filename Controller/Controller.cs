@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Completist.Broker;
 
-namespace Completist.Controller
+namespace Completist.Controller //CONTROLLER - 
 {
-    //acts as a 'mediator' between DBbroker allowing to connect to the database on a local/hard disk connection
+    //acts as a 'mediator' between DBbroker allowing to connect to the database on a local/hard disk connection 
     public class Controller
     {
         //same logic for all methods within this class
@@ -23,12 +23,12 @@ namespace Completist.Controller
             }
             catch (Exception)
             {
-                return null; //if an error is encountered, it will return nothing- null. However, once everthing else is finished, I might get it to return a new list 
+                return null; //if an error is encountered, it will return nothing- null. However, once everthing else is finished, I might get it to return a new list for a new user 
             }
             finally { DBBroker.openSession().closeConnection(); } //DO NOT DELETE. Crucial when interacting with DB that we close the connection otherwise the app will begin to hang. 
         }
 
-        //copy past above comments but adjusting for different models and their respective objects
+        //copy past above comments but adjusting for different methods 
         public int TaskCounter()
         {
             DBBroker.openSession().openConnection();
@@ -54,6 +54,33 @@ namespace Completist.Controller
             catch (Exception)
             {
                 return 1;
+            }
+            finally { DBBroker.openSession().closeConnection(); }
+        }
+        public int CounterReset()
+        {
+            DBBroker.openSession().openConnection();
+            try
+            {
+                int completedTasks = DBBroker.openSession().CounterReset();
+                return completedTasks;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+            finally { DBBroker.openSession().closeConnection(); }
+        }
+        public void TutorialReset()
+        {
+            DBBroker.openSession().openConnection();
+            try
+            {
+                DBBroker.openSession().TutorialReset();
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
             }
             finally { DBBroker.openSession().closeConnection(); }
         }

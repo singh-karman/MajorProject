@@ -8,13 +8,13 @@
         mc:Ignorable="d"
         Topmost="True"
         WindowStartupLocation="CenterScreen"
-        Title="Completist - Data entry" Height="627" Width="1000" Background="#FF201F20">
+        Title="Completist - Data entry" Height="627" Width="1000" Background="#FF201F20" MinWidth="1000" MinHeight="500">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Loaded_Command}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid Background="#201f20">
+    <Grid Background="#201f20" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -40,16 +40,16 @@
                        FontWeight="DemiBold"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Margin="20,5"
+                       Margin="20,4,0,0"
                        TextAlignment="Center"
-                       TextDecorations="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand"/>
+                       TextDecorations="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand" Height="26"/>
 
             <DataGrid Grid.Row="1" x:Name="gdP" 
                   ItemsSource="{Binding listOfPriorities, UpdateSourceTrigger=PropertyChanged}"     
                   CanUserAddRows="False" CanUserDeleteRows="False" 
                   SelectedItem="{Binding selectedPriority, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   Margin="5" AutoGenerateColumns="False"
-                  Background="Transparent"
+                  Background="Transparent" Panel.ZIndex="70"
                   ToolTip="Existing Priorities"
                   VirtualizingStackPanel.VirtualizationMode="Recycling" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" BorderBrush="{x:Null}">
                 <i:Interaction.Triggers>
@@ -258,9 +258,9 @@
                        FontWeight="DemiBold"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Margin="20,5"
+                       Margin="20,4,0,0"
                        TextAlignment="Center"
-                       TextDecorations="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand"/>
+                       TextDecorations="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand" Height="26"/>
 
             <DataGrid Grid.Row="1" x:Name="gdT" 
                   ItemsSource="{Binding listOfTags, UpdateSourceTrigger=PropertyChanged}"     
@@ -454,8 +454,23 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
-            <Label Content="Appearance" Foreground="#FFEAE6E5" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" FontSize="20" Margin="20,20,351,326" />
+        <Grid Grid.Row="4">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Background="Transparent"
+                       Foreground="White"
+                       Text="Settings"
+                       FontSize="22"
+                       FontWeight="DemiBold"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       Margin="20,5"
+                       TextAlignment="Center"
+                       TextDecorations="{x:Null}" FontFamily="/Completist;component/Font/#Quicksand"/>
+                <Button Content="Reset Task Completed Counter" Command="{Binding CounterReset_Command}" Height="0" MinWidth="200" MinHeight="35" HorizontalAlignment="Left" Margin="20,10,0,0" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" />
+                <TextBlock Text="Productivity score will reset upon reopening Completist" Foreground="#FFD9D1C4"  FontFamily="/Completist;component/Font/#Quicksand" TextWrapping="WrapWithOverflow" Margin="20,10,0,0" FontWeight="Medium" FontSize="16"/>
+                <Button Content="Reset Tutorial Tasks" Command="{Binding TutorialReset_Command}" Height="0"  MinHeight="35" HorizontalAlignment="Left" Margin="20,20,0,0" FontFamily="/Completist;component/Font/#Quicksand" FontWeight="Bold" Padding="10" />
+                <TextBlock Text="Tutorial tasks will reset upon reopening Completist" Foreground="#FFD9D1C4"  FontFamily="/Completist;component/Font/#Quicksand" TextWrapping="WrapWithOverflow" Margin="20,10,0,0" FontWeight="Medium" FontSize="16"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

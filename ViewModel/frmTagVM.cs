@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Completist.ViewModel
 {
+    //this is the ViewModel for the tag class
+    //contributes soley to populate observable collection of tags so that it can be accessed by other ViewModels
     public class frmTagVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -68,7 +70,7 @@ namespace Completist.ViewModel
 
         private void Loaded_Method()
         {
-            listOfTags = con.returnAllTags(" where sts=0");
+            listOfTags = con.returnAllTags(" where sts=0"); //override listOfTags by returned observable collection of tags retrieved from DB
         }
     }
 }

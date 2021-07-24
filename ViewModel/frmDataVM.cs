@@ -26,6 +26,8 @@ namespace Completist.ViewModel
         public RelayCommand AddNew_Command { get; private set; } //relay command to add a new priority, initiated through the 'editing' window
         public RelayCommand AddNewTag_Command { get; private set; } //relay command to add a new tag, initiated through the 'editing' window
         public RelayCommand Edit_Command { get; private set; } //relay command to edit an existing priority, initiated through the 'editing' window
+        public RelayCommand CounterReset_Command { get; private set; } //relay command to reset productivity counter
+        public RelayCommand TutorialReset_Command { get; private set; } //relay command to reset productivity counter
         public RelayCommand EditTag_Command { get; private set; } //relay command to edit an existing priority, initiated through the 'editing' window
         public RelayCommand Remove_Command { get; private set; } //relay command to delete an existing priority, initiated through the 'editing' window
         public RelayCommand RemoveTag_Command { get; private set; } //relay command to delete an existing tag, initiated through the 'editing' window
@@ -197,23 +199,26 @@ namespace Completist.ViewModel
         
         
         Controller.Controller con; //actually important - initialises controller class for DB communication 
+        //MainWindowVM mainVM;
         //We can make this read-only
 
         public frmDataVM()
         {
              
             con = new Controller.Controller();
-            
+
             //Simplifing commands for later - making my code 'atomic' and efficient 
             Loaded_Command = new RelayCommand(Loaded_Method);
             Priorities_SelectionChanged_Command = new RelayCommand(Priorities_SelectionChanged);
             Tags_SelectionChanged_Command = new RelayCommand(Tags_SelectionChanged);
 
-            //Pretty self explanatory how/what the commands are assigned as
+            //Allows for button events/view events to call methods in ViewModel - allows for their separation
             AddNew_Command = new RelayCommand(AddNew);
             AddNewTag_Command = new RelayCommand(AddNewTag);
             Edit_Command = new RelayCommand(Edit);
             EditTag_Command = new RelayCommand(EditTag);
+            CounterReset_Command = new RelayCommand(CounterReset);
+            TutorialReset_Command = new RelayCommand(TutorialReset);
             Remove_Command = new RelayCommand(Remove);
             RemoveTag_Command = new RelayCommand(RemoveTag);
     }
@@ -244,18 +249,30 @@ namespace Completist.ViewModel
             listOfPriorities = con.returnAllPriorities("");
         }
 
-        private void EditTag()
+        private void CounterReset() //resets productivity counter upon reopening the software as the MainWindowVM has method refresh
+        {
+            //mainVM = new MainWindowVM();
+            con.CounterReset();
+            //mainVM.RefreshCount();
+        }
+        private void TutorialReset() //resets tutorial tasks by resetting status of tasks with index 1-5 to 0
+        {
+            //mainVM = new MainWindowVM();
+            con.TutorialReset(); //method in broker via controller interface
+            //mainVM.Refresh();
+        }
+        private void EditTag() //overrides the values of object properties
         {
             if (selectedTag == null || String.IsNullOrEmpty(selectedTag.Name))
             {
                 MessageBox.Show("You need to select a tag to change!");
                 return;
             }
-
+            //overrides the values of object properties
             Model.Tag myTag = new Model.Tag();
-            myTag.Name = selectedTagName;
+            myTag.Name = selectedTagName; //used for XAML binding -> field population
             myTag.Color = selectedColor_Tag.Color;
-            myTag.Status = selectedStatus_Tag == "Active" ? myTag.Status = 0 : myTag.Status = 1;
+            myTag.Status = selectedStatus_Tag == "Active" ? myTag.Status = 0 : myTag.Status = 1; //truncated if statement
 
             bool result = con.editTag(myTag);
             if (!result) { MessageBox.Show("Error!"); return; }
@@ -269,7 +286,7 @@ namespace Completist.ViewModel
                 MessageBox.Show("You need to select a priority to change!");
                 return;
             }
-
+            //overrides the values of object properties for priority
             Model.Priority myPriority = new Model.Priority();
             myPriority.Name = selectedPriorityName;
             myPriority.Color = selectedColor.Color;
@@ -279,15 +296,15 @@ namespace Completist.ViewModel
             if (!result) { MessageBox.Show("Error!"); return; }
             listOfPriorities = con.returnAllPriorities("");
         }
-
-        private void AddNewTag()
+        //creates a new tag object and adds a it to the SQLite DB through passing parameters to method in broker
+        private void AddNewTag() //when user wants to add nw tag through settings pane
         {
             Model.Tag myTag = new Model.Tag();
             if (!String.IsNullOrWhiteSpace(selectedTagName))
             {
                 myTag.Name = selectedTagName;
                 myTag.Color = selectedColor_Tag.Color;
-                myTag.Status = selectedStatus_Tag == "Active" ? myTag.Status = 0 : myTag.Status = 1;
+                myTag.Status = selectedStatus_Tag == "Active" ? myTag.Status = 0 : myTag.Status = 1; //truncated if statement
 
                 bool result = con.createTag(myTag);
                 if (!result) { MessageBox.Show("Tag Name Already Exists!"); return; }
@@ -298,7 +315,7 @@ namespace Completist.ViewModel
                 MessageBox.Show("Tag needs to have a name");
             }
         }
-
+        //creates a new priority object and adds a it to the SQLite DB through passing parameters to method in broker
         private void AddNew()
         {
             Model.Priority myPriority = new Model.Priority();
@@ -311,7 +328,7 @@ namespace Completist.ViewModel
             listOfPriorities = con.returnAllPriorities("");
         }
 
-        private void Loaded_Method()
+        private void Loaded_Method() //interaction trigger calls this method using relay commands when view has loaded
         {
             start_Ini();
         }
@@ -320,14 +337,14 @@ namespace Completist.ViewModel
         {
             await System.Threading.Tasks.Task.Run(() => start());//queues work on thread pool
         }
-
+        //initialisation 
         private void start()
         {
             try
             {
-                listOfPriorities = con.returnAllPriorities("");
-                listOfTags = con.returnAllTags("");
-                listOfColors = con.returnColors();
+                listOfPriorities = con.returnAllPriorities(""); //calling methods in broker through controller interface
+                listOfTags = con.returnAllTags(""); //calling methods in broker through controller interface
+                listOfColors = con.returnColors();//calling methods in broker through controller interface
                 listOfStatuses = new ObservableCollection<string>();
                 string s1 = "Active";//string for option
                 string s2 = "Inactive"; //string for second option if the user wants to disable the tag/priority

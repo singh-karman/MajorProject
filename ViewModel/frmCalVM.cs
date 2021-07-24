@@ -17,7 +17,7 @@ namespace Completist.ViewModel
         string[] scopes = new string[] { "calendars.read" };
         string textAPIResult;
         //dynamic jsonAPIResult;
-        dynamic JSONSeralised;
+        dynamic JSONSeralised; //data type to be declared at runtime
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String info)
         {
@@ -50,16 +50,9 @@ namespace Completist.ViewModel
         }
         public void InitiateEventLoad_Method()
         {
-            //listofCalEvents = jsonAPIResult;
-            //jsonAPIResult = textAPIResult;
-            //JObject eventObject = JObject.Parse(jsonAPIResult);
-            //JArray eventArray = (JArray)eventObject["value"];
-
-            //IList<Events> events = eventArray.ToObject<IList<Events>>();
-            //string tempVariable = events[0].Name;
-            int childCount = JSONSeralised["value"].Count;
-            int countXAML = 0;
-            int eventCount = 15;
+            int childCount = JSONSeralised["value"].Count; //total number of events in the response from API
+            int countXAML = 0; //the number of events the loop has completed
+            int eventCount = 15; //max events that will be loaded
             if (childCount == 0)
             {
                 CalendarIndicator = "You have no events today - have a break!";
@@ -67,42 +60,6 @@ namespace Completist.ViewModel
             }
             else
             {
-                //while (countXAML < childCount && countXAML < eventCount)
-                //{
-                //    ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
-                //    Model.GCalendarModel requestedEvent = new Model.GCalendarModel();
-                //    string eventXAMLName = JSONSeralised["value"][countXAML]["subject"];
-                //    DateTime eventTime = JSONSeralised["value"][countXAML]["start"]["dateTime"];
-                //    string strEventTime = eventTime.ToString();
-                //    requestedEvent.EventName = eventXAMLName;
-                //    requestedEvent.EventTime = strEventTime;
-                //    countXAML++;
-                //    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventList);
-                //}
-
-
-                //while (countXAML < childCount && countXAML < eventCount)
-                //{
-                //    //Model.GCalendarModel reqEvent = new Model.GCalendarModel();
-                //    string varWatch = APIResult["value"][countXAML]["subject"];
-                //    DateTime eventTime = APIResult["value"][countXAML]["start"]["dateTime"];
-                //    string strEventTime = eventTime.ToShortDateString();
-                //    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventAppend(reqEvent, varWatch));
-                //    //DateCalEvent = new ObservableCollection<Model.GCalendarModel>(eventDateAppend(reqEvent, strEventTime));
-                //    countXAML++;
-                //}
-                //for (int i = 0; i < childCount && i < eventCount; i++) //children start at zero - as in the JSON header children. much like real life children 
-                //{
-                //    //Model.GCalendarModel reqEvent = new Model.GCalendarModel();
-                //    string varWatch = JSONSeralised["value"][i]["subject"];
-                //    DateTime eventTime = JSONSeralised["value"][i]["start"]["dateTime"];
-                //    string strEventTime = eventTime.ToShortDateString();
-                //    //eventAppend(/*tempVariable,*/ varWatch);
-                //    listofCalEvents = new ObservableCollection<Model.GCalendarModel>(eventAppend(varWatch, strEventTime));
-                //    //DateCalEvent = new ObservableCollection<Model.GCalendarModel>(eventDateAppend(reqEvent, strEventTime));
-                //    //listofCalEvents.Add(eventAppend(varWatch));
-
-                //}
                 while (countXAML < childCount && countXAML <= eventCount)
                 {
                     string strEventName = JSONSeralised["value"][countXAML]["subject"];
@@ -114,8 +71,6 @@ namespace Completist.ViewModel
                 }
             }
             
-            
-            //Model.GCalendarModel eventList = new Model.GCalendarModel { EventName = $"{events[0].Name}" };\
         }
         public string connectionVisibility = "Visible";
         public string ConnectionVisibility
@@ -131,8 +86,14 @@ namespace Completist.ViewModel
             }
         }
         ObservableCollection<Model.GCalendarModel> eventList = new ObservableCollection<Model.GCalendarModel>();
-        //I'm a freakin idgiot - relational patterns are not available in the version of C# I started in. I'm not going to change it now to a later version in case of compatibility issues. please don't take marks off for this region - switch conditions not viable
-        public string dayTimeDifference(DateTime eventTime)
+        //relational patterns are not available in the version of C# I started in. I'm not going to change it now to a later version in case of compatibility issues. please don't take marks off for this region - switch conditions not viable
+        
+        /// <summary>
+        /// called by InitiateEventLoad_Method()
+        /// </summary>
+        /// <param name="eventTime"></param>
+        /// <returns></returns>
+        public string dayTimeDifference(DateTime eventTime) //determines the status of the event
         {
             string strDateDelta;
             if (eventTime > DateTime.UtcNow)
@@ -141,7 +102,7 @@ namespace Completist.ViewModel
             }
             else if (DateTime.Today > eventTime)
             {
-                strDateDelta = "This is a multiday event, i.e. repeating more than a single day";
+                strDateDelta = "This is a multiday event, i.e. repeating more than a single day"; //depreciated
             }
             else
             {
@@ -149,19 +110,6 @@ namespace Completist.ViewModel
             }
             return strDateDelta;
 
-            //switch (DateTime.Today)  
-            //{
-            //    case > eventTime:
-            //        strDateDelta = "";
-            //        break;
-            //    case == eventTime:
-            //        strDateDelta = "";
-            //        break;
-            //    default:
-            //        strDateDelta = "";
-            //        break;
-            //}
-            //return strDateDelta;
         }
         public string calendarIndicator = "Your Events";
         public string CalendarIndicator
@@ -176,19 +124,21 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("CalendarIndicator");
             }
         }
-        public ObservableCollection<Model.GCalendarModel> eventAppend(/*string tempVariable, Model.GCalendarModel */ string strEventName, string strEventTime, string eventDayDelta)
+
+        /// <summary>
+        /// Changes the description
+        /// </summary>
+        /// <param name="strEventName"></param>
+        /// <param name="strEventTime"></param>
+        /// <param name="eventDayDelta"></param>
+        /// <returns></returns>
+        public ObservableCollection<Model.GCalendarModel> eventAppend(string strEventName, string strEventTime, string eventDayDelta)
         {
             Model.GCalendarModel reqEvent = new Model.GCalendarModel();
             reqEvent.EventName = $"{strEventName}: {strEventTime} - {eventDayDelta}";
             eventList.Add(reqEvent);
             return eventList;
         }
-        //public ObservableCollection<Model.GCalendarModel> eventDateAppend(Model.GCalendarModel reqEvent, string eventTime)
-        //{
-        //    reqEvent.EventTime = eventTime;
-        //    eventList.Add(reqEvent);
-        //    return eventList;
-        //}
         public void AccountAuthorisation_Method()
         {
             CallGraphButton_Click(new object(), new RoutedEventArgs());
@@ -198,17 +148,16 @@ namespace Completist.ViewModel
             SignOutButton_Click(new object(), new RoutedEventArgs());
         }
 
+        //The following code was heavily inspired by Microsoft Documentation
         public async void CallGraphButton_Click(object sender, RoutedEventArgs e)
         {
             AuthenticationResult authResult = null;
             var app = App.PublicClientApp;
-            //ResultText.Text = string.Empty;
-            //TokenInfoText.Text = string.Empty;
 
             var accounts = await app.GetAccountsAsync();
-            var firstAccount = accounts.FirstOrDefault();
+            var firstAccount = accounts.FirstOrDefault(); //windows default account or one that you've already tried to use to login to Completist Calendar
 
-            try
+            try //will attempt to acquire token silently and try to relogin the user without having to signin again using credentials
             {
                 authResult = await app.AcquireTokenSilent(scopes, firstAccount)
                     .ExecuteAsync();
@@ -219,33 +168,29 @@ namespace Completist.ViewModel
                 // This indicates you need to call AcquireTokenInteractive to acquire a token
                 System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
 
-                try
+                try //since acquiring a silent token has failed, a prompt will get you to login manually
                 {
                     authResult = await app.AcquireTokenInteractive(scopes)
                         .WithAccount(accounts.FirstOrDefault())
                         .WithPrompt(Prompt.SelectAccount)
                         .ExecuteAsync();
                 }
-                catch (MsalException msalex)
+                catch (MsalException)
                 {
-                    //ResultText.Text = $"Error Acquiring Token:{System.Environment.NewLine}{msalex}";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //ResultText.Text = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
                 return;
             }
 
-            if (authResult != null)
+            if (authResult != null) //if token has been acquired -> stored in authResult
             {
-                textAPIResult = await GetHttpContentWithToken(graphAPIEndpoint, authResult.AccessToken);
-                //ResultText.Text = textAPIResult;
+                textAPIResult = await GetHttpContentWithToken(graphAPIEndpoint, authResult.AccessToken); //call Get..Token(params) with new auth token
                 DisplayBasicTokenInfo(authResult);
-                //this.SignOutButton.Visibility = Visibility.Visible;
             }
         }
-        private async void SignOutButton_Click(object sender, RoutedEventArgs e)
+        private async void SignOutButton_Click(object sender, RoutedEventArgs e) //depreciated
         {
             var accounts = await App.PublicClientApp.GetAccountsAsync();
 
@@ -254,27 +199,32 @@ namespace Completist.ViewModel
                 try
                 {
                     await App.PublicClientApp.RemoveAsync(accounts.FirstOrDefault());
-                    //this.ResultText.Text = "User has signed-out";
-                    //this.CallGraphButton.Visibility = Visibility.Visible;
-                    //this.SignOutButton.Visibility = Visibility.Collapsed;
                 }
-                catch (MsalException ex)
+                catch (MsalException)
                 {
-                    //ResultText.Text = $"Error signing-out user: {ex.Message}";
+
                 }
             }
         }
+
+        /// <summary>
+        /// Gets a response from the Grapher API using the token and already initialised url
+        /// async to prevent hanging - improves UI
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task<string> GetHttpContentWithToken(string url, string token)
         {
             var httpClient = new System.Net.Http.HttpClient();
             System.Net.Http.HttpResponseMessage response;
             try
             {
-                var request = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url);
+                var request = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, url); //build request as a new Request message with parameters GET method and url
                 //Add the token in Authorization header
-                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                response = await httpClient.SendAsync(request);
-                var content = await response.Content.ReadAsStringAsync();
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token); //authenticate request using bearer authentication with token
+                response = await httpClient.SendAsync(request); //get response
+                var content = await response.Content.ReadAsStringAsync(); //Serialise response
                 return content;
             }
             catch (Exception ex)
@@ -284,63 +234,12 @@ namespace Completist.ViewModel
         }
         private void DisplayBasicTokenInfo(AuthenticationResult authResult)
         {
-            //TokenInfoText.Text = "";
             if (authResult != null)
             {
-                JSONSeralised = JsonConvert.DeserializeObject(textAPIResult);
-                InitiateEventLoad_Method();
-                //TokenInfoText.Text += $"Username: {authResult.Account.Username}" + Environment.NewLine;
-                //TokenInfoText.Text += $"Token Expires: {authResult.ExpiresOn.ToLocalTime()}" + Environment.NewLine;
-                //TokenInfoText.Text += jsonAPIResult;
+                JSONSeralised = JsonConvert.DeserializeObject(textAPIResult); //desealise response -> remove object refereces
+                InitiateEventLoad_Method(); //call method to interpret response
             }
         }
     }
 }
 
-//private async void CallGraphButton_Click(object sender, RoutedEventArgs e)
-//{
-//    AuthenticationResult authResult = null;
-//    var app = App.PublicClientApp;
-//    //ResultText.Text = string.Empty;
-//    //TokenInfoText.Text = string.Empty;
-
-//    var accounts = await app.GetAccountsAsync();
-//    var firstAccount = accounts.FirstOrDefault();
-
-//    try
-//    {
-//        authResult = await app.AcquireTokenSilent(scopes, firstAccount)
-//            .ExecuteAsync();
-//    }
-//    catch (MsalUiRequiredException ex)
-//    {
-//        // A MsalUiRequiredException happened on AcquireTokenSilent.
-//        // This indicates you need to call AcquireTokenInteractive to acquire a token
-//        System.Diagnostics.Debug.WriteLine($"MsalUiRequiredException: {ex.Message}");
-
-//        try
-//        {
-//            authResult = await app.AcquireTokenInteractive(scopes)
-//                .WithAccount(accounts.FirstOrDefault())
-//                .WithPrompt(Prompt.SelectAccount)
-//                .ExecuteAsync();
-//        }
-//        catch (MsalException msalex)
-//        {
-//            //ResultText.Text = $"Error Acquiring Token:{System.Environment.NewLine}{msalex}";
-//        }
-//    }
-//    catch (Exception ex)
-//    {
-//        //ResultText.Text = $"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}";
-//        return;
-//    }
-
-//    if (authResult != null)
-//    {
-//        textAPIResult = await GetHttpContentWithToken(graphAPIEndpoint, authResult.AccessToken);
-//        //ResultText.Text = textAPIResult;
-//        DisplayBasicTokenInfo(authResult);
-//        //this.SignOutButton.Visibility = Visibility.Visible;
-//    }
-//}

@@ -44,7 +44,7 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("myTask");
             }
         }
-
+        MainWindowVM mainVM;
         Controller.Controller con;
         string startingName;
         Model.Task taskToEdit;
@@ -100,7 +100,7 @@ namespace Completist.ViewModel
         {
             if (String.IsNullOrEmpty(myTask.Name)) { myTask.Name = "New Task Name"; }
         }
-
+        //clears name field
         private void ClearMe_Method()
         {
             if (myTask.Name == "New Task Name") { myTask.Name = ""; }
@@ -109,7 +109,7 @@ namespace Completist.ViewModel
         {
             if (String.IsNullOrEmpty(myTask.Content)) { myTask.Content = "Add Description"; }
         }
-
+        //ergonomics
         private void ClearMeContent_Method()
         {
             if (myTask.Content == "Add Description") { myTask.Content = ""; }
@@ -119,20 +119,22 @@ namespace Completist.ViewModel
         {
             SystemVars.FrmTaskWindow.Close();
         }
-
+        //when confirm is clicked
         private void SaveTask_Method()
         {
             if (myTask == null || String.IsNullOrEmpty(myTask.Name)) 
             {
-                MessageBox.Show("Task must have a name");
+                MessageBox.Show("Task must have a name"); //error message if task has no name
                 return;
             }
 
-            //if (myTask.Priority == null || String.IsNullOrEmpty(myTask.Priority.Name)) 
-            //{
-            //    MessageBox.Show("Task must have a priority level");
-            //    return;
-            //}
+            if (myTask.Priority == null || String.IsNullOrEmpty(myTask.Priority.Name) || myTask.Priority.Name == "Priority") //done this code if task does not have a priority
+            {
+                mainVM = new MainWindowVM();
+                myTask.Priority.Name = "Low Priority";
+                con.handleTask(myTask, "EDIT", myTask.TaskID.ToString());
+                mainVM.myContent = con.returnAllTasks("where STS=0");
+            }
 
             if (myTask.Due == null)
             {
@@ -150,7 +152,7 @@ namespace Completist.ViewModel
             }
             else 
             {
-                if (!con.handleTask(myTask, "EDIT", startingName)) 
+                if (!con.handleTask(myTask, "EDIT", myTask.TaskID.ToString())) 
                 {
                     MessageBox.Show("Error! Something has gone wrong during editing");
                     return;
@@ -171,7 +173,6 @@ namespace Completist.ViewModel
             myTask.StrTag = createArray(SystemVars.SelectedTagList);
             SystemVars.FrmTagWindow = null;
         }
-
         private string createArray(ObservableCollection<Tag> selectedTagList)
         {
             //int i = 0;
@@ -219,8 +220,11 @@ namespace Completist.ViewModel
             SystemVars.FrmPriorityWindow = window;
             window.ShowDialog();
 
-            myTask.Priority = SystemVars.SelectedPriority;
-            SystemVars.FrmPriorityWindow = null;
+            if (SystemVars.SelectedPriority != null)
+            {
+                myTask.Priority = SystemVars.SelectedPriority;
+                SystemVars.FrmPriorityWindow = null;
+            }
         }
 
         private void ChooseDate_Method()

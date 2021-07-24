@@ -97,12 +97,11 @@
                 </TextBox.Resources>
             </TextBox>
         </DataTemplate>
-
         <DataTemplate x:Key="dtMyContent">
             <Border BorderBrush="Transparent" BorderThickness="0"
                     CornerRadius="10" x:Name="brd"
                     VerticalAlignment="Stretch"
-                    Height="200" 
+                    Height="200"
                                                  Style="{StaticResource MyCustomFont}"
                     HorizontalAlignment="Stretch"
                     Background="#201f20">
@@ -248,20 +247,20 @@
                              FontSize="20"
                              TextWrapping="Wrap"
                                                               Style="{StaticResource MyCustomFont}"
-                             FontWeight="DemiBold"
+                             FontWeight="Medium"
                              SelectionBrush="LightGreen"
                              BorderBrush="White"
-                             BorderThickness="0,0,0,1"                                
+                             BorderThickness="0,0,0,0.5"                                
                              VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             Margin="10"
+                             HorizontalAlignment="Left"
+                             Margin="10, 50, 10, 0"
                              ToolTip="{Binding Content}"
                              VerticalContentAlignment="Center"
-                             HorizontalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
                              Text="{Binding Content}"
                              Grid.Row="0"
                              Grid.RowSpan="2"
-                             MinWidth="500" FontFamily="/Completist;component/Font/#Quicksand" MaxLines="4" MaxWidth="600"/>
+                             MinWidth="700" FontFamily="/Completist;component/Font/#Quicksand" MaxLines="2" MaxWidth="600"/>
                         <TextBox Background="{Binding Priority.Color}"
                              IsReadOnly="True"
                              Foreground="White"
@@ -447,9 +446,20 @@
                        Margin="25,0"
                        TextAlignment="Center"
                        FontSize="32"
+                       TextTrimming="CharacterEllipsis"
+                       MaxWidth="400"
                                                     Style="{StaticResource MyCustomFont}"
                        Foreground="White"
                        FontWeight="Light" FontFamily="/Completist;component/Font/#Quicksand"/>
+            <TextBlock Text="Completist"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="25,0"
+                       TextAlignment="Center"
+                       FontSize="32"
+                                                    Style="{StaticResource MyCustomFont}"
+                       Foreground="White"
+                       FontWeight="Heavy" FontFamily="/Completist;component/Font/#Quicksand"/>
             <!--<TextBlock Text="0"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
@@ -800,12 +810,12 @@
                 </ListView>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Background="#FF232323" ScrollViewer.CanContentScroll="True" >
+        <Grid Grid.Row="2" Background="#FF232323"  >
             <!--<Grid x:Name="undoBanner" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,25" Panel.ZIndex="40">
                 <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Center" MinWidth="225" MinHeight="65" Margin="0,-2,0,0" RadiusX="30" RadiusY="80" Fill="#FF121212"/>
                 <Label Content="Undo" Foreground="White" FontFamily="/Completist;component/Font/#Quicksand" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="30" Margin="30,0,0,5"/>
                 <Button Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Right" Height="45" Margin="0,0,40,0" Command="{Binding UndoDeletion_Command}">
-                    <Button.Content>
+                    <Button.Content> ScrollViewer.CanContentScroll="True"
                         <Image Source="/Resources/Undo.png" MinWidth="40" MinHeight="40" VerticalAlignment="Center"/>
                     </Button.Content>
                 </Button>
@@ -870,7 +880,7 @@
                       HorizontalContentAlignment="Stretch"
                       BorderThickness="0" ItemTemplate="{StaticResource dtMyContent}"
                       SelectedItem="{Binding selectedTask, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                      Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       HorizontalAlignment="Stretch" Grid.Row="3">
                 <ListView.Effect>
                     <DropShadowEffect RenderingBias="Quality" BlurRadius="15" Opacity="1" Direction="310"/>
@@ -878,7 +888,7 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Margin" Value="10" />
+                        <Setter Property="Margin" Value="20, 10" />
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -915,12 +925,12 @@
                     Margin="20,40"
                     Panel.ZIndex="9999">
                     <Button.Content>
-                        <Image VerticalAlignment="Bottom" Visibility="Collapsed"
+                        <Image VerticalAlignment="Bottom"
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="60" Width="60"
                        ToolTip="Refresh list"
-                       RenderOptions.BitmapScalingMode="HighQuality"
+                       RenderOptions.BitmapScalingMode="HighQuality" Visibility="Collapsed"
                        Source="/Resources/Refresh.png"
                        Cursor="Hand"/>
                     </Button.Content>
@@ -952,7 +962,7 @@
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="60" Width="60"
-                       ToolTip="Add new"
+                       ToolTip="Click To Add New Task"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/Resources/Add.png"
                        Cursor="Hand"/>
@@ -972,7 +982,7 @@
                 </Button>
 
             </StackPanel>
-            <Button VerticalAlignment="Bottom"
+            <!--<Button VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
@@ -1003,7 +1013,7 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
-            </Button>
+            </Button>-->
             <Grid Margin="0,0,0,-300" Width="300" HorizontalAlignment="Left" VerticalAlignment="{Binding assistantHeightProperty, FallbackValue=bottom}" MinHeight="350">
                 <Rectangle Fill="#FF121212" RadiusX="25" RadiusY="25" MinWidth="200" MinHeight="80" Margin="0,0,0,0"/>
                 <!--<StackPanel Orientation="Horizontal" Margin="0,50,0,0" VerticalAlignment="Top" Height="38">

@@ -49,7 +49,7 @@ namespace Completist.ViewModel
         public RelayCommand ActivateAssistant_Command { get; private set; }
         #endregion
 
-        #region Variables
+        #region Variables & Objects
 
         bool searchIsActive;
 
@@ -413,13 +413,14 @@ namespace Completist.ViewModel
             ActivateAssistant_Command = new RelayCommand(ActivateAssistant_Method);
             #endregion
         }
-
-        private void Refresh_Method()
+        #region DEPRECIATED
+        public void Refresh_Method() //called when refresh button is clicked
         {
-            Loaded_Method();
+            Loaded_Method(); //trigger upon first load of application
         }
+        #endregion
 
-        private void SearchTaskText_Method()
+        private void SearchTaskText_Method() //Button in View calls method in ViewModel
         {
             filterMe();
         }
@@ -438,8 +439,8 @@ namespace Completist.ViewModel
             {
                 condition += " AND PRIORITY LIKE '%" + selectedPriority_Search.Name + "%'";
             }
-            myContent = con.returnAllTasks(condition);
-            myContent = new ObservableCollection<Model.Task>(myContent.OrderBy(x => x.Due).ThenBy(v => v.Name));
+            myContent = con.returnAllTasks(condition); //calling method in external class to return all task that fit new condition. Method in controller returns collection received by Broker interface
+            myContent = new ObservableCollection<Model.Task>(myContent.OrderBy(x => x.Due).ThenBy(v => v.Name)); //LINQ statement to order returned tasks By dueDate and then by Alphabetical order
         }
 
         private void ChangeTag_Method()
@@ -450,24 +451,24 @@ namespace Completist.ViewModel
                 return;
             }
             //Opens tags window for changes 
-            View.frmTag window = new View.frmTag();
-            SystemVars.FrmTagWindow = window;
-            window.ShowDialog();
+            View.frmTag window = new View.frmTag(); //Creates a new instance of frmTag class accessed by 'window'. This is done as making this method static as another way of creating a new instance of frmTag window will make the XAML controls inaccessible.
+            SystemVars.FrmTagWindow = window; //Set the system variable to current instance of Tag Window in the case of multiple windows
+            window.ShowDialog(); //Display instance of frmTag View
 
-            selectedTask.TagList = SystemVars.SelectedTagList;
-            SystemVars.FrmTagWindow = null;
+            selectedTask.TagList = SystemVars.SelectedTagList; //tags selected in opened window that were temperoraily stored in System variable are now set as the collection associated with task object
+            SystemVars.FrmTagWindow = null; //instance set to null ready for next call
         }
         private void RemoveSelection_Method()
         {
-            selectedTask = null; //removes focus off the listview item. kinda dodgy - a better implementation would be in the base page definition. i.e not viewmodel
+            selectedTask = null; //removes focus off the listview item. kinda dodgy - a better implementation would be to use ICommand [Relay Command] via interaction triggers in View page
         }
-        private DateTime _now;
-        public void ActivateAssistant_Method()
+        DateTime _now;
+        public void ActivateAssistant_Method() //RelayCommand activating method in VM page
         {
-            _now = DateTime.Now;
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
-            timer.Tick += new EventHandler(timer_Tick);
+            _now = DateTime.Now; //calling System method to get date and time
+            DispatcherTimer timer = new DispatcherTimer(); //creates new instance of DispatcherTimer class which allows the queing of tasks and processes
+            timer.Interval = TimeSpan.FromMilliseconds(1000); //sets the interval before the next task to 1000 Miliseconds -> 1 Second. The FromMilliseconds method uses given argument instead of default case: Polymorphism
+            timer.Tick += new EventHandler(timer_Tick); //adds event handler
             timer.Start();
             //FinanceResultsRESTAsync();
             if (assistantHeightProperty != "stretch")
@@ -481,9 +482,9 @@ namespace Completist.ViewModel
                 clockVisibility = "Collapsed";
                 timer.Stop();
             }
-            CollectionShares = con.ReturnAllExchanges();
+            CollectionShares = con.ReturnAllExchanges(); //Returns collection of stocks which are then binded to view
         }
-        public DateTime CurrentDateTime
+        public DateTime CurrentDateTime  //source: Microsoft Documentation for C# .Net Framework
         {
             get { return _now; }
             private set
@@ -492,7 +493,7 @@ namespace Completist.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs("CurrentDateTime"));
             }
         }
-        void timer_Tick(object sender, EventArgs e)
+        void timer_Tick(object sender, EventArgs e) //source: Microsoft Documentation for C# .Net Framework
         {
             CurrentDateTime = DateTime.Now;
         }
@@ -503,11 +504,11 @@ namespace Completist.ViewModel
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://yahoo-finance-low-latency.p.rapidapi.com/v6/finance/quote?symbols=" + $"{stockName}"),
+                RequestUri = new Uri("https://yfapi.net/v6/finance/quote?symbols=" + $"{stockName}"),
                 Headers =
                 {
-                    { "x-rapidapi-key", "2c9ec1d493mshe113326a49346afp143dd4jsne23eb6577117" },
-                    { "x-rapidapi-host", "yahoo-finance-low-latency.p.rapidapi.com" },
+                    { "x-api-key", "o47mcKBIAA5fxmpPJ28zh27q94nUbP2Q8W4PYpGh" },
+                    //{ "x-rapidapi-host", "yahoo-finance-low-latency.p.rapidapi.com" },
                 },
             };
             using (var response = await client.SendAsync(request))
@@ -519,6 +520,7 @@ namespace Completist.ViewModel
                     //var JSONContent = await GetHTTPContent();
                     //string JSONSeralised = (string)JsonConvert.DeserializeObject(body);
                     //string sharePrice = JSONSeralised["quoteResponse"].ToString()["value"][0]["regularMarketPrice"];   //["value"][0]["regularMarketPrice"];
+                    
                     var detailsJSON = JObject.Parse(body);
                     var conditionFinanceJSON = detailsJSON["quoteResponse"]["result"][0];
                     //if (true)
@@ -591,118 +593,170 @@ namespace Completist.ViewModel
             //    MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
             //    return;
             //}
-            con.handleTask(selectedTask, "COMPLETE", selectedTask.Name);
+            con.handleTask(selectedTask, "COMPLETE", selectedTask.TaskID.ToString());
             myContent = con.returnAllTasks("where STS=0");
             title = "Inbox";
             con.CounterIncrement();
-            refreshCount();
+            RefreshCount();
 
             //if (MessageBox.Show("Complete task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
 
             //if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; con.CounterIncrement(); refreshCount(); /*count = count + 1; complete = count.ToString();*/ }
         }
-        bool undoRequested = false;
-        Model.Task taskDelete;
-        string strTaskDelete;
-        private void RemoveTask_Method()
+        static System.Timers.Timer undoTimer;
+        public void RemoveTask_Method()
         {
+            if (undoTimer != null)
+            {
+                undoTimer.Dispose();
+            }
+            //undoTimer = new System.Timers.Timer(1000);
+            //undoTimer.Dispose();
             taskDelete = selectedTask;
             strTaskDelete = selectedTask.Name;
-            con.handleTask(selectedTask, "REMOVE", selectedTask.Name);
+            con.handleTask(selectedTask, "REMOVE", selectedTask.TaskID.ToString());
             myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
-
+            undoTimer = new System.Timers.Timer(1000);
+            undoTimer.Elapsed += TimerEvent;
+            undoTimer.AutoReset = false;
+            undoTimer.Enabled = true;
+            undoCountdown = 5;
             undoBannerVisibility = "Visible";
-            undoCountdown = 5;
-            DelayMethod();
-            //UndoPeriod(taskDelete, strTaskDelete);
-            //System.Threading.Tasks.Task.Delay(5000);
-            //undoBannerVisibility = "Collapsed";
-            //BannerCollapse(taskDelete, strTaskDelete);
-            //MainWindow mainWindow = new MainWindow();
-            //mainWindow.UndoBannerReveal();
-            //frame element show
-            #region No Longer Relevant -> UI Changes
-            //if (selectedTask == null)
-            //{
-            //    MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
-            //    return;
-            //}
-
-            //if (MessageBox.Show("Remove task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
-
-            //if (con.handleTask(selectedTask, "REMOVE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; }
-            #endregion
+            
         }
-        public async void DelayMethod()
+        void TimerEvent(object source, System.Timers.ElapsedEventArgs e)
         {
-            for (int i = 0; i < 6; i++)
+            undoCountdown--;
+            if (undoCountdown == 0 && undoRequested == false)
             {
-                await System.Threading.Tasks.Task.Delay(1000);
-                undoCountdown--;
-            }
-            undoBannerVisibility = "Collapsed";
-            if (undoRequested == false)
-            {
-                con.handleTask(taskDelete, "DELETE", strTaskDelete);
+                undoTimer.Dispose();
+                con.handleTask(taskDelete, "REMOVE", taskDelete.TaskID.ToString());
                 myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
-            }
-            undoCountdown = 5;
-        }
-        
-        private void UndoPeriod(Model.Task taskDelete, string strTaskDelete)
-        {
-            con.handleTask(taskDelete, "UNDO", strTaskDelete);
-            myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
-        }
-        private void BannerCollapse(Model.Task taskDelete, string strTaskDelete /*CancellationToken token*/)
-        {
-            //System.Threading.Tasks.Task.Delay(5000/*, token*/).ContinueWith(_ =>
-            // {
-            //     undoBannerVisibility = "Collapsed";
-            //     if (undoRequested == false)
-            //     {
-            //         con.handleTask(taskDelete, "DELETE", strTaskDelete);
-            //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
-            //     }
-            //     else
-            //     {
-            //         con.handleTask(taskDelete, "UNDO", strTaskDelete);
-            //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
-            //     }
-            // }
-            //);
-            System.Threading.Tasks.Task.Delay(5000);
-            //undoBannerVisibility = "Collapsed";
-            if (undoRequested == false)
-            {
-                con.handleTask(taskDelete, "DELETE", strTaskDelete);
-                myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+                undoBannerVisibility = "Collapsed";
+                undoCountdown = 5;
             }
             else
             {
-                con.handleTask(taskDelete, "UNDO", strTaskDelete);
-                myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+                undoTimer.Start();
             }
-
-
-
+            if (undoCountdown < 0) //My method of implementation has been prone to instances where if the user clicks on the delete button at a certain time, the two timers may run concurrently
+            {
+                undoTimer.Dispose();
+            }
         }
         public void UndoDeletion_Method()
         {
-            undoRequested = true;
+            undoTimer.Dispose();
             undoBannerVisibility = "Collapsed";
-            con.handleTask(taskDelete, "UNDO", strTaskDelete);
+            undoRequested = true;
+            con.handleTask(taskDelete, "UNDO", taskDelete.TaskID.ToString());
             myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
-            //var tokenSource = new CancellationTokenSource();
-            //BannerCollapse(tokenSource.Token);
-            //tokenSource.Cancel();
+            undoCountdown = 5;
         }
+        bool undoRequested = false;
+        Model.Task taskDelete;
+        string strTaskDelete;
+        #region Depreciated
+        //private void RemoveTask_Method()
+        //{
+        //    taskDelete = selectedTask;
+        //    strTaskDelete = selectedTask.Name;
+        //    con.handleTask(selectedTask, "REMOVE", selectedTask.Name);
+        //    myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+
+        //    undoBannerVisibility = "Visible";
+        //    undoCountdown = 5;
+        //    DelayMethod();
+        //    //UndoPeriod(taskDelete, strTaskDelete);
+        //    //System.Threading.Tasks.Task.Delay(5000);
+        //    //undoBannerVisibility = "Collapsed";
+        //    //BannerCollapse(taskDelete, strTaskDelete);
+        //    //MainWindow mainWindow = new MainWindow();
+        //    //mainWindow.UndoBannerReveal();
+        //    //frame element show
+        //    #region No Longer Relevant -> UI Changes
+        //    //if (selectedTask == null)
+        //    //{
+        //    //    MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
+        //    //    return;
+        //    //}
+
+        //    //if (MessageBox.Show("Remove task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
+
+        //    //if (con.handleTask(selectedTask, "REMOVE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; }
+        //    #endregion
+        //}
+        //public async void DelayMethod()
+        //{
+        //    for (int i = 0; i < 6; i++)
+        //    {
+        //        await System.Threading.Tasks.Task.Delay(1000);
+        //        undoCountdown--;
+        //    }
+        //    undoBannerVisibility = "Collapsed";
+        //    if (undoRequested == false)
+        //    {
+        //        con.handleTask(taskDelete, "DELETE", strTaskDelete);
+        //        myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    }
+        //    undoCountdown = 5;
+        //}
+
+        //private void UndoPeriod(Model.Task taskDelete, string strTaskDelete)
+        //{
+        //    con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //    myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //}
+        //private void BannerCollapse(Model.Task taskDelete, string strTaskDelete /*CancellationToken token*/)
+        //{
+        //    //System.Threading.Tasks.Task.Delay(5000/*, token*/).ContinueWith(_ =>
+        //    // {
+        //    //     undoBannerVisibility = "Collapsed";
+        //    //     if (undoRequested == false)
+        //    //     {
+        //    //         con.handleTask(taskDelete, "DELETE", strTaskDelete);
+        //    //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    //     }
+        //    //     else
+        //    //     {
+        //    //         con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //    //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    //     }
+        //    // }
+        //    //);
+        //    System.Threading.Tasks.Task.Delay(5000);
+        //    //undoBannerVisibility = "Collapsed";
+        //    if (undoRequested == false)
+        //    {
+        //        con.handleTask(taskDelete, "DELETE", strTaskDelete);
+        //        myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    }
+        //    else
+        //    {
+        //        con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //        myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    }
+
+
+
+        //}
+        //public void UndoDeletion_Method()
+        //{
+        //    undoRequested = true;
+        //    undoBannerVisibility = "Collapsed";
+        //    con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //    myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    //var tokenSource = new CancellationTokenSource();
+        //    //BannerCollapse(tokenSource.Token);
+        //    //tokenSource.Cancel();
+        //} 
+        #endregion
 
         private void EditTask_Method()
         {
             if (selectedTask == null) { return; }
             if (String.IsNullOrEmpty(lastSelectedName)) { lastSelectedName = selectedTask.Name; }
-            if (con.handleTask(selectedTask, "EDIT", lastSelectedName)) { myContent = con.returnAllTasks("where STS=0"); selectedTask = new Model.Task(); title = "Inbox"; }
+            if (con.handleTask(selectedTask, "EDIT", selectedTask.TaskID.ToString())) { myContent = con.returnAllTasks("where STS=0"); selectedTask = new Model.Task(); title = "Inbox"; }
         }
 
 
@@ -710,7 +764,7 @@ namespace Completist.ViewModel
         {
             await System.Threading.Tasks.Task.Run(() => start());
         }
-        private string refreshCount()
+        public string RefreshCount()
         {
             try
             {
