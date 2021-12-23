@@ -1,6 +1,8 @@
 ﻿using Completist.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace Completist
 {
@@ -14,14 +16,13 @@ namespace Completist
         {
             InitializeComponent();
             vm = new MainWindowVM();
-            this.DataContext = vm; 
-            
+            this.DataContext = vm;
+            //undoBanner.Visibility = Visibility.Collapsed;
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Keyboard.ClearFocus();
         }
-
     }
 
 }

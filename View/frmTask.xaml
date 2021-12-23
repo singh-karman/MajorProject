@@ -16,7 +16,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Border     Grid.Row="0"
-                    BorderBrush="#FF464646" BorderThickness="1"
+                    BorderBrush="#FF464646" BorderThickness="3"
                     CornerRadius="15" x:Name="brd"
                     Grid.RowSpan="2"
                     VerticalAlignment="Stretch"
@@ -39,17 +39,17 @@
                              FontSize="24"
                              SelectionBrush="LightGreen"
                              BorderBrush="White"
-                             BorderThickness="0,0,0,1"
+                             BorderThickness="0,0,0,0.6"
                              VerticalAlignment="Top"
                              HorizontalAlignment="Left"
                              Margin="10,10,0,0"
-                             Width="300"
+                             Width="446"
                              ToolTip="Task name"
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Text="{Binding myTask.Name, Mode=TwoWay}"
                              x:Name="txtName"
-                             Grid.Row="0" Height="29.8" FontWeight="Bold" >
+                             Grid.Row="0" Height="45" FontWeight="Bold" SpellCheck.IsEnabled="True" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                             <i:InvokeCommandAction Command="{Binding ClearMeName_Command}"/>
@@ -70,7 +70,7 @@
                              SelectionBrush="LightGreen"
                              BorderBrush="White"
                              MinWidth="400"
-                             BorderThickness="0,0,0,1"                                
+                             BorderThickness="0,0,0,0.6"                                
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              Margin="11,104.693,266,104.86"
@@ -78,7 +78,7 @@
                              VerticalContentAlignment="Center"
                              HorizontalContentAlignment="Left"
                              Text="{Binding myTask.Content, Mode=TwoWay}"
-                             Grid.Row="0" Height="40.447" Grid.RowSpan="2" Width="523" FontFamily="/Completist;component/Font/#Quicksand">
+                             Grid.Row="0" Height="40.447" Grid.RowSpan="2" Width="523" FontFamily="/Completist;component/Font/#Quicksand" SpellCheck.IsEnabled="True">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                             <i:InvokeCommandAction Command="{Binding ClearMeContent_Command}"/>
@@ -88,7 +88,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
-                    <StackPanel Orientation="Horizontal"
+                <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                 Grid.Row="0" Height="55" Width="242">
@@ -130,7 +130,7 @@
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="40" Width="40"
-                       ToolTip="Add new"
+                       ToolTip="Click To Change Priority"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/Resources/Add.png"
                        Cursor="Hand"/>
@@ -168,7 +168,7 @@
                              Margin="10"
                                  Cursor="Arrow"
                              VerticalContentAlignment="Center"
-                             ToolTip="When's the task due"
+                             ToolTip="Current Task Tags"
                              HorizontalContentAlignment="Center"
                              Text="{Binding myTask.StrTag}"
                              Grid.Row="1"
@@ -193,7 +193,7 @@
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="40" Width="40"
-                       ToolTip="Add new"
+                       ToolTip="Click To Add New Tags"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/Resources/Add.png"
                        Cursor="Hand"/>
@@ -212,7 +212,6 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
-
                 <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Right"
@@ -255,7 +254,7 @@
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="40" Width="40"
-                       ToolTip="Add new"
+                       ToolTip="Click To Change Task Due Date"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/Resources/Add.png"
                        Cursor="Hand"/>
@@ -298,7 +297,7 @@
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="40" Width="40"
-                       ToolTip="Add new"
+                       ToolTip="Confirm Adding New Task"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/Resources/Done.png"
                        Cursor="Hand"/>
@@ -331,7 +330,7 @@
                        HorizontalAlignment="Right"
                        Panel.ZIndex="9999"
                        Height="40" Width="40"
-                       ToolTip="Cancel"
+                       ToolTip="Cancel Adding New Task"
                        RenderOptions.BitmapScalingMode="HighQuality"
                        Source="/Resources/Exit.png"
                        Cursor="Hand"/>

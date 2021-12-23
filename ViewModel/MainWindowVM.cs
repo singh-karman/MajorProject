@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using Completist.Model;
 using System.Windows;
+using System.Windows.Media.Animation;
+using System.Threading;
+using System.Windows.Threading;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Completist.ViewModel
 {
@@ -38,14 +44,17 @@ namespace Completist.ViewModel
         public RelayCommand ChangePriority_Command { get; private set; }
         public RelayCommand ChangeTag_Command { get; private set; }
         public RelayCommand SearchTaskText_Command { get; private set; }
+        public RelayCommand RemoveSelection_Command { get; private set; }
+        public RelayCommand UndoDeletion_Command { get; private set; }
+        public RelayCommand ActivateAssistant_Command { get; private set; }
         #endregion
 
-        #region Variables
+        #region Variables & Objects
 
         bool searchIsActive;
 
-        Model.Tag _selectedTag_Search;
-        public Model.Tag selectedTag_Search
+        Tag _selectedTag_Search;
+        public Tag selectedTag_Search
         {
             get
             {
@@ -58,8 +67,8 @@ namespace Completist.ViewModel
             }
         }
 
-        Model.Priority _selectedPriority_Search;
-        public Model.Priority selectedPriority_Search
+        Priority _selectedPriority_Search;
+        public Priority selectedPriority_Search
         {
             get
             {
@@ -99,6 +108,72 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("searchHeight");
             }
         }
+        int _undoCountdown = 5;
+        public int undoCountdown
+        {
+            get
+            {
+                return _undoCountdown;
+            }
+            set
+            {
+                _undoCountdown = value;
+                NotifyPropertyChanged("undoCountdown");
+            }
+        }
+        string _undoBannerVisibility = "Collapsed";
+        public string undoBannerVisibility 
+        {
+            get 
+            {
+                return _undoBannerVisibility;
+            }
+            set
+            {
+                _undoBannerVisibility = value;
+                NotifyPropertyChanged("undoBannerVisibility");
+            }
+        }
+        string _clockVisibility = "Collapsed";
+        public string clockVisibility
+        {
+            get
+            {
+                return _clockVisibility;
+            }
+            set
+            {
+                _clockVisibility = value;
+                NotifyPropertyChanged("clockVisibility");
+            }
+        }
+
+        //double _sharePrice;
+        //public double sharePrice
+        //{
+        //    get
+        //    {
+        //        return _sharePrice;
+        //    }
+        //    set
+        //    {
+        //        _sharePrice = value;
+        //        NotifyPropertyChanged("sharePrice");
+        //    }
+        //}
+        string _assistantHeightProperty = "Bottom";
+        public string assistantHeightProperty
+        {
+            get
+            {
+                return _assistantHeightProperty;
+            }
+            set
+            {
+                _assistantHeightProperty = value;
+                NotifyPropertyChanged("assistantHeightProperty");
+            }
+        }
         string _lastSelectedName;
         public string lastSelectedName 
         {
@@ -112,8 +187,8 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("lastSelectedName");
             }
         }
-        ObservableCollection<Model.Priority> _listOfPriorities;
-        public ObservableCollection<Model.Priority> listOfPriorities
+        ObservableCollection<Priority> _listOfPriorities;
+        public ObservableCollection<Priority> listOfPriorities
         {
             get
             {
@@ -126,8 +201,8 @@ namespace Completist.ViewModel
             }
         }
 
-        ObservableCollection<Model.Tag> _listOfTags;
-        public ObservableCollection<Model.Tag> listOfTags
+        ObservableCollection<Tag> _listOfTags;
+        public ObservableCollection<Tag> listOfTags
         {
             get
             {
@@ -165,7 +240,20 @@ namespace Completist.ViewModel
                 NotifyPropertyChanged("myContent");
             }
         }
+        ObservableCollection<Model.ShareExchange> _collectionShares;
+        public ObservableCollection<Model.ShareExchange> CollectionShares
+        {
+            get
+            {
+                return _collectionShares;
 
+            }
+            set
+            {
+                _collectionShares = value;
+                NotifyPropertyChanged("collectionShares");
+            }
+        }
         Model.Task _selectedTask;
         public Model.Task selectedTask
         {
@@ -305,7 +393,6 @@ namespace Completist.ViewModel
 
             selectedPriority_Search = new Priority();
             selectedTag_Search = new Tag();
-
             #region Command to methods
             Loaded_Command = new RelayCommand(Loaded_Method);
             NewTask_Command = new RelayCommand(NewTask_Method);
@@ -320,16 +407,20 @@ namespace Completist.ViewModel
             lstSelectionChanged_Command = new RelayCommand(lstSelectionChanged_Method);
             ChangePriority_Command = new RelayCommand(ChangePriority_Method);
             ChangeTag_Command = new RelayCommand(ChangeTag_Method);
-            SearchTaskText_Command = new RelayCommand(SearchTaskText_Method); 
+            SearchTaskText_Command = new RelayCommand(SearchTaskText_Method);
+            RemoveSelection_Command = new RelayCommand(RemoveSelection_Method);
+            UndoDeletion_Command = new RelayCommand(UndoDeletion_Method);
+            ActivateAssistant_Command = new RelayCommand(ActivateAssistant_Method);
             #endregion
         }
-
-        private void Refresh_Method()
+        #region DEPRECIATED
+        public void Refresh_Method() //called when refresh button is clicked
         {
-            Loaded_Method();
+            Loaded_Method(); //trigger upon first load of application
         }
+        #endregion
 
-        private void SearchTaskText_Method()
+        private void SearchTaskText_Method() //Button in View calls method in ViewModel
         {
             filterMe();
         }
@@ -339,7 +430,7 @@ namespace Completist.ViewModel
             //building the connection, the necessary condition for filter, afterwhich, we call controller and the DB
             string condition = " where STS=0 and name like '%" + filterText + "%'";
 
-            if (selectedTag_Search != null) 
+            if (selectedTag_Search != null)
             {
                 condition += " AND TAGLIST LIKE '%" + selectedTag_Search.Name + "%'";
             }
@@ -348,8 +439,8 @@ namespace Completist.ViewModel
             {
                 condition += " AND PRIORITY LIKE '%" + selectedPriority_Search.Name + "%'";
             }
-            myContent = con.returnAllTasks(condition);
-            myContent = new ObservableCollection<Model.Task>(myContent.OrderBy(x => x.Due).ThenBy(v => v.Name));
+            myContent = con.returnAllTasks(condition); //calling method in external class to return all task that fit new condition. Method in controller returns collection received by Broker interface
+            myContent = new ObservableCollection<Model.Task>(myContent.OrderBy(x => x.Due).ThenBy(v => v.Name)); //LINQ statement to order returned tasks By dueDate and then by Alphabetical order
         }
 
         private void ChangeTag_Method()
@@ -360,14 +451,100 @@ namespace Completist.ViewModel
                 return;
             }
             //Opens tags window for changes 
-            View.frmTag window = new View.frmTag();
-            SystemVars.FrmTagWindow = window;
-            window.ShowDialog();
+            View.frmTag window = new View.frmTag(); //Creates a new instance of frmTag class accessed by 'window'. This is done as making this method static as another way of creating a new instance of frmTag window will make the XAML controls inaccessible.
+            SystemVars.FrmTagWindow = window; //Set the system variable to current instance of Tag Window in the case of multiple windows
+            window.ShowDialog(); //Display instance of frmTag View
 
-            selectedTask.TagList = SystemVars.SelectedTagList;
-            SystemVars.FrmTagWindow = null;
+            selectedTask.TagList = SystemVars.SelectedTagList; //tags selected in opened window that were temperoraily stored in System variable are now set as the collection associated with task object
+            SystemVars.FrmTagWindow = null; //instance set to null ready for next call
         }
+        private void RemoveSelection_Method()
+        {
+            selectedTask = null; //removes focus off the listview item. kinda dodgy - a better implementation would be to use ICommand [Relay Command] via interaction triggers in View page
+        }
+        DateTime _now;
+        public void ActivateAssistant_Method() //RelayCommand activating method in VM page
+        {
+            _now = DateTime.Now; //calling System method to get date and time
+            DispatcherTimer timer = new DispatcherTimer(); //creates new instance of DispatcherTimer class which allows the queing of tasks and processes
+            timer.Interval = TimeSpan.FromMilliseconds(1000); //sets the interval before the next task to 1000 Miliseconds -> 1 Second. The FromMilliseconds method uses given argument instead of default case: Polymorphism
+            timer.Tick += new EventHandler(timer_Tick); //adds event handler
+            timer.Start();
+            //FinanceResultsRESTAsync();
+            if (assistantHeightProperty != "stretch")
+            {
+                assistantHeightProperty = "stretch";
+                clockVisibility = "Visible";
+            }
+            else
+            {
+                assistantHeightProperty = "bottom";
+                clockVisibility = "Collapsed";
+                timer.Stop();
+            }
+            CollectionShares = con.ReturnAllExchanges(); //Returns collection of stocks which are then binded to view
+        }
+        public DateTime CurrentDateTime  //source: Microsoft Documentation for C# .Net Framework
+        {
+            get { return _now; }
+            private set
+            {
+                _now = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("CurrentDateTime"));
+            }
+        }
+        void timer_Tick(object sender, EventArgs e) //source: Microsoft Documentation for C# .Net Framework
+        {
+            CurrentDateTime = DateTime.Now;
+        }
+        public async void FinanceResultsRESTAsync(string stockName, ShareExchange x)
+        {
+            
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://yfapi.net/v6/finance/quote?symbols=" + $"{stockName}"),
+                Headers =
+                {
+                    { "x-api-key", "o47mcKBIAA5fxmpPJ28zh27q94nUbP2Q8W4PYpGh" },
+                    //{ "x-rapidapi-host", "yahoo-finance-low-latency.p.rapidapi.com" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                try
+                {
+                    response.EnsureSuccessStatusCode();
+                    var body = await response.Content.ReadAsStringAsync();
+                    //var JSONContent = await GetHTTPContent();
+                    //string JSONSeralised = (string)JsonConvert.DeserializeObject(body);
+                    //string sharePrice = JSONSeralised["quoteResponse"].ToString()["value"][0]["regularMarketPrice"];   //["value"][0]["regularMarketPrice"];
+                    
+                    var detailsJSON = JObject.Parse(body);
+                    var conditionFinanceJSON = detailsJSON["quoteResponse"]["result"][0];
+                    //if (true)
+                    //{
 
+                    //}
+                    x.SharePrice = double.Parse(conditionFinanceJSON["regularMarketPrice"].ToString());
+                    double shareDelta = double.Parse(conditionFinanceJSON["regularMarketChange"].ToString());
+                    if (shareDelta >= 0)
+                    {
+                        x.ShareIndicatorColor = "#05C46B";
+                    }
+                    else
+                    {
+                        x.ShareIndicatorColor = "#E63946";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+
+            }
+        }
         private void ChangePriority_Method()
         {
             if (selectedTask == null) 
@@ -409,44 +586,185 @@ namespace Completist.ViewModel
             window.ShowDialog();
         }
 
-        private void CompleteTask_Method()
+        private void CompleteTask_Method() //needs to be refactored - status unchanged prior commit 
         {
-            if (selectedTask == null)
-            {
-                MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
-                return;
-            }
+            //if (selectedTask == null)
+            //{
+            //    MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
+            //    return;
+            //}
+            con.handleTask(selectedTask, "COMPLETE", selectedTask.TaskID.ToString());
+            myContent = con.returnAllTasks("where STS=0");
+            title = "Inbox";
+            con.CounterIncrement();
+            RefreshCount();
 
-            if (MessageBox.Show("Complete task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
+            //if (MessageBox.Show("Complete task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
 
-            if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; con.CounterIncrement(); refreshCount(); /*count = count + 1; complete = count.ToString();*/ }
+            //if (con.handleTask(selectedTask, "COMPLETE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; con.CounterIncrement(); refreshCount(); /*count = count + 1; complete = count.ToString();*/ }
         }
-
-        private void RemoveTask_Method()
+        static System.Timers.Timer undoTimer;
+        public void RemoveTask_Method()
         {
-            if (selectedTask == null)
+            if (undoTimer != null)
             {
-                MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
-                return;
+                undoTimer.Dispose();
             }
-
-            if (MessageBox.Show("Remove task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
-
-            if (con.handleTask(selectedTask, "REMOVE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; }
+            //undoTimer = new System.Timers.Timer(1000);
+            //undoTimer.Dispose();
+            taskDelete = selectedTask;
+            strTaskDelete = selectedTask.Name;
+            con.handleTask(selectedTask, "REMOVE", selectedTask.TaskID.ToString());
+            myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+            undoTimer = new System.Timers.Timer(1000);
+            undoTimer.Elapsed += TimerEvent;
+            undoTimer.AutoReset = false;
+            undoTimer.Enabled = true;
+            undoCountdown = 5;
+            undoBannerVisibility = "Visible";
+            
         }
+        void TimerEvent(object source, System.Timers.ElapsedEventArgs e)
+        {
+            undoCountdown--;
+            if (undoCountdown == 0 && undoRequested == false)
+            {
+                undoTimer.Dispose();
+                con.handleTask(taskDelete, "REMOVE", taskDelete.TaskID.ToString());
+                myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+                undoBannerVisibility = "Collapsed";
+                undoCountdown = 5;
+            }
+            else
+            {
+                undoTimer.Start();
+            }
+            if (undoCountdown < 0) //My method of implementation has been prone to instances where if the user clicks on the delete button at a certain time, the two timers may run concurrently
+            {
+                undoTimer.Dispose();
+            }
+        }
+        public void UndoDeletion_Method()
+        {
+            undoTimer.Dispose();
+            undoBannerVisibility = "Collapsed";
+            undoRequested = true;
+            con.handleTask(taskDelete, "UNDO", taskDelete.TaskID.ToString());
+            myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+            undoCountdown = 5;
+        }
+        bool undoRequested = false;
+        Model.Task taskDelete;
+        string strTaskDelete;
+        #region Depreciated
+        //private void RemoveTask_Method()
+        //{
+        //    taskDelete = selectedTask;
+        //    strTaskDelete = selectedTask.Name;
+        //    con.handleTask(selectedTask, "REMOVE", selectedTask.Name);
+        //    myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+
+        //    undoBannerVisibility = "Visible";
+        //    undoCountdown = 5;
+        //    DelayMethod();
+        //    //UndoPeriod(taskDelete, strTaskDelete);
+        //    //System.Threading.Tasks.Task.Delay(5000);
+        //    //undoBannerVisibility = "Collapsed";
+        //    //BannerCollapse(taskDelete, strTaskDelete);
+        //    //MainWindow mainWindow = new MainWindow();
+        //    //mainWindow.UndoBannerReveal();
+        //    //frame element show
+        //    #region No Longer Relevant -> UI Changes
+        //    //if (selectedTask == null)
+        //    //{
+        //    //    MessageBox.Show("Task is not selected ", "", MessageBoxButton.OK);
+        //    //    return;
+        //    //}
+
+        //    //if (MessageBox.Show("Remove task [" + selectedTask.Name + "]?", "", MessageBoxButton.YesNo) == MessageBoxResult.No) { return; }
+
+        //    //if (con.handleTask(selectedTask, "REMOVE", selectedTask.Name)) { myContent = con.returnAllTasks("where STS=0"); title = "Inbox"; }
+        //    #endregion
+        //}
+        //public async void DelayMethod()
+        //{
+        //    for (int i = 0; i < 6; i++)
+        //    {
+        //        await System.Threading.Tasks.Task.Delay(1000);
+        //        undoCountdown--;
+        //    }
+        //    undoBannerVisibility = "Collapsed";
+        //    if (undoRequested == false)
+        //    {
+        //        con.handleTask(taskDelete, "DELETE", strTaskDelete);
+        //        myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    }
+        //    undoCountdown = 5;
+        //}
+
+        //private void UndoPeriod(Model.Task taskDelete, string strTaskDelete)
+        //{
+        //    con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //    myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //}
+        //private void BannerCollapse(Model.Task taskDelete, string strTaskDelete /*CancellationToken token*/)
+        //{
+        //    //System.Threading.Tasks.Task.Delay(5000/*, token*/).ContinueWith(_ =>
+        //    // {
+        //    //     undoBannerVisibility = "Collapsed";
+        //    //     if (undoRequested == false)
+        //    //     {
+        //    //         con.handleTask(taskDelete, "DELETE", strTaskDelete);
+        //    //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    //     }
+        //    //     else
+        //    //     {
+        //    //         con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //    //         myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    //     }
+        //    // }
+        //    //);
+        //    System.Threading.Tasks.Task.Delay(5000);
+        //    //undoBannerVisibility = "Collapsed";
+        //    if (undoRequested == false)
+        //    {
+        //        con.handleTask(taskDelete, "DELETE", strTaskDelete);
+        //        myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    }
+        //    else
+        //    {
+        //        con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //        myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    }
+
+
+
+        //}
+        //public void UndoDeletion_Method()
+        //{
+        //    undoRequested = true;
+        //    undoBannerVisibility = "Collapsed";
+        //    con.handleTask(taskDelete, "UNDO", strTaskDelete);
+        //    myContent = con.returnAllTasks("where STS=0"); title = "Inbox";
+        //    //var tokenSource = new CancellationTokenSource();
+        //    //BannerCollapse(tokenSource.Token);
+        //    //tokenSource.Cancel();
+        //} 
+        #endregion
 
         private void EditTask_Method()
         {
             if (selectedTask == null) { return; }
             if (String.IsNullOrEmpty(lastSelectedName)) { lastSelectedName = selectedTask.Name; }
-            if (con.handleTask(selectedTask, "EDIT", lastSelectedName)) { myContent = con.returnAllTasks("where STS=0"); selectedTask = new Model.Task(); title = "Inbox"; }
+            if (con.handleTask(selectedTask, "EDIT", selectedTask.TaskID.ToString())) { myContent = con.returnAllTasks("where STS=0"); selectedTask = new Model.Task(); title = "Inbox"; }
         }
+
 
         private async void start_Ini()
         {
             await System.Threading.Tasks.Task.Run(() => start());
         }
-        private string refreshCount()
+        public string RefreshCount()
         {
             try
             {
@@ -468,6 +786,7 @@ namespace Completist.ViewModel
                 visibleExit = "Hidden";
                 visibleNew = "Visible";
                 searchHeight = 0;
+                //undoBannerVisibility = "Collapsed";
                 myCondition_Name = "";
                 myCondition_Priority = "";
                 myContent = con.returnAllTasks(" where STS=0");

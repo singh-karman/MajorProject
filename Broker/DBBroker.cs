@@ -9,29 +9,34 @@ using System.Threading.Tasks;
 
 namespace Completist.Broker
 {
-    //all conversations with the DB take route through this class
+
+    /// <summary>
+    /// all conversations with the DB take route through this class
+    /// try catch statement used consistently when working with DB to dismiss runtime exceptions and problems
+    /// every method here is called only through controller as it ensures connection is openned and closed after each request
+    /// </summary>
     public class DBBroker
     {
         public static SQLiteConnection connection; //just connection variable 
         public static DBBroker instance; //class constructor
 
-        public static DBBroker openSession()
+        public static DBBroker openSession() //creates new instance of DBBroker class - used to make connections to SQL DB
         {
             if (instance == null)
             {
 
                 instance = new DBBroker();
             }
-            return instance;
+            return instance; //used by the controller to access methods in DBBroker, avoids the need to initialise an instance of DBBroker in each controller method
         }
         public void openConnection() //opens connection with DB
         {
             try
             {
-                string baseDB = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Completist.db");
-
-                connection = new SQLiteConnection(@"Data Source=" + baseDB + ";Version=3;");
-                connection.Open();
+                string baseDB = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Completist.db"); //obtaining relative file path to SQLite DB -> Completist.db
+                //initialise connection constructor where using connection will pass connection string to SQLiteConnection class
+                connection = new SQLiteConnection(@"Data Source=" + baseDB + ";Version=3;"); //building the connection string required to access data from DB. connection string gives important information on SQL versioning (in this case SQLite 3) and security authorisation if it were secured
+                connection.Open(); //call method Open which is part of SQLiteConnection while passing aforementioned parameters
 
             }
             catch (Exception e)
@@ -45,9 +50,9 @@ namespace Completist.Broker
             {
                 connection.Close();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                string message = e.Message;
             }
         }
         //The rest is just SQL queries acted upon the SQLite database
@@ -76,18 +81,42 @@ namespace Completist.Broker
                 return 1;
             }
         }
-        public int CounterIncrement()
+        public int CounterIncrement() //called to increment counter, purposefully separated from handleTask method
         {
             try
             {
-                string query = "UPDATE Count SET NUMCOMPLETED = NUMCOMPLETED + 1";
-                var command = connection.CreateCommand();
-                int counterIncrement = 1;
-                command = new SQLiteCommand(query, connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                string query = "UPDATE Count SET NUMCOMPLETED = NUMCOMPLETED + 1"; //SQL query that is first built in conjunction with values of connection
+                var command = connection.CreateCommand(); //initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+                int numCompleted = 0;
+                command = new SQLiteCommand(query, connection); //builds the SQL with query and command variable to execute the statement to DB
+                SQLiteDataReader reader = command.ExecuteReader(); //executes query with data base and returns a data reader for data in DB
+                while (reader.Read()) //true until at the last row of data
                 {
-                    var countIncrement = Convert.ToInt32(reader["NUMCOMPLETED"]);
+                    var numCount = Convert.ToInt32(reader["NUMCOMPLETED"]); //reading data stored in SQL DB and assigning to local fields to be returned to caller
+                    return numCount;
+                }
+
+                return numCompleted;
+
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
+
+        public int CounterReset()
+        {
+            try
+            {
+                string query = "UPDATE Count SET NUMCOMPLETED = 0"; //SQL query that is first built in conjunction with values of connection
+                var command = connection.CreateCommand(); //initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+                int counterIncrement = 1;
+                command = new SQLiteCommand(query, connection);  //builds the SQL with query and command variable to execute the statement to DB
+                SQLiteDataReader reader = command.ExecuteReader(); //executes query with data base and returns a data reader for data in DB
+                while (reader.Read()) //true until at the last row of data
+                {
+                    var countIncrement = Convert.ToInt32(reader["NUMCOMPLETED"]); //reading data stored in SQL DB and assigning to local fields to be returned to caller
                     return countIncrement;
                 }
 
@@ -99,6 +128,43 @@ namespace Completist.Broker
                 return 1;
             }
         }
+
+
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        public void TutorialReset()
+        {
+            try
+            {
+                string query = "UPDATE TASKS SET STS = 0 WHERE TASKID = 1 OR TASKID = 2 OR TASKID = 3 TASKID = 4 OR TASKID = 5";
+                var command = connection.CreateCommand();
+                command = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+        }
+
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public ObservableCollection<Model.Task> returnAllTasks(string condition = "")
         {
             try
@@ -109,11 +175,12 @@ namespace Completist.Broker
                 command = new SQLiteCommand(query, connection);
                 SQLiteDataReader reader = command.ExecuteReader();
 
-                ObservableCollection<Model.Task> list = new ObservableCollection<Model.Task>();
+                ObservableCollection<Model.Task> list = new ObservableCollection<Model.Task>(); //new temporary collection to be returned and override collection stored in memory register
                 while (reader.Read())
                 {
-                    Model.Task x = new Model.Task();
+                    Model.Task x = new Model.Task(); //new temporary object inheriting class task to be added to list collection subseqent to attribute changes
 
+                    //assigning values to new task object created every iteration of while loop
                     x.Name = reader["NAME"].ToString();
                     x.Due = Convert.ToDateTime(reader["DUE"]);
                     x.Content = reader["CONTENT"].ToString();
@@ -121,21 +188,22 @@ namespace Completist.Broker
                     x.Status = Convert.ToInt32(reader["STS"]);
                     x.StrStatus = x.Status == 0 ? x.StrStatus = "New" : x.StrStatus = "Done";
                     x.StrTag = reader["TAGLIST"].ToString();
+                    x.TaskID = Convert.ToInt32(reader["TaskID"]);
 
                     //x.StrDue = x.Due.ToShortDateString();
                     string pro = reader["PRIORITY"].ToString();
                     x.Priority = returnPriority("where NAME='" + pro + "'");
-                    if (x.Due == DateTime.Today) 
+                    if (x.Due == DateTime.Today) //if today is the due date, change strName & priority of the OBJECT, not SQL DB, to high priority
                     {
                         var high = returnPriority("where NAME='" + "High Priority" + "'");
                         x.Priority = returnPriority("where NAME='" + pro + "'");
                         if (x.Priority.Name != high.Name)
                         {
                             x.Priority = high;
-                            if (this.handleTask(x, "EDIT", x.Name))
-                            {
+                            //if (this.handleTask(x, "EDIT", x.Name))
+                            //{
                                 
-                            }
+                            //}
                         }
                         x.StrDue = "Today";                        
                     }
@@ -151,7 +219,7 @@ namespace Completist.Broker
                     {
                         x.StrDue = "Day after tomorrow";
                     }
-                    else
+                    else //calculating and changing the binded value to difference between the due date and today
                     {
                         var left = (x.Due - DateTime.Now).TotalDays;
                         int daysleft = Convert.ToInt32(left);
@@ -165,17 +233,28 @@ namespace Completist.Broker
                         }
 
                     }
-                    list.Add(x);
+                    list.Add(x); //adding object task to collection
                 }
 
-                return list;
+                return list; //returning newly made observable collection filled with all rows of the DB as task objects to myContent to appear on the inbox page
             }
+
             catch (Exception ex)
             {
                 string message = ex.Message;
                 return null;
             }
         }
+
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<Model.AllColors> returnColors()
         {
             try
@@ -204,8 +283,62 @@ namespace Completist.Broker
                 return null;
             }
         }
-        public ObservableCollection<Model.Priority> returnAllPriorities(string condition)
+
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Model.ShareExchange> ReturnAllExchanges(/*string condition*/)
         {
+            try
+            {
+                string query = "SELECT * from [STOCKEXCHANGE]" /*+ condition*/;
+                var command = connection.CreateCommand();
+
+                command = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                ObservableCollection<Model.ShareExchange> list = new ObservableCollection<Model.ShareExchange>(); //same as before temp collection....
+                while (reader.Read())
+                {
+                    ViewModel.MainWindowVM mainWindowVM = new ViewModel.MainWindowVM(); // I decided against creating a new column in the DB as share prices are volatile, I believed that binding the raw value after assign the value to share attribute would be a better implementation
+                    string strShareName;
+                    Model.ShareExchange x = new Model.ShareExchange
+                    {
+                        
+                        ShareName = strShareName = reader["StockName"].ToString(),
+                        ShareIndex = Convert.ToInt32(reader["StockID"]),
+                    };
+                    mainWindowVM.FinanceResultsRESTAsync(strShareName, x); //calling method in base page of MainWindowVM to assign obtained by the REST API to share object
+                    list.Add(x); //add share object to collection
+                }
+
+                return list; //return newly made collection to override observable collection used in VM and binded to view
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message; //read SQL error message using breakpoint + watch expression
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+        public ObservableCollection<Model.Priority> returnAllPriorities(string condition)
+        { //code is similar to earlier methods -> check earlier methods for comments
             try
             {
                 string query = "SELECT * from [Priority] " + condition;
@@ -236,6 +369,16 @@ namespace Completist.Broker
             }
         }
 
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public ObservableCollection<Model.Tag> returnAllTags(string condition)
         {
             try
@@ -268,6 +411,17 @@ namespace Completist.Broker
             }
         }
 
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
+
         public Model.Priority returnPriority(string condition)
         {
             try
@@ -295,6 +449,17 @@ namespace Completist.Broker
                 return null;
             }
         }
+
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public Model.AllColors returnColor(string condition)
         {
             try
@@ -319,6 +484,16 @@ namespace Completist.Broker
                 return null;
             }
         }
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public ObservableCollection<Model.Tag> returnTags(string tags) 
         {
             try
@@ -347,6 +522,16 @@ namespace Completist.Broker
             }
         }
 
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns></returns>
         public Model.Tag returnTag(string condition)
         {
             try
@@ -375,6 +560,16 @@ namespace Completist.Broker
             }
         }
 
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         public bool editTag(Model.Tag tag)
         {
             try
@@ -393,7 +588,16 @@ namespace Completist.Broker
                 return false;
             }
         }
-
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="priority"></param>
+        /// <returns></returns>
         public bool editPriority(Model.Priority priority)
         {
             try
@@ -412,7 +616,16 @@ namespace Completist.Broker
                 return false;
             }
         }
-
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCommand()
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="priority"></param>
+        /// <returns></returns>
         public bool removePriority(Model.Priority priority)
         {
             try
@@ -424,7 +637,6 @@ namespace Completist.Broker
                 command.ExecuteScalar();
 
                 return true;
-
             }
             catch (Exception)
             {
@@ -452,6 +664,16 @@ namespace Completist.Broker
         }
 
 
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCo
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="action"></param>
+        /// <param name="referenceName"></param>
+        /// <returns></returns>
         public bool handleTask(Model.Task task, string action, string referenceName)
         {
             try
@@ -460,25 +682,35 @@ namespace Completist.Broker
                 switch (action)
                 {
                     case "REMOVE":
-                        query = "UPDATE [TASKS] SET STS=9 WHERE NAME='" + task.Name + "'";
+                        query = "UPDATE [TASKS] SET STS=9 WHERE TASKID='" + task.TaskID + "'";
+                        break;
+                    case "UNDO":
+                        query = "UPDATE [TASKS] SET STS=0 WHERE TASKID='" + task.TaskID + "'";
+                        break;
+                    case "DELETE":
+                        query = "DELETE FROM [TASKS] WHERE TASKID='" + task.TaskID + "'"; //please revert if casualties
                         break;
                     case "COMPLETE":
-                        query = "UPDATE [TASKS] SET STS=1 WHERE NAME='" + task.Name + "'";
+                        query = "UPDATE [TASKS] SET STS=1 WHERE TASKID='" + task.TaskID + "'";
                         break;
                     case "EDIT":
                         string list = "";
-                        foreach (Model.Tag item in task.TagList)
+                        if (task.TagList != null)
                         {
-                            if (!String.IsNullOrEmpty(item.Name.Trim()))
+                            foreach (Model.Tag item in task.TagList)
                             {
-                                list += item.Name + ";";
+                                if (!String.IsNullOrEmpty(item.Name.Trim()))
+                                {
+                                    list += item.Name + ";";
+                                }
+                                //else
+                                //{
+                                //    list = ";";
+                                //}
                             }
-                            //else
-                            //{
-                            //    list = ";";
-                            //}
                         }
-                        query = "UPDATE [TASKS] SET NAME='" + task.Name + "',Due='"+task.Due+"' ,CONTENT='" + task.Content + "', PRIORITY='" + task.Priority.Name + "', TAGLIST='" + list + "' WHERE NAME='" + referenceName + "'";
+                        //query is concatenated with attributes of passed object
+                        query = "UPDATE [TASKS] SET NAME='" + task.Name + "',Due='"+task.Due+"' ,CONTENT='" + task.Content + "', PRIORITY='" + task.Priority.Name + "', TAGLIST='" + list + "' WHERE TASKID='" + Convert.ToInt32(referenceName) + "'";
                         break;
                     default:
                         break;
@@ -498,6 +730,16 @@ namespace Completist.Broker
             }
         }
 
+        /// <summary>
+        /// SQL query that is first built in conjunction with values of connection
+        /// initialising command as 'contructor' for SQLiteConnection(connectionString).CreateCo
+        /// builds the SQL with query and command variable to execute the statement to DB
+        /// executes query with data base and returns a data reader for data in DB
+        /// while condition: true until at the last row of data
+        /// reading data stored in SQL DB and assigning to local fields to be returned to caller
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
         public bool createTask(Model.Task task)
         {
             try
@@ -506,7 +748,7 @@ namespace Completist.Broker
                 var command = connection.CreateCommand();
 
                 command = new SQLiteCommand(query, connection);
-                command.ExecuteScalar();
+                command.ExecuteScalar(); //returns the result after query has been executed on SQL DB
 
                 return true;
 

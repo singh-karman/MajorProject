@@ -15,7 +15,7 @@ namespace Completist
         private static frmTask frmTaskWindow;
         private static frmPriority frmPriorityWindow;
         private static GCalendar GCalendarWindow;
-        private static Model.Priority selectedPriority;
+        private static Priority selectedPriority;
         private static frmTag frmTagWindow;
         private static ObservableCollection<Tag> selectedTagList;
         private static frmDate frmDateWindow;

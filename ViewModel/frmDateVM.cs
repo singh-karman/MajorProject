@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Completist.ViewModel
 {
+
     public class frmDateVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -43,6 +44,7 @@ namespace Completist.ViewModel
         {
             if (selectedDueDate != null) 
             {
+                //preserves values lost after window is closed
                 SystemVars.SelectedDateX = selectedDueDate;
                 SystemVars.FrmDateWindow.Close();
             }

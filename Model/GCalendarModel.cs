@@ -1,20 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Completist.Model
 {
-    public class GCalendarModel
+    public class GCalendarModel : INotifyPropertyChanged
     {
-        //public override string ToString()
-        //{
-        //    return GCalendarEvent;
-        //}
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
 
-        //string CalEvent; //string name of task
-        ////public string Name { get => name; set => name = value; }
-        //public string GCalendarEvent { get => CalEvent; set => CalEvent = value; }
+        }
+
+        string eventName;
+        string eventTime;
+        public override string ToString()
+        {
+            return EventName;
+        }
+        public string EventName
+        {
+            get
+            {
+                return eventName;
+            }
+            set
+            {
+                eventName = value;
+                NotifyPropertyChanged(EventName);
+            }
+        }
+        public string EventTime
+        {
+            get
+            {
+                return eventTime;
+            }
+            set
+            {
+                eventTime = value;
+                NotifyPropertyChanged(EventTime.ToString());
+            }
+        }
     }
 }
