@@ -142,7 +142,7 @@ namespace Completist.Broker
         {
             try
             {
-                string query = "UPDATE TASKS SET STS = 0 WHERE TASKID = 1 OR TASKID = 2 OR TASKID = 3 TASKID = 4 OR TASKID = 5";
+                string query = "UPDATE TASKS SET STS = 0 WHERE TASKID = 1 OR TASKID = 2 OR TASKID = 3 OR TASKID = 4 OR TASKID = 5";
                 var command = connection.CreateCommand();
                 command = new SQLiteCommand(query, connection);
                 SQLiteDataReader reader = command.ExecuteReader();
